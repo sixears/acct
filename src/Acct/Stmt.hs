@@ -1,78 +1,138 @@
-{-# LANGUAGE UnicodeSyntax #-}
-
 module Acct.Stmt
-  ( Stmt( Stmt ), tests )
+  ( Stmt, stmt, tests )
 where
+
+import Base1T
 
 -- base --------------------------------
 
-import Data.Either    ( Either( Right ) )
-import Data.Eq        ( Eq )
-import Data.Function  ( ($) )
-import Text.Read      ( read )
-import Text.Show      ( Show( show ) )
-
--- base-unicode-symbols ----------------
-
-import Data.Function.Unicode    ( (∘) )
-import Numeric.Natural.Unicode  ( ℕ )
+import Text.Read  ( read )
 
 -- data-textual ------------------------
 
-import Data.Textual  ( Printable( print ) )
+import Data.Textual  ( Textual( textual ) )
 
--- more-unicode ------------------------
+-- genvalidity -------------------------
 
-import Data.MoreUnicode.Functor  ( (⊳) )
-import Data.MoreUnicode.Text     ( 𝕋 )
+import Data.GenValidity  ( GenValid( genValid, shrinkValid ) )
 
--- parsec ------------------------------
+-- parsers -----------------------------
 
-import Text.Parsec.Char        ( digit )
-import Text.Parsec.Combinator  ( many1 )
+import Text.Parser.Char         ( digit )
+import Text.Parser.Combinators  ( (<?>) )
 
--- parsec-plus-base --------------------
+-- quasiquoting ------------------------
 
-import Parsec.Error  ( ParseError )
+import QuasiQuoting  ( mkQQExp )
 
--- parsec-plus -------------------------
+-- QuickCheck --------------------------
 
-import ParsecPlus  ( Parsecable( parser ), parsec )
+import Test.QuickCheck.Arbitrary  ( Arbitrary( arbitrary, shrink ) )
+import Test.QuickCheck.Gen        ( chooseInt )
 
--- tasty -------------------------------
+-- tasty-plus --------------------------
 
-import Test.Tasty  ( TestTree, testGroup )
+import TastyPlus  ( (≟), propInvertibleString, propInvertibleText )
 
--- tasty-hunit -------------------------
+-- tasty-quickcheck --------------------
 
-import Test.Tasty.HUnit  ( (@=?), testCase )
+import Test.Tasty.QuickCheck  ( testProperty )
+
+-- template-haskell --------------------
+
+import Language.Haskell.TH.Quote   ( QuasiQuoter )
+import Language.Haskell.TH.Syntax  ( Lift )
+
+-- text --------------------------------
+
+import Data.Text  ( unpack )
 
 -- text-printer ------------------------
 
 import qualified  Text.Printer  as  P
 
+-- trifecta-plus -----------------------
+
+import TrifectaPlus  ( liftTParse', testParse, testParseE, tParse, tParse' )
+
+-- validity ----------------------------
+
+import Data.Validity  ( Validity( validate ), trivialValidation )
+
 --------------------------------------------------------------------------------
 
-newtype Stmt    = Stmt ℕ    deriving (Eq,Show)
+newtype Stmt    = Stmt ℕ  deriving (Eq,Lift,Show)
+
+--------------------
+
+instance Validity Stmt where
+  validate = trivialValidation
+
+--------------------
+
+instance GenValid Stmt where
+  genValid    = Stmt ∘ fromIntegral ⊳ chooseInt (0,1_000_000)
+  shrinkValid = pure
+
+--------------------
+
+instance Arbitrary Stmt where
+  arbitrary = genValid
+  shrink = shrinkValid
+
+--------------------
 
 instance Printable Stmt where
   print (Stmt n) = P.string (show n)
 
-instance Parsecable Stmt where
-  parser = Stmt ∘ read ⊳ many1 digit
+----------
 
-parseStmtTests ∷ TestTree
-parseStmtTests =
-  let parse ∷ 𝕋 → 𝕋 → Either ParseError Stmt
-      parse = parsec
-   in testGroup "Stmt.parse"
-                [ testCase "6"  $ Right (Stmt 6)  @=? parse "6"  "6"
-                , testCase "66" $ Right (Stmt 66) @=? parse "66" "66"
-                ]
+printTests ∷ TestTree
+printTests =
+  let
+    test exp ts = testCase (unpack exp) $ exp ≟ toText ts
+  in
+    testGroup "print" [ test "71" (Stmt 71) ]
 
---------------------------------------------------------------------------------
+--------------------
+
+instance Textual Stmt where
+  textual = (Stmt ∘ read ⊳ some digit) <?> "Statement Number"
+
+----------
+
+parseTests ∷ TestTree
+parseTests =
+  testGroup "parse"
+            [ testParse "6" (Stmt 6)
+            , testParse "66" (Stmt 66)
+            , testParseE "six" (tParse @Stmt) "expected: Statement Number"
+            , testProperty "invertibleString" (propInvertibleString @Stmt)
+            , testProperty "invertibleText" (propInvertibleText @Stmt)
+            ]
+
+----------------------------------------
+
+{-| QuasiQuoter for `Stmt` -}
+stmt ∷ QuasiQuoter
+stmt = mkQQExp "Stmt" (liftTParse' @Stmt tParse')
+
+-- tests -----------------------------------------------------------------------
 
 tests ∷ TestTree
-tests = testGroup "Acct.Stmt" [ parseStmtTests ]
+tests = testGroup "Acct.Stmt" [ printTests, parseTests ]
+
+--------------------
+
+_test ∷ IO ExitCode
+_test = runTestTree tests
+
+--------------------
+
+_tests ∷ 𝕊 → IO ExitCode
+_tests = runTestsP tests
+
+_testr ∷ 𝕊 → ℕ → IO ExitCode
+_testr = runTestsReplay tests
 
 -- that's all, folks! ----------------------------------------------------------

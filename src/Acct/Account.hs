@@ -1,141 +1,134 @@
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
-{-# LANGUAGE OverloadedStrings          #-}
-{-# LANGUAGE TypeApplications           #-}
-{-# LANGUAGE UnicodeSyntax              #-}
-
 module Acct.Account
-  ( Account, tests )
+  ( Account, HasAccount( account ), acct, tests )
 where
+
+import Base1T  hiding  ( index )
 
 -- base --------------------------------
 
-import Data.Bool      ( not )
-import Data.Char      ( isAlphaNum, isUpper )
-import Data.Either    ( Either( Right ) )
-import Data.Eq        ( Eq )
-import Data.Function  ( ($) )
-import Data.List      ( filter )
-import Data.Maybe     ( Maybe( Nothing ) )
-import GHC.Exts       ( IsString )
-import System.Exit    ( ExitCode )
-import System.IO      ( IO )
-import Text.Show      ( Show )
-
--- base-unicode-symbols ----------------
-
-import Data.Bool.Unicode        ( (∧) )
-import Data.Eq.Unicode          ( (≡), (≢) )
-import Data.Function.Unicode    ( (∘) )
-import Data.Ord.Unicode         ( (≤) )
-import Numeric.Natural.Unicode  ( ℕ )
+import Data.Char  ( isAlphaNum, isUpper )
+import Data.List  ( filter )
 
 -- data-textual ------------------------
 
-import Data.Textual  ( Printable, Textual( textual ) )
+import Data.Textual  ( Textual( textual ) )
 
 -- genvalidity -------------------------
 
 import Data.GenValidity  ( GenValid( genValid, shrinkValid ), isValid )
 
--- more-unicode ------------------------
-
-import Data.MoreUnicode              ( ℂ, 𝕊, 𝕋 )
-import Data.MoreUnicode.Applicative  ( (⊵) )
-import Data.MoreUnicode.Functor      ( (⊳) )
-import Data.MoreUnicode.Monoid       ( ю )
-
--- parsec-plus-base --------------------
-
-import Parsec.Error  ( ParseError )
-
--- parsec-plus -------------------------
-
-import ParsecPlus  ( Parsecable( parser ), parsec )
-
 -- parsers -----------------------------
 
 import Text.Parser.Char         ( alphaNum, upper )
-import Text.Parser.Combinators  ( some )
+
+-- quasiquoting ------------------------
+
+import QuasiQuoting  ( mkQQExp )
 
 -- QuickCheck --------------------------
 
 import Test.QuickCheck.Arbitrary  ( Arbitrary( arbitrary, shrink ) )
 import Test.QuickCheck.Gen        ( Gen, choose, listOf1, oneof )
 
--- tasty -------------------------------
-
-import Test.Tasty  ( TestTree, testGroup )
-
--- tasty-hunit -------------------------
-
-import Test.Tasty.HUnit  ( (@=?), testCase )
-
 -- tasty-plus --------------------------
 
-import TastyPlus  ( propInvertibleText, runTestsP, runTestsReplay, runTestTree )
+import TastyPlus  ( (≟), propInvertibleString, propInvertibleText )
 
 -- tasty-quickcheck --------------------
 
 import Test.Tasty.QuickCheck  ( testProperty )
 
+-- template-haskell --------------------
+
+import Language.Haskell.TH.Quote   ( QuasiQuoter )
+import Language.Haskell.TH.Syntax  ( Lift )
+
 -- text --------------------------------
 
 import qualified  Data.Text
-import Data.Text  ( find, index, length, pack )
+import Data.Text  ( find, index, length, pack, unpack )
 
 -- validity ----------------------------
 
 import Data.Validity  ( Validity( validate ), declare )
 
+-- trifecta-plus -----------------------
+
+import TrifectaPlus  ( liftTParse', testParse, testParseE, tParse, tParse' )
+
 --------------------------------------------------------------------------------
 
-newtype Account = Account 𝕋 deriving (Eq,IsString,Printable,Show)
+newtype Account = Account 𝕋 deriving (Eq,Lift,Ord,Printable,Show)
+
+----------
+
+printTests ∷ TestTree
+printTests =
+  let
+    test exp ts = testCase (unpack exp) $ exp ≟ toText ts
+  in
+    testGroup "print" [ test "Foo" (Account "Foo") ]
+
+--------------------
 
 instance Validity Account where
-  validate (Account a) = let allAlphaNum = declare "all alphanumeric" $
-                               Nothing ≡ find (not ∘ isAlphaNum) a
-                             nonEmpty = declare "length ≥ 2" $ 2 ≤ length a
+  validate (Account t) = let allAlphaNum = declare "all alphanumeric" $
+                               Nothing ≡ find (not ∘ isAlphaNum) t
+                             nonEmpty = declare "length ≥ 2" $ 2 ≤ length t
                              startsWithCap = declare "starts with a capital" $
-                               isUpper (index a 0)
+                               isUpper (index t 0)
                           in ю [ nonEmpty, startsWithCap, allAlphaNum ]
 
-instance Parsecable Account where
-  parser = Account ∘ pack ⊳ ((:) ⊳ upper ⊵ some alphaNum)
-
-instance Textual Account where
-  textual = Account ∘ pack ⊳ ((:) ⊳ upper ⊵ some alphaNum)
+--------------------
 
 instance GenValid Account where
   genValid = let anum ∷ Gen ℂ
                  anum = oneof [choose('A','Z'),choose('a','z'),choose('0','9')]
-             in Account ∘ pack ⊳ ((:) ⊳ choose ('A','Z') ⊵ listOf1 anum)
-  shrinkValid a@(Account t) = filter (\ x → x ≢ a ∧ isValid x) $
+             in Account ∘ pack ⊳ ((:) ⊳ choose ('A','Z')
+                                  ⊵ listOf1 anum)
+  shrinkValid (Account t) = filter (\ x → x ≢ (Account t) ∧ isValid x) $
                                      Account ⊳ Data.Text.inits t
+
+--------------------
 
 instance Arbitrary Account where
   arbitrary = genValid
-  shrink {- (Account a) -} = -- every valid (non-empty) prefix
-                       {-
-                       Account ⊳ tail (Data.Text.inits a) -- tail is safe on
-                                                          -- inits, as
-                                                          -- inits "" ≡ [""]
-                       -} shrinkValid
+  shrink = shrinkValid
 
-parseAccountTests ∷ TestTree
-parseAccountTests =
-  let parse' ∷ 𝕋 → 𝕋 → Either ParseError Account
-      parse' = parsec
-   in testGroup "Account.parse"
-                [ testCase "Cars" $
-                    Right (Account "Cars") @=? parse' "Cars" "Cars"
-                , testProperty "invertibleText" (propInvertibleText @Account)
-                ]
+--------------------
+
+instance Textual Account where
+  textual = Account ∘ pack ⊳ ((:) ⊳ upper ⊵ some alphaNum)
+
+----------
+
+parseTests ∷ TestTree
+parseTests =
+  testGroup "tParse"
+            [ testParse "Cars" (Account "Cars")
+            , testParseE "cars" (tParse @Account) "expected: uppercase letter"
+            , testProperty "invertibleString" (propInvertibleString @Account)
+            , testProperty "invertibleText" (propInvertibleText @Account)
+            ]
 
 ----------------------------------------
 
+{-| QuasiQuoter for `Account` -}
+acct ∷ QuasiQuoter
+acct = mkQQExp "Account" (liftTParse' @Account tParse')
+
+------------------------------------------------------------
+
+class HasAccount α where
+  account ∷ Lens' α Account
+
+instance HasAccount Account where
+  account = id
+
+-- tests -----------------------------------------------------------------------
 
 tests ∷ TestTree
-tests = testGroup "Acct.Transaction" [ parseAccountTests ]
+tests = testGroup "Acct.Account" [ printTests, parseTests ]
 
 --------------------
 

@@ -160,7 +160,7 @@ readFileUTF8 ∷ (MonadIO μ,
                File → DoMock → μ Text
 readFileUTF8 fn =
   mkIOL'E (mockParens $ [fmtT|read %T|] fn) (return "")
-          (MonadIO.File.readFileUTF8 fn)
+          (MonadIO.File.readFile fn)
 
 readFileUTF8Lenient ∷ (MonadIO μ,
                        MonadLog (Log ω) μ, Default ω, HasIOClass ω, HasDoMock ω,

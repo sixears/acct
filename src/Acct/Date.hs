@@ -1,67 +1,50 @@
-{-# LANGUAGE UnicodeSyntax #-}
-{-# LANGUAGE ViewPatterns  #-}
-
 module Acct.Date
-  ( Date( Date ), tests )
+  ( Date, date, d, tests )
 where
 
-import Prelude  ( (+), error, fromIntegral )
+import Base1T
+
+import Prelude  ( Enum( fromEnum ), Int )
 
 -- base --------------------------------
 
-import Control.Applicative  ( Applicative( pure ) )
-import Control.Monad        ( return )
-import Data.Char            ( toLower )
-import Data.Either          ( Either( Left, Right ) )
-import Data.Eq              ( Eq )
-import Data.Function        ( ($) )
-import Data.List            ( lookup )
-import Data.Maybe           ( Maybe( Just, Nothing ) )
-import GHC.Enum             ( Enum( fromEnum, toEnum ) )
-import Text.Read            ( read )
-import Text.Show            ( Show( show ) )
-
--- base-unicode-symbols ----------------
-
-import Data.Function.Unicode    ( (∘) )
-import Data.Ord.Unicode         ( (≤) )
-import Numeric.Natural.Unicode  ( ℕ )
+import Text.Read  ( read )
 
 -- data-textual ------------------------
 
-import Data.Textual  ( Printable( print ) )
+import Data.Textual  ( Textual( textual ) )
 
--- more-unicode ------------------------
+-- genvalidity -------------------------
 
-import Data.MoreUnicode.Applicative  ( (⊵), (⋪), (∤) )
-import Data.MoreUnicode.Functor      ( (⊳) )
-import Data.MoreUnicode.Monad        ( (≫) )
-import Data.MoreUnicode.String       ( 𝕊 )
-import Data.MoreUnicode.Text         ( 𝕋 )
+import Data.GenValidity  ( GenValid( genValid, shrinkValid ) )
 
--- parsec ------------------------------
+-- parsers -----------------------------
 
-import Text.Parsec.Char        ( char, digit, oneOf )
-import Text.Parsec.Combinator  ( count, many1 )
-import Text.Parsec.Error       ( Message( Message, UnExpect ), newErrorMessage )
-import Text.Parsec.Prim        ( ParsecT, Stream, parserFail, try, unexpected )
-import Text.Parsec.Pos         ( newPos )
+import Text.Parser.Char         ( CharParsing, char, digit, oneOf )
+import Text.Parser.Combinators  ( (<?>), try, unexpected )
 
--- parsec-plus-base --------------------
+-- quasiquoting ------------------------
 
-import Parsec.Error  ( ParseError( ParseError ) )
+import QuasiQuoting  ( mkQQExp )
 
--- parsec-plus -------------------------
+-- QuickCheck --------------------------
 
-import ParsecPlus  ( Parsecable( parser ), parsec )
+import Test.QuickCheck.Arbitrary  ( Arbitrary( arbitrary, shrink ) )
+import Test.QuickCheck.Gen        ( chooseInt, suchThatMap )
 
--- tasty -------------------------------
+-- tasty-plus --------------------------
 
-import Test.Tasty  ( TestTree, testGroup )
+import TastyPlus  ( (≟), propInvertibleString, propInvertibleText )
 
--- tasty-hunit -------------------------
+-- tasty-quickcheck --------------------
 
-import Test.Tasty.HUnit  ( (@=?), testCase )
+import Test.Tasty.QuickCheck  ( testProperty )
+
+-- template-haskell --------------------
+
+import Language.Haskell.TH.Quote   ( QuasiQuoter )
+import Language.Haskell.TH.Syntax  ( Exp( AppE, ConE, LitE ), Lit( IntegerL )
+                                   , Lift( liftTyped ), TExp( TExp ) )
 
 -- text --------------------------------
 
@@ -71,152 +54,162 @@ import Data.Text  ( unpack )
 
 import qualified  Text.Printer  as  P
 
--- tfmt --------------------------------
-
-import Text.Fmt  ( fmt )
-
 -- time --------------------------------
 
-import Data.Time.Calendar  ( Day
-                           , fromGregorian, fromGregorianValid, toGregorian  )
+import Data.Time.Calendar  ( Day( ModifiedJulianDay )
+                           , fromGregorian, fromGregorianValid, toGregorian )
+
+-- trifecta-plus -----------------------
+
+import TrifectaPlus  ( liftTParse', testParse, testParseE, tParse, tParse' )
+
+-- validity ----------------------------
+
+import Data.Validity  ( Validity( validate ), trivialValidation )
+
+------------------------------------------------------------
+--                     local imports                      --
+------------------------------------------------------------
+
+import Acct.FromNat  ( fromI )
+import Acct.Month    ( Month )
+import Acct.Year     ( Year )
 
 --------------------------------------------------------------------------------
 
-{- | Parser of three things, separated by a common separator. -}
-sep3 ∷ Applicative ψ ⇒ ψ ω → ψ α → ψ β → ψ γ → ψ (α,β,γ)
-sep3 w a b c = (,,) ⊳ a ⋪ w ⊵ b ⋪ w ⊵ c
+newtype Date  = Date Day deriving (Eq,Show)
+
+fromYMD ∷ ℤ → Int → Int → Date
+fromYMD y m a = Date $ fromGregorian y m a
+
+--------------------
+
+instance Lift Date where
+  liftTyped (Date (ModifiedJulianDay i)) =
+    return ∘ TExp $
+      AppE (ConE 'Date) (AppE (ConE 'ModifiedJulianDay) (LitE $ IntegerL i))
+
+--------------------
+
+instance Validity Date where
+  validate = trivialValidation
+
+--------------------
+
+instance GenValid Date where
+  genValid    =
+    let genYMD = (,,) ⊳ arbitrary @Year ⊵ arbitrary ⊵ chooseInt (1,31)
+        validDate (y,m,a) = Date ⊳ fromGregorianValid (fromIntegral y) m a
+     in genYMD `suchThatMap` validDate
+  shrinkValid = pure
+
+--------------------
+
+instance Arbitrary Date where
+  arbitrary = genValid
+  shrink = shrinkValid
+
+--------------------
+
+instance Printable Date where
+  print (Date t) =
+    let (y,m,a) = toGregorian t
+    in  P.text $ [fmt|%d.%T.%T|] a (fromI @Month m) (fromI @Year y)
+
+----------
+
+printTests ∷ TestTree
+printTests =
+  let
+    test exp ts = testCase (unpack exp) $ exp ≟ toText ts
+  in
+    testGroup "print" [ test "4.vi.96" (fromYMD 1996 6 4)
+                      , test "22.vii.22" (fromYMD 2022 7 22)
+                      , test "22.iix.22" (fromYMD 2022 8 22)
+                      ]
+
+--------------------
+
+instance Textual Date where
+  textual = let cons2 a b = a : [b]
+
+                mday = read ⊳ (   try (cons2 ⊳ oneOf "012" ⊵ digit)
+                                ∤ try (cons2 ⊳ char '3' ⊵ oneOf "01")
+                                ∤ (pure ⊳ digit)
+                              )
+                parseDMY ∷ (Monad η, CharParsing η) ⇒ (ℕ,Month,Year) → η Date
+                parseDMY (a,m,y) = do
+                  case fromGregorianValid (toInteger y) (fromEnum m) (fromIntegral a) of
+                    Just t → return $ Date t
+                    Nothing → unexpected $ [fmt|invalid date %02d.%T.%T|] a m y
+
+                parseYMD ∷ (Monad η, CharParsing η) ⇒ (Year,Month,ℕ) → η Date
+                parseYMD (y,m,a) = parseDMY (a,m,y)
+
+                -- parser of three things, separated by a common separator.
+                sep3 ∷ Applicative ψ ⇒ ψ ω → ψ α → ψ β → ψ γ → ψ (α,β,γ)
+                sep3 w a b c = (,,) ⊳ a ⋪ w ⊵ b ⋪ w ⊵ c
+
+             in try (sep3 (char '-') textual textual mday ≫ parseYMD <?> "Date")
+                ∤ (sep3 (char '.') mday textual textual ≫ parseDMY) <?> "Date"
+
+----------
+
+parseTests ∷ TestTree
+parseTests =
+  let
+    parseD = tParse @Date
+   in
+    testGroup "parse"
+              [ testParseE "30.L.96"   parseD "expected: month"
+              , testParseE "40.xii.96" parseD "invalid date 40.xii.96"
+              , testParseE "30.ii.96"  parseD "invalid date 30.ii.96"
+              , testParse  "30.i.96"   (fromYMD 1996 1 30)
+              , testParse  "30.i.1996" (fromYMD 1996 1 30)
+              , testParse  "1996-01-30" (fromYMD 1996 1 30)
+              , testParse  "30.1.96"   (fromYMD 1996 1 30)
+              , testParse  "30.001.96"   (fromYMD 1996 1 30)
+              , testParse  "30.jan.96"   (fromYMD 1996 1 30)
+              , testParse  "30.January.96"   (fromYMD 1996 1 30)
+              , testParse  "30.january.96"   (fromYMD 1996 1 30)
+              , testParse  "30.jAnUaRy.96"   (fromYMD 1996 1 30)
+              , testParse  "30.i.2006" (fromYMD 2006 1 30)
+              , testParse  "30.i.01"   (fromYMD 2001 1 30)
+              , testParse  "30.i.90"   (fromYMD 2090 1 30)
+              , testParse  "30.i.1896" (fromYMD 1896 1 30)
+              , testParseE "31.iv.96"  parseD "invalid date 31.iv.96"
+              , testParse  "1.i.1896"  (fromYMD 1896 1 1)
+              , testParse  "31.xii.89" (fromYMD 2089 12 31)
+              , testProperty "invertibleString" (propInvertibleString @Date)
+              , testProperty "invertibleText" (propInvertibleText @Date)
+              ]
 
 ----------------------------------------
 
-data Month = January | February | March
-           | April   | May      | June
-           | July    | August   | September
-           | October | November | December
-  deriving (Eq,Show)
+{-| QuasiQuoter for `Date` -}
+date ∷ QuasiQuoter
+date = mkQQExp "Date" (liftTParse' @Date tParse')
 
-instance Printable Month where
-  print m = P.text $ [fmt|%02d|] (fromEnum m)
+{-| Very brief alias for `date` -}
+d ∷ QuasiQuoter
+d = date
 
-romans ∷ [(𝕊,ℕ)]
-romans = [("i",1),("ii",2),("iii",3),("iv",4),("v",5),("vi",6),("vii",7)
-         ,("viii",8),("iix",8),("ix",9),("x",10),("xi",11),("xii",12)]
-
-instance Parsecable Month where
-  parser = do m ← many1 (oneOf "iIvVxX")
-              case (toLower ⊳ m) `lookup` romans of
-                Just i  → return ∘ toEnum $ fromIntegral i
-                Nothing → unexpected m
-
-instance Enum Month where
-  toEnum  1 = January
-  toEnum  2 = February
-  toEnum  3 = March
-  toEnum  4 = April
-  toEnum  5 = May
-  toEnum  6 = June
-  toEnum  7 = July
-  toEnum  8 = August
-  toEnum  9 = September
-  toEnum 10 = October
-  toEnum 11 = November
-  toEnum 12 = December
-  toEnum  i = error $ [fmt|Invalid month: %d|] i
-
-
-  fromEnum January   =  1
-  fromEnum February  =  2
-  fromEnum March     =  3
-  fromEnum April     =  4
-  fromEnum May       =  5
-  fromEnum June      =  6
-  fromEnum July      =  7
-  fromEnum August    =  8
-  fromEnum September =  9
-  fromEnum October   = 10
-  fromEnum November  = 11
-  fromEnum December  = 12
-
-------------------------------------------------------------
-
-newtype Year = Year { unYear ∷ ℕ } deriving (Eq,Show)
-
-instance Printable Year where
-  print (Year y) = P.string $ show y
-
-instance Parsecable Year where
-  parser = let y2 (read → y') = Year $ y' + if y' ≤ 90 then 2000 else 1900
-            in try ((Year ∘ read) ⊳ count 4 digit)
-              ∤ y2 ⊳ count 2 digit
-
-parseYearTests ∷ TestTree
-parseYearTests =
-  let
-    parse' ∷ 𝕋 → 𝕋 → Either ParseError Year
-    parse' = parsec
-    test t y = testCase (unpack t) $ Right (Year y) @=? parse' t t
-   in
-    testGroup
-      "Year.parse"
-      [ test "96" 1996
-      , test "1996" 1996
-      , test "2006" 2006
-      , test "06" 2006
-      ]
-
-------------------------------------------------------------
-
-newtype Date  = Date Day  deriving (Eq,Show)
-
-instance Printable Date where
-  print (Date t) = let (y,m,d) = toGregorian t
-                    in P.text $ [fmt|%04d-%02d-%02d|] y m d
-
-parseDMY ∷ Stream s m t ⇒ (𝕊,Month,Year) → ParsecT s u m Date
-parseDMY (d,m,y) = do
-  case fromGregorianValid (fromIntegral $ unYear y) (fromEnum m) (read d) of
-    Just d' → return $ Date d'
-    Nothing → parserFail $ [fmt|invalid date %s.%T.%T|] d m y
-
-instance Parsecable Date where
-
-  parser = let digit2 = count 2 digit
-               mday = try digit2 ∤ (pure ⊳ digit)
-            in sep3 (char '.') mday parser parser ≫ parseDMY
-
-parseDateTests ∷ TestTree
-parseDateTests =
-  let
-    parse' ∷ 𝕋 → 𝕋 → Either ParseError Date
-    parse' = parsec
-    test t y m d = testCase (unpack t) $
-                     Right (Date $ fromGregorian y m d) @=? parse' t t
-    testShow ∷ Show α ⇒ 𝕊 → α → α → TestTree
-    testShow name exp got = testCase name $ show exp @=? show got
-    testE txt r c err = let pos = newPos (unpack txt) r c
-                            exp = Left $ ParseError (newErrorMessage err pos)
-                         in testShow (unpack txt) exp (parse' txt txt)
-    testU txt r c err = testE txt r c (UnExpect err)
-    testM txt r c err = testE txt r c (Message err)
-   in
-    testGroup
-      "Date.parse"
-      [ testU "30.L.96"   1  4 "\"L\""
-      , testM "40.xii.96" 1 10 "invalid date 40.12.1996"
-      , testM "30.ii.96"  1  9 "invalid date 30.02.1996"
-      , test "30.i.96"    1996 1 30
-      , test "30.i.1996"  1996 1 30
-      , test "30.i.2006"  2006 1 30
-      , test "30.i.01"    2001 1 30
-      , test "30.i.90"    2090 1 30
-      , test "30.i.1896"  1896 1 30
-      , testM "31.iv.96"  1 9 "invalid date 31.04.1996"
-      , test "1.i.1896"  1896 1 1
-      , test "31.xii.89"  2089 12 31
-      ]
-
---------------------------------------------------------------------------------
+-- tests -----------------------------------------------------------------------
 
 tests ∷ TestTree
-tests = testGroup "Acct.Date" [ parseDateTests, parseYearTests ]
+tests = testGroup "Acct.Date" [ printTests, parseTests ]
+
+--------------------
+
+_test ∷ IO ExitCode
+_test = runTestTree tests
+
+--------------------
+
+_tests ∷ 𝕊 → IO ExitCode
+_tests = runTestsP tests
+
+_testr ∷ 𝕊 → ℕ → IO ExitCode
+_testr = runTestsReplay tests
 
 -- that's all, folks! ----------------------------------------------------------

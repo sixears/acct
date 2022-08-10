@@ -30,18 +30,28 @@ import TastyPlus  ( runTestsP, runTestsReplay, runTestTree )
 ------------------------------------------------------------
 
 import qualified  Acct.Amount
+import qualified  Acct.Comment
 import qualified  Acct.Date
 import qualified  Acct.Expression
+import qualified  Acct.Month
 import qualified  Acct.Stmt
-import qualified  Acct.TransactionSimple
+import qualified  Acct.TrxBrk
+import qualified  Acct.TrxBrkHead
+import qualified  Acct.TrxSimp
+import qualified  Acct.Year
 
 --------------------------------------------------------------------------------
 
 tests ∷ TestTree
 tests = testGroup "Acct" [ Acct.Amount.tests
+                         , Acct.Comment.tests
+                         , Acct.Month.tests
                          , Acct.Stmt.tests
+                         , Acct.Year.tests
                          , Acct.Date.tests
-                         , Acct.TransactionSimple.tests
+                         , Acct.TrxSimp.tests
+                         , Acct.TrxBrk.tests
+                         , Acct.TrxBrkHead.tests
                          , Acct.Expression.tests
                          ]
 

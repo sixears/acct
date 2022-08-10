@@ -1,29 +1,18 @@
 {-# LANGUAGE UnicodeSyntax #-}
 
 module Acct.Parser
-  ( noNLCR, wspaces )
+  ( newline, noNLCR, printableAscii, wspaces, wspaces' )
 where
+
+import Base1T
 
 -- base --------------------------------
 
-import Control.Applicative  ( many )
-import Data.Char            ( isSpace )
+import Data.Char  ( isSpace )
 
--- base-unicode-symbols ----------------
+-- parsers -----------------------------
 
-import Data.Bool.Unicode  ( (∧) )
-import Data.List.Unicode  ( (∉) )
-
--- more-unicode ------------------------
-
-import Data.MoreUnicode.Bool    ( 𝔹 )
-import Data.MoreUnicode.Char    ( ℂ )
-import Data.MoreUnicode.String  ( 𝕊 )
-
--- parsec ------------------------------
-
-import Text.Parsec.Char  ( noneOf, satisfy )
-import Text.Parsec.Prim  ( ParsecT, Stream, skipMany )
+import Text.Parser.Char  ( CharParsing, char, noneOf, oneOf, satisfy )
 
 --------------------------------------------------------------------------------
 
@@ -36,20 +25,30 @@ cr = '\r'
 nlcr ∷ [ℂ]
 nlcr = [ nl, cr ]
 
-notNLCR ∷ Stream s m ℂ ⇒ ParsecT s u m ℂ
+notNLCR ∷ (Monad η, CharParsing η) ⇒ η ℂ
 notNLCR = noneOf nlcr
 
-noNLCR ∷ Stream s m ℂ ⇒ ParsecT s u m 𝕊
+{- | A printable ASCII char, i.e., not DEL, or newline, etc. -}
+printableAscii ∷ (Monad η, CharParsing η) ⇒ η ℂ
+printableAscii = oneOf [ ' ' .. '~' ]
+
+noNLCR ∷ (Monad η, CharParsing η) ⇒ η 𝕊
 noNLCR = many notNLCR
+
+newline ∷ (Monad η, CharParsing η) ⇒ η 𝕊
+newline = (⊕) ⊳ many (char '\r') ⊵ (pure ⊳ char '\n')
 
 {- | Like `isSpace`, but excludes nl/cr chars. -}
 isWSpace ∷ ℂ → 𝔹
 isWSpace c = isSpace c ∧ c ∉ nlcr
 
-wspace ∷ Stream s m ℂ ⇒ ParsecT s u m ℂ
+wspace ∷ (Monad η, CharParsing η) ⇒ η ℂ
 wspace = satisfy isWSpace
 
-wspaces ∷ Stream s m ℂ ⇒ ParsecT s u m ()
-wspaces = skipMany wspace
+wspaces ∷ (Monad η, CharParsing η) ⇒ η 𝕊
+wspaces = many wspace
+
+wspaces' ∷ (Monad η, CharParsing η) ⇒ η 𝕊
+wspaces' = some wspace
 
 -- that's all, folks! ----------------------------------------------------------

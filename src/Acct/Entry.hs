@@ -17,7 +17,7 @@ import Base1T
 
 -- base --------------------------------
 
-import Data.Char      ( isAscii, isPrint, isSpace, isUpper )
+import Data.Char      ( isAscii, isPrint, isSpace )
 import Data.Function  ( flip )
 import Data.List      ( filter )
 
@@ -31,7 +31,7 @@ import Data.GenValidity  ( GenValid( genValid, shrinkValid ) )
 
 -- parsers -----------------------------
 
-import Text.Parser.Char         ( satisfy, string, upper )
+import Text.Parser.Char         ( satisfy, string )
 import Text.Parser.Combinators  ( try )
 
 -- QuickCheck --------------------------
@@ -72,6 +72,7 @@ import Data.Validity  ( Validity( validate ), declare, isValid )
 import Acct.Account     ( Account, acct )
 import Acct.Comment     ( cmt )
 import Acct.Date        ( date )
+import Acct.OStmtName   ( OStmtName, ostmtname )
 import Acct.Parser      ( wspaces )
 import Acct.Stmt        ( stmt )
 import Acct.TrxBrkHead  ( tbh_ )
@@ -86,7 +87,7 @@ import Acct.TrxBrk      ( TrxBrk( TrxBrk ) )
 -}
 data Entry = TrxComment 𝕋
            | TAcctStart Account
-           | TOStmtStart ℂ
+           | TOStmtStart OStmtName
            | TSimpleTrx TrxSimp
            | TBrk TrxBrk
   deriving (Eq,Show)
@@ -97,7 +98,7 @@ instance Validity Entry where
   validate (TrxComment t)  = declare "does not start with whitespace" $
                                t ≡ empty ∨ ﬧ (isSpace $ Text.head t)
   validate (TAcctStart a)  = validate a
-  validate (TOStmtStart c) = declare "is an upper-case character" $ isUpper c
+  validate (TOStmtStart c) = validate c
   validate (TSimpleTrx a)  = validate a
   validate (TBrk a)        = validate a
 
@@ -107,7 +108,7 @@ instance GenValid Entry where
   genValid    = let
                   asciiPrint = [ ' ' .. '~' ] -- ascii 32--126
                   genComment = TrxComment ∘ pack ⊳ listOf (elements asciiPrint)
-                  genOStmt   = TOStmtStart ⊳ elements [ 'A' .. 'Z' ]
+                  genOStmt   = TOStmtStart ⊳ arbitrary
                   genEntry   = oneof [ genComment
                                      , TAcctStart ⊳ arbitrary
                                      , genOStmt
@@ -131,9 +132,9 @@ instance Arbitrary Entry where
 --------------------
 
 instance Printable Entry where
-  print (TrxComment    t) = P.text $ [fmt|-- %t|]   t
-  print (TAcctStart  t)   = P.text $ [fmt|Start: %T|]   t
-  print (TOStmtStart c)   = P.text $ [fmt|oStart: %s|]   [c]
+  print (TrxComment    t) = P.text $ [fmt|-- %t|]      t
+  print (TAcctStart  t)   = P.text $ [fmt|Start: %T|]  t
+  print (TOStmtStart c)   = P.text $ [fmt|oStart: %T|] c
   print (TSimpleTrx t)    = print t
   print (TBrk t)          = print t
 
@@ -147,7 +148,7 @@ printTests =
     , testCase "TAcctStart" $
         "Start: Quux" ≟ toText (TAcctStart [acct|Quux|])
     , testCase "TOStmtStart" $
-        "oStart: J" ≟ toText (TOStmtStart 'J')
+        "oStart: J" ≟ toText (TOStmtStart [ostmtname|J|])
     , testCase "TSimpleTrx" $
           "10.13+\t#D<6.iix.96>A<Acme>X<5>"
         ≟ toText (TSimpleTrx (tsimp_ 1013 [date|1996-8-6|] [acct|Acme|]
@@ -176,7 +177,7 @@ instance Textual Entry where
         -- e.g., "Start: CarFund"
       ∤ TAcctStart ⊳ (string "Start:" ⋫ wspaces ⋫ textual)
         -- e.g., "oStart: P"
-      ∤ TOStmtStart ⊳ (string "oStart:" ⋫ wspaces ⋫ upper)
+      ∤ TOStmtStart ⊳ (string "oStart:" ⋫ wspaces ⋫ textual)
         -- e.g., "10.13+\t#D<6.viii.96>A<Bills>X<5>"
         -- we need the `try` to allow back-tracking for the TBrk
       ∤ try (TSimpleTrx ⊳ textual)
@@ -202,7 +203,7 @@ parseTests =
               [ testParse "--  bar "    $ TrxComment "bar "
               , testParse "  -- bar"    $ TrxComment "bar"
               , testParse "Start: Acct" $ TAcctStart [acct|Acct|]
-              , testParse "oStart: Y"   $ TOStmtStart 'Y'
+              , testParse "oStart: Y"   $ TOStmtStart [ostmtname|Y|]
               , let
                   t = tsimp_ 1013 [date|1996-8-6|] [acct|Bill|] (𝕵 [stmt|5|])
                                   𝕹 𝕹

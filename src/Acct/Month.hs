@@ -1,5 +1,5 @@
 module Acct.Month
-  ( Month, m, month, mth )
+  ( Month, m, month, mth, tests )
 where
 
 import Base1T

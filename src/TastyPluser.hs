@@ -1,5 +1,5 @@
 module TastyPluser
-  ( lits, litt, shrinkString, shrinkText )
+  ( TestCmp(..), lits, litt, shrinkString, shrinkText )
 where
 
 import Base1T
@@ -18,6 +18,11 @@ import qualified  Data.Text  as  Text
 import Data.Text  ( pack, unpack )
 
 --------------------------------------------------------------------------------
+
+class TestCmp α where
+  testCmp ∷ HasCallStack ⇒ TestName → α → α → TestTree
+
+------------------------------------------------------------
 
 {-| Shrink a string @s@ by generating all the substrings that are @s@ with one
     character removed -}

@@ -1,5 +1,5 @@
 module Acct.Comment
-  ( Comment( Comment ), c, cmt, comment )
+  ( Comment( Comment ), c, cmt, comment, tests )
 where
 
 import Base1T

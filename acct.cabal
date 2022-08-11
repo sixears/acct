@@ -54,6 +54,7 @@ library
 
   -- modules included in this library but not exported.
   other-modules:       Acct.AcctError
+                     , Acct.AcctMap
                      , Acct.AcctState
                      , Acct.Account
                      , Acct.Amount
@@ -62,7 +63,11 @@ library
                      , Acct.Entry
                      , Acct.Entries
                      , Acct.FromNat
+                     , Acct.Mapish
                      , Acct.Month
+                     , Acct.OAcctMap
+                     , Acct.OStmtMap
+                     , Acct.OStmtName
                      , Acct.OStmt
                      , Acct.Parser
                      , Acct.Stmt
@@ -91,10 +96,10 @@ library
   -- other-extensions:
 
   -- Other library packages from which modules are imported.
-  build-depends:     base, base-unicode-symbols, bytestring, containers
+  build-depends:     base, bytestring, containers
                    , data-default, data-textual, genvalidity, lens
                    , logging-effect, monaderror-io, mtl, optparse-applicative
-                   , parsec, parsers, prettyprinter, QuickCheck, safe, tasty
+                   , parsers, prettyprinter, QuickCheck, safe
                    , tasty-hunit, tasty-quickcheck, template-haskell, text
                    , text-printer, time, trifecta, validity
 
@@ -106,10 +111,8 @@ library
                    , mockio           >= 0.0.1.0
                    , mockio-log       >= 0.0.1.1
                    , monadio-plus     >= 1.0.5.0
-                   , more-unicode     >= 0.0.13.0
                    , natural          >= 0.0.1.0
                    , parsec-plus      >= 1.0.3.2
-                   , parsec-plus-base >= 1.0.1.0
                    , parser-plus      >= 1.0.1.0
                    , quasiquoting     >= 1.0.1.1
                    , stdmain          >= 1.1.0.0

@@ -10,7 +10,7 @@
 
 -}
 module Acct.TrxBrk
-  ( TrxBrk( TrxBrk ), trx )
+  ( TrxBrk( TrxBrk ), trx, tests )
 where
 
 import Base1T

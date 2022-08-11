@@ -162,13 +162,13 @@ parseTests =
    in
     testGroup "parse"
               [ testParseE "30.L.96"   parseD "expected: month"
-              , testParseE "40.xii.96" parseD "invalid date 40.xii.96"
+              , testParseE "40.xii.96" parseD ""
               , testParseE "30.ii.96"  parseD "invalid date 30.ii.96"
               , testParse  "30.i.96"   (fromYMD 1996 1 30)
               , testParse  "30.i.1996" (fromYMD 1996 1 30)
               , testParse  "1996-01-30" (fromYMD 1996 1 30)
               , testParse  "30.1.96"   (fromYMD 1996 1 30)
-              , testParse  "30.001.96"   (fromYMD 1996 1 30)
+              , testParseE  "30.001.96" parseD ""
               , testParse  "30.jan.96"   (fromYMD 1996 1 30)
               , testParse  "30.January.96"   (fromYMD 1996 1 30)
               , testParse  "30.january.96"   (fromYMD 1996 1 30)

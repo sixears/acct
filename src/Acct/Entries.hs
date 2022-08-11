@@ -12,43 +12,13 @@ module Acct.Entries
   , tests )
 where
 
-import Debug.Trace  ( traceShow, trace )
-import Base1T  hiding  ( (∈) )
-import Prelude  ( fromIntegral )
+import Base1T
 
 -- base --------------------------------
 
-import qualified  Data.List  as  List
-
-import Control.Applicative    ( optional, pure )
-import Control.Monad.Fail     ( MonadFail, fail )
-import Data.Char              ( isAscii, isPrint, isSpace, showLitChar )
-import Data.Either            ( Either( Left, Right ) )
-import Data.Eq                ( Eq )
-import Data.Function          ( ($) )
-import Data.Functor.Identity  ( Identity )
-import Data.List              ( filter, inits, tails, zip )
-import Data.List.NonEmpty     ( NonEmpty( (:|) ) )
-import Data.Maybe             ( Maybe( Just, Nothing ), catMaybes )
-import Data.Tuple             ( uncurry )
-import GHC.Stack              ( callStack )
-import System.Exit            ( ExitCode )
-import System.IO              ( IO )
-import Text.Show              ( Show( show ) )
-
--- base-unicode-symbols ----------------
-
-import Data.Function.Unicode    ( (∘) )
-import Numeric.Natural.Unicode  ( ℕ )
-
--- containers --------------------------
-
-import qualified  Data.Map.Lazy  as  Map
-import Data.Set  ( Set, member, insert )
-
--- containers-plus ---------------------
-
-import ContainersPlus.Member  ( (∈) )
+import Data.List   ( inits, tails, zip )
+import Data.Maybe  ( catMaybes )
+import Data.Tuple  ( uncurry )
 
 -- data-textual ------------------------
 
@@ -58,53 +28,19 @@ import Data.Textual  ( Textual( textual ) )
 
 import Data.GenValidity  ( GenValid( genValid, shrinkValid ) )
 
--- lens --------------------------------
-
-import Control.Lens.Getter  ( use, uses, view )
-import Control.Lens.Setter  ( (%=) )
-
--- more-unicode ------------------------
-
-import Data.MoreUnicode.Applicative  ( (⊵), (⋪), (⋫), (∤) )
-import Data.MoreUnicode.Char         ( ℂ )
-import Data.MoreUnicode.Functor      ( (⊳) )
-import Data.MoreUnicode.Maybe        ( 𝕄 )
-import Data.MoreUnicode.String       ( 𝕊 )
-import Data.MoreUnicode.Text         ( 𝕋 )
-
 -- mtl ---------------------------------
 
-import Control.Monad.State  ( MonadState, gets, modify, runStateT )
-
--- parsec ------------------------------
-
-import Text.Parsec.Error       ( Message( UnExpect ), newErrorMessage )
-import Text.Parsec.Prim        ( Parsec, Stream, (<?>), getPosition )
-import Text.Parsec.Pos         ( SourcePos, newPos, sourceLine, sourceName )
-
--- parsec-plus-base --------------------
-
-import Parsec.Error  ( ParseError( ParseError ) )
-
--- parsec-plus -------------------------
-
-import ParsecPlus  ( Parsecable( parser ), parsec )
-
--- parser-plus -------------------------
-
-import ParserPlus  ( tries )
+import Control.Monad.State  ( runStateT )
 
 -- parsers -----------------------------
 
-import Text.Parser.Char         ( CharParsing
-                                , char, oneOf, satisfy, string, upper )
-import Text.Parser.Combinators  ( endBy, endByNonEmpty, eof, try, sepBy
-                                , sepEndBy, unexpected )
+import Text.Parser.Char         ( char )
+import Text.Parser.Combinators  ( eof, sepEndBy )
 
 -- QuickCheck --------------------------
 
 import Test.QuickCheck.Arbitrary  ( Arbitrary( arbitrary, shrink ) )
-import Test.QuickCheck.Gen        ( Gen, elements, listOf, oneof, suchThat )
+import Test.QuickCheck.Gen        ( listOf )
 
 -- safe --------------------------------
 
@@ -112,43 +48,29 @@ import Safe  ( initSafe, tailSafe )
 
 -- tasty-plus --------------------------
 
-import TastyPlus    ( (≟) , assertListEq, assertListEqS, propInvertibleString
-                    , propInvertibleText )
-import TastyPluser  ( shrinkText )
-
--- tasty-quickcheck --------------------
-
-import Test.Tasty.QuickCheck      ( testProperty )
-
--- tasty -------------------------------
-
-import Test.Tasty  ( TestTree, testGroup )
+import TastyPlus    ( (≟) , assertListEq )
+import TastyPluser  ( testCmp )
 
 -- tasty-hunit -------------------------
 
-import Test.Tasty.HUnit  ( (@=?), assertFailure, testCase )
+import Test.Tasty.HUnit  ( assertFailure )
 
 -- text --------------------------------
 
-import qualified  Data.Text  as  Text
-import Data.Text  ( empty, intercalate, pack, unlines, unpack, unwords )
+import Data.Text  ( intercalate, unlines, unpack )
 
 -- text-printer ------------------------
 
 import qualified  Text.Printer  as  P
 
--- tfmt --------------------------------
-
-import Text.Fmt  ( fmt )
-
 -- trifecta ----------------------------
 
 import qualified  Text.Trifecta  as  Trifecta
-import Text.Trifecta  ( Result( Failure, Success ), _Failure, _Success )
+import Text.Trifecta  ( Result( Failure, Success ) )
 
 -- trifecta-plus -----------------------
 
-import TrifectaPlus  ( eiText, testParse, testParse', testParseE, tname,tParse )
+import TrifectaPlus  ( eiText, testParse, testParseE, tname )
 
 -- validity ----------------------------
 
@@ -158,19 +80,20 @@ import Data.Validity  ( Validity( validate ), trivialValidation )
 --                     local imports                      --
 ------------------------------------------------------------
 
-import Acct.Account     ( Account, HasAccount( account ), acct )
-import Acct.AcctState   ( AcctState, TestCmp( testCmp ), accounts, addToAcct
-                        , newAcctState, otherAccounts, parseEntry, startAcct )
-import Acct.Amount      ( Amount, amt )
-import Acct.Comment     ( Comment, cmt )
-import Acct.Date        ( Date, date )
+import Acct.Account     ( acct )
+import Acct.AcctState   ( AcctState
+                        , accounts, newAcctState, otherAccounts, parseEntry )
+import Acct.Amount      ( amt )
+import Acct.Comment     ( cmt )
+import Acct.Date        ( date )
 import Acct.Entry       ( Entry( TAcctStart, TBrk, TrxComment, TOStmtStart
                                , TSimpleTrx ) )
-import Acct.OStmt       ( OStmt, ostmt )
-import Acct.Parser      ( newline, noNLCR, wspaces )
-import Acct.Stmt        ( Stmt, stmt )
-import Acct.TrxBrkHead  ( TrxBrkHead, tbh_ )
-import Acct.TrxSimp     ( TrxSimp, tsimp_ )
+import Acct.OStmt       ( ostmt )
+import Acct.OStmtName   ( ostmtname )
+import Acct.Parser      ( wspaces )
+import Acct.Stmt        ( stmt )
+import Acct.TrxBrkHead  ( tbh_ )
+import Acct.TrxSimp     ( tsimp_ )
 import Acct.TrxBrk      ( TrxBrk( TrxBrk ) )
 
 --------------------------------------------------------------------------------
@@ -214,7 +137,7 @@ printTests =
     unline = intercalate "\n"
     tcomm  = TrxComment "a comment"
     tacct  = TAcctStart [acct|Acct|]
-    tost   = TOStmtStart 'Y'
+    tost   = TOStmtStart [ostmtname|Y|]
     tsimp  = TSimpleTrx (tsimp_ (-1234) [date|1973-01-01|] [acct|Act|]
                                 (𝕵 [stmt|77|]) 𝕹 (𝕵 [cmt|my comment|]))
     thead  = tbh_ (-1234) [date|1973-01-01|] (𝕵 [stmt|77|]) 𝕹
@@ -290,9 +213,6 @@ tParseTests =
 
 ----------------------------------------
 
--- XXX split up AcctState
--- XXX separate entries for oStmt :n
--- XXX factor out new oaccounts creation
 parseString ∷ 𝕊 → Result ([Entry], AcctState)
 parseString  =
   let line = wspaces ⋫ many (char '\r') ⋫ char '\n'
@@ -321,7 +241,7 @@ parseTests = testGroup "parse" $
             ]
             ⊕
             [ assertListEq "[Entry]" e e' ]
-        Failure e → testCase (tname t) $ assertFailure (unpack $ eiText e)
+        Failure e_ → testCase (tname t) $ assertFailure (unpack $ eiText e_)
 
     parseE input = testParseE input (parseString ∘ unpack)
   in
@@ -335,11 +255,13 @@ parseTests = testGroup "parse" $
       in
         parseT "-- comment\n\nStart: Quux" ([],as)
     , let
-        as = newAcctState & otherAccounts ⊢ fromList [('P',fromList [])]
+        as = newAcctState & otherAccounts ⊢ fromList [([ostmtname|P|],
+                                                       fromList [])]
       in
         parseT "-- comment\n\noStart: P" ([],as)
     , let
-        as = newAcctState & otherAccounts ⊢ fromList [('D',fromList [])]
+        as = newAcctState & otherAccounts ⊢ fromList [([ostmtname|D|],
+                                                       fromList [])]
                           & accounts ⊢ fromList [([acct|Car|],[])]
       in
         parseT "Start: Car\n\noStart: D" ([],as)
@@ -352,7 +274,8 @@ parseTests = testGroup "parse" $
         t  = tsimp_ [amt|5+|] [date|2022-08-10|] [acct|Baz|] (𝕵 [stmt|4|])
                               (𝕵 [ostmt|B|]) 𝕹
         as = newAcctState & accounts ⊢ fromList [([acct|Baz|],[t])]
-                          & otherAccounts ⊢ fromList [('B',fromList [(𝕹,[t])])]
+                          & otherAccounts ⊢ fromList [([ostmtname|B|],
+                                                        fromList [(𝕹,[t])])]
       in
         parseT "Start: Baz\noStart: B\n5+ #D<10.viii.22>O<B>X<4>A<Baz>"
                ([TSimpleTrx t],as)
@@ -360,7 +283,8 @@ parseTests = testGroup "parse" $
         t  = tsimp_ [amt|8-|] [date|2022-07-10|] [acct|Baz|] (𝕵 [stmt|4|])
                               (𝕵 [ostmt|B:6|]) 𝕹
         as = newAcctState & accounts ⊢ fromList [([acct|Baz|],[t])]
-                          & otherAccounts ⊢ fromList [('B',fromList[(𝕵 6,[t])])]
+                          & otherAccounts ⊢ fromList [([ostmtname|B|],
+                                                       fromList[(𝕵 6,[t])])]
       in
         parseT "Start: Baz\noStart: B\n8- #D<10.vii.22>O<B:6>A<Baz>X<4>"
                ([TSimpleTrx t],as)
@@ -467,17 +391,18 @@ parseTests = testGroup "parse" $
                                                 , ([acct|Save|],
                                                    [b07,b01,t07,t05])
                                                 , ([acct|Tithe|],[b03,t02])]
-                          & otherAccounts ⊢ fromList [('A',fromList [(𝕹,
-                                                                      [t16
-                                                                      ,t15
-                                                                      ,t14]
-                                                                      )])
-                                                     ,('M',fromList [])
-                                                     ,('P',fromList [(𝕵 1,
-                                                                      [t11
-                                                                      ,t10]
-                                                                      )])
-                                                     ,('R',fromList [(𝕹,[t17])])
+                          & otherAccounts ⊢ fromList [([ostmtname|A|],
+                                                       fromList [(𝕹,
+                                                                  [t16,t15,t14])
+                                                                ])
+                                                     ,([ostmtname|M|],
+                                                       fromList [])
+                                                     ,([ostmtname|P|],
+                                                       fromList [(𝕵 1,
+                                                                  [t11,t10])]
+                                                      )
+                                                     ,([ostmtname|R|],
+                                                       fromList [(𝕹,[t17])])
                                                      ]
       in
         parseT (unlines [ "-- This is a comment"

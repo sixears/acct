@@ -89,6 +89,7 @@ import Acct.Date        ( date )
 import Acct.Entry       ( Entry( TAcctStart, TBrk, TrxComment, TOStmtStart
                                , TSimpleTrx ) )
 import Acct.OStmt       ( ostmt )
+import Acct.OStmtIndex  ( ostmtindex )
 import Acct.OStmtName   ( ostmtname )
 import Acct.Parser      ( wspaces )
 import Acct.Stmt        ( stmt )
@@ -275,7 +276,7 @@ parseTests = testGroup "parse" $
                               (𝕵 [ostmt|B|]) 𝕹
         as = newAcctState & accounts ⊢ fromList [([acct|Baz|],[t])]
                           & otherAccounts ⊢ fromList [([ostmtname|B|],
-                                                        fromList [(𝕹,[t])])]
+                                                        fromList [([ostmtindex||],[t])])]
       in
         parseT "Start: Baz\noStart: B\n5+ #D<10.viii.22>O<B>X<4>A<Baz>"
                ([TSimpleTrx t],as)
@@ -283,8 +284,9 @@ parseTests = testGroup "parse" $
         t  = tsimp_ [amt|8-|] [date|2022-07-10|] [acct|Baz|] (𝕵 [stmt|4|])
                               (𝕵 [ostmt|B:6|]) 𝕹
         as = newAcctState & accounts ⊢ fromList [([acct|Baz|],[t])]
-                          & otherAccounts ⊢ fromList [([ostmtname|B|],
-                                                       fromList[(𝕵 6,[t])])]
+                          & otherAccounts ⊢
+                              fromList [([ostmtname|B|],
+                                          fromList[([ostmtindex|6|],[t])])]
       in
         parseT "Start: Baz\noStart: B\n8- #D<10.vii.22>O<B:6>A<Baz>X<4>"
                ([TSimpleTrx t],as)
@@ -392,17 +394,17 @@ parseTests = testGroup "parse" $
                                                    [b07,b01,t07,t05])
                                                 , ([acct|Tithe|],[b03,t02])]
                           & otherAccounts ⊢ fromList [([ostmtname|A|],
-                                                       fromList [(𝕹,
+                                                       fromList [([ostmtindex||],
                                                                   [t16,t15,t14])
                                                                 ])
                                                      ,([ostmtname|M|],
                                                        fromList [])
                                                      ,([ostmtname|P|],
-                                                       fromList [(𝕵 1,
+                                                       fromList [([ostmtindex|1|],
                                                                   [t11,t10])]
                                                       )
                                                      ,([ostmtname|R|],
-                                                       fromList [(𝕹,[t17])])
+                                                       fromList [([ostmtindex||],[t17])])
                                                      ]
       in
         parseT (unlines [ "-- This is a comment"

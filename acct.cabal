@@ -66,6 +66,7 @@ library
                      , Acct.Mapish
                      , Acct.Month
                      , Acct.OAcctMap
+                     , Acct.OStmtIndex
                      , Acct.OStmtMap
                      , Acct.OStmtName
                      , Acct.OStmt

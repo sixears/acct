@@ -6,7 +6,7 @@ import Base1T
 
 -- base --------------------------------
 
-import Text.Read  ( read )
+import Data.List  ( filter )
 
 -- data-textual ------------------------
 
@@ -18,8 +18,8 @@ import Data.GenValidity  ( GenValid( genValid, shrinkValid ) )
 
 -- parsers -----------------------------
 
-import Text.Parser.Char         ( char, digit )
-import Text.Parser.Combinators  ( (<?>), optional )
+import Text.Parser.Char         ( char )
+import Text.Parser.Combinators  ( (<?>), option )
 
 -- quasiquoting ------------------------
 
@@ -28,7 +28,6 @@ import QuasiQuoting  ( mkQQExp )
 -- QuickCheck --------------------------
 
 import Test.QuickCheck.Arbitrary  ( Arbitrary( arbitrary, shrink ) )
-import Test.QuickCheck.Gen        ( chooseInt, elements )
 
 -- tasty-plus --------------------------
 
@@ -63,18 +62,18 @@ import Data.Validity  ( Validity( validate ), trivialValidation )
 --                     local imports                      --
 ------------------------------------------------------------
 
-import Acct.OStmtName  ( OStmtName, ostmtname )
+import Acct.OStmtIndex  ( OStmtIndex, ostmtindex )
+import Acct.OStmtName   ( OStmtName, ostmtname )
 
 --------------------------------------------------------------------------------
 
-data OStmt = OStmt { _oAcct ∷ OStmtName
-                   , _oIndex ∷ (𝕄 ℕ) }
+data OStmt = OStmt { _oAcct ∷ OStmtName, _oIndex ∷ OStmtIndex }
   deriving (Eq,Lift,Show)
 
 oAcct ∷ Lens' OStmt OStmtName
 oAcct = lens _oAcct (\ os a → os { _oAcct = a })
 
-oIndex ∷ Lens' OStmt (𝕄 ℕ)
+oIndex ∷ Lens' OStmt OStmtIndex
 oIndex = lens _oIndex (\ os i → os { _oIndex = i })
 
 --------------------
@@ -85,16 +84,11 @@ instance Validity OStmt where
 --------------------
 
 instance GenValid OStmt where
-  genValid    = do
-    c ← arbitrary
-    n' ← fromIntegral ⊳ chooseInt (0,1_000_000)
-    n ← elements [𝕹, 𝕵 n']
-    return $ OStmt c n
+  genValid = OStmt ⊳ arbitrary ⊵ arbitrary
 
-  shrinkValid (OStmt _ 𝕹)                = []
-  shrinkValid (OStmt c (𝕵 n)) | n ≡ 0     = [OStmt c 𝕹]
-  shrinkValid (OStmt c (𝕵 n)) | otherwise =
-    (OStmt c 𝕹) : [OStmt c (𝕵 n') | n' ← [0..(n-1)]]
+  shrinkValid (OStmt n c) =
+    filter (≢ OStmt n c) $
+    [ OStmt n' c' | n' ← n : shrinkValid n, c' ← c : shrinkValid c ]
 
 --------------------
 
@@ -105,8 +99,8 @@ instance Arbitrary OStmt where
 --------------------
 
 instance Printable OStmt where
-  print (OStmt c 𝕹) = print c
-  print (OStmt c (𝕵 n)) = P.text $ [fmt|%T:%d|] c n
+  print (OStmt c n) | n ≡ def   = print c
+                    | otherwise = P.text $ [fmt|%T:%T|] c n
 
 ----------
 
@@ -115,13 +109,13 @@ printTests =
   let
     test exp ts = testCase (unpack exp) $ exp ≟ toText ts
   in
-    testGroup "print" [ test "P:71" (OStmt [ostmtname|P|] (𝕵 71))
-                      , test "P" (OStmt [ostmtname|P|] 𝕹) ]
+    testGroup "print" [ test "P:71" (OStmt [ostmtname|P|] [ostmtindex|71|])
+                      , test "P" (OStmt [ostmtname|P|] [ostmtindex||]) ]
 
 --------------------
 
 instance Textual OStmt where
-  textual = (OStmt ⊳ textual ⊵ optional (char ':' ⋫ (read ⊳ some digit))) <?> "Other Statement Number"
+  textual = (OStmt ⊳ textual ⊵ option def (char ':' ⋫ textual)) <?> "Other Statement Number"
 
 ----------
 
@@ -131,9 +125,9 @@ parseTests =
     eosn = "expected: Other Statement Number"
   in
     testGroup "parse"
-              [ testParse "P"    (OStmt [ostmtname|P|] 𝕹)
-              , testParse "P:6"  (OStmt [ostmtname|P|] (𝕵 6))
-              , testParse "P:66" (OStmt [ostmtname|P|] (𝕵 66))
+              [ testParse "P"    (OStmt [ostmtname|P|] [ostmtindex||])
+              , testParse "P:6"  (OStmt [ostmtname|P|] [ostmtindex|6|])
+              , testParse "P:66" (OStmt [ostmtname|P|] [ostmtindex|66|])
               , testParseE "p"   (tParse @OStmt) eosn
               , testParseE "p:"  (tParse @OStmt) eosn
               , testParseE "p:6" (tParse @OStmt) eosn

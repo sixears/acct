@@ -62,10 +62,7 @@ instance Validity OStmtName where
 --------------------
 
 instance GenValid OStmtName where
-  genValid    = do
-    c ← choose ('A','Z')
-    return $ OStmtName c
-
+  genValid      = OStmtName ⊳ choose ('A','Z')
   shrinkValid _ = []
 
 --------------------

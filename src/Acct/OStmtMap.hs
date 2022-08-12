@@ -26,31 +26,32 @@ import TastyPluser  ( TestCmp( testCmp ) )
 --                     local imports                      --
 ------------------------------------------------------------
 
-import Acct.Mapish     ( Mapish( Key, Value, adjust, empty, insert ) )
-import Acct.TrxSimp    ( TrxSimp )
+import Acct.Mapish      ( Mapish( Key, Value, adjust, empty, insert ) )
+import Acct.OStmtIndex  ( OStmtIndex )
+import Acct.TrxSimp     ( TrxSimp )
 
 --------------------------------------------------------------------------------
 
-newtype OStmtMap = OStmtMap (Map.Map (𝕄 ℕ) [TrxSimp])
+newtype OStmtMap = OStmtMap (Map.Map OStmtIndex [TrxSimp])
   deriving (Eq,Show)
 
 --------------------
 
 instance IsList OStmtMap where
-  type instance Item OStmtMap = (𝕄 ℕ,[TrxSimp])
+  type instance Item OStmtMap = (OStmtIndex,[TrxSimp])
   fromList xs = OStmtMap $ fromList xs
   toList (OStmtMap xs) = toList xs
 
 --------------------
 
 instance HasMember OStmtMap where
-  type MemberType OStmtMap = 𝕄 ℕ
+  type MemberType OStmtMap = OStmtIndex
   member k (OStmtMap m) = Map.member k m
 
 --------------------
 
 instance Mapish OStmtMap where
-  type Key   OStmtMap = 𝕄 ℕ
+  type Key   OStmtMap = OStmtIndex
   type Value OStmtMap = [TrxSimp]
   adjust f k (OStmtMap m) = OStmtMap (Map.adjust f k m)
   empty                   = OStmtMap ф
@@ -64,7 +65,7 @@ instance TestCmp OStmtMap where
       let
         ks  = Map.keys osm
         ks' = Map.keys osm'
-        vs  ∷ Map.Map (𝕄 ℕ) ([TrxSimp],[TrxSimp])
+        vs  ∷ Map.Map OStmtIndex ([TrxSimp],[TrxSimp])
         vs  = Map.intersectionWith (,) osm osm'
       in
         assertListEqS "OStmtMap keys" ks ks'
@@ -77,7 +78,7 @@ instance TestCmp OStmtMap where
 ----------------------------------------
 
 {-| Insert a trx into an OStmtMap -}
-addTrx ∷ OStmtMap → TrxSimp → 𝕄 ℕ → OStmtMap
+addTrx ∷ OStmtMap → TrxSimp → OStmtIndex → OStmtMap
 addTrx (OStmtMap m) t i =
   let f 𝕹      = 𝕵 [t]
       f (𝕵 ts) = 𝕵 (t:ts)

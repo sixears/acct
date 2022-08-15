@@ -8,204 +8,95 @@
 {-# LANGUAGE UnicodeSyntax     #-}
 
 module Acct.Acct
-  ( {- main -} )
+  ( main )
 where
 
--- import Prelude  ( head, tail )
+import Debug.Trace     ( trace, traceShow, traceM )
+import Base1T  hiding  ( toList )
 
 -- base --------------------------------
 
--- import Control.Applicative     ( many )
--- import Control.Monad           ( forM_, join, return )
--- import Control.Monad.IO.Class  ( MonadIO, liftIO )
--- import Data.Function           ( ($) )
--- import System.IO               ( IO )
-
--- base-unicode-symbols ----------------
-
--- import Data.Function.Unicode  ( (∘) )
--- import Data.Monoid.Unicode    ( (⊕) )
--- import Data.Ord.Unicode       ( (≥) )
-
--- data-default ------------------------
-
--- import Data.Default  ( Default )
-
--- data-textual ------------------------
-
--- import Data.Textual  ( Printable( print ), toText )
+import Data.Foldable  ( sum )
+import Data.List      ( reverse, sortOn )
+import Data.Maybe     ( fromMaybe )
+import GHC.Exts       ( toList )
+import System.IO      ( putStrLn )
 
 -- fpath -------------------------------
 
--- import FPath.AsFilePath  ( filepath )
--- import FPath.File        ( File )
--- import FPath.Parseable   ( readM )
+import FPath.File  ( File )
 
--- log-plus ----------------------------
+-- lens --------------------------------
 
--- import Log  ( Log, ToDoc_, toDoc_ )
-
--- logging-effect ----------------------
-
--- import Control.Monad.Log  ( MonadLog, Severity( Informational ) )
-
--- mockio ------------------------------
-
--- import MockIO.DoMock       ( HasDoMock, DoMock( DoMock, NoMock )  )
--- import MockIO.IOClass      ( HasIOClass )
--- import MockIO.MockIOClass  ( MockIOClass )
-
--- mockio-log --------------------------
-
--- import MockIO.Log      ( mkIOL' )
--- import MockIO.IOClass  ( IOClass( IORead ) )
-
--- monaderror-io -----------------------
-
--- import MonadError           ( MonadError, ѥ )
--- import MonadError.IO.Error  ( AsIOError )
+import Control.Lens.Getter  ( view )
+import Control.Lens.Tuple   ( _3 )
 
 -- monadio-plus ------------------------
 
--- import qualified  MonadIO.File
-
--- more-unicode ------------------------
-
--- import Data.MoreUnicode.Applicative  ( (⋪) )
--- import Data.MoreUnicode.Functor      ( (⊳) )
--- import Data.MoreUnicode.Lens         ( (⫥) )
-
--- mtl --------------------------------
-
--- import Control.Monad.Except  ( ExceptT )
-
--- natural -----------------------------
-
--- import Natural  ( One, count )
+import MonadIO  ( say, warn )
 
 -- optparse-applicative ----------------
 
--- import Options.Applicative.Builder  ( argument, metavar)
--- import Options.Applicative.Types    ( Parser )
+import Options.Applicative.Builder  ( fullDesc, help, info, long, metavar, progDesc, short, switch )
+import Options.Applicative.Extra    ( execParser, helper )
+import Options.Applicative.Types    ( Parser, ParserInfo )
 
--- parsec ------------------------------
+-- optparse-plus -----------------------
 
--- import Text.Parsec.Char  ( noneOf, oneOf )
-
--- parsec-plus -------------------------
-
--- import ParsecPlus  ( AsParseError, Parsecable( parser ), parsec )
-
--- prettyprinter -----------------------
-
--- import Data.Text.Prettyprint.Doc  ( Doc, parens )
-
--- stdmain -----------------------------
-
--- import StdMain             ( stdMain'' )
--- import StdMain.StdOptions  ( DryRunLevel )
-
--- text --------------------------------
-
--- import Data.Text     ( Text, pack )
--- import Data.Text.IO  ( putStrLn )
-
--- text-printer ------------------------
-
--- import qualified  Text.Printer  as  P
-
--- tfmt --------------------------------
-
--- import Text.Fmt  ( fmtT )
+import OptParsePlus  ( textualArgument )
 
 ------------------------------------------------------------
 --                     local imports                      --
 ------------------------------------------------------------
 
--- import Acct.AcctError   ( AcctError )
+import Acct.Amount     ( amount, amt, asText )
+import Acct.AcctState  ( accounts, stmts )
+import Acct.Entries    ( parseFile )
+import Acct.StmtIndex  ( stmtindex )
 
 --------------------------------------------------------------------------------
 
-{-
-data Options = Options { input ∷ File }
+data Options = Options { input ∷ File
+                       , dumpStmts ∷ 𝔹
+                       }
 
 parseOpts ∷ Parser Options
 parseOpts =
   let
     -- dvorak_help = help "remap to dvorak layout"
   in
-    Options ⊳ argument readM (metavar "LAYER-FILE")
--}
-{-
-main ∷ IO ()
-main =
-  main_ ≫ \ case
-    Left e →
--}
-{-
-mockParens ∷ ToDoc_ τ ⇒ τ → DoMock → Doc ()
-mockParens d DoMock = parens (toDoc_ d)
-mockParens d NoMock = toDoc_ d
+    Options ⊳ textualArgument (metavar "ACCOUNTS-FILE")
+            ⊵ switch (ю [ short 'x', long "dump-stmts"
+                        , help "dump statement totals" ])
 
-{- | `mkIOL'`, but for error-based IO (e.g., `MonadIO μ, MonadError ε μ`) -}
-mkIOL'E ∷ (MonadIO μ, ToDoc_ τ, MonadError ε μ,
-          MonadLog (Log ω) μ, Default ω, HasIOClass ω, HasDoMock ω) ⇒
-         (DoMock → τ) → μ α → ExceptT ε IO α → DoMock  → μ α
-mkIOL'E msg mval io mck =
-  join $ mkIOL' Informational IORead msg (return mval) (ѥ io) mck
+main ∷ IO()
+main = do
+  let prog_desc = progDesc "read an accounts file, emit totals"
+      parser ∷ ParserInfo Options
+      parser = info (parseOpts ⊴ helper) (fullDesc ⊕ prog_desc)
+  opts ← execParser parser
 
-readFileUTF8 ∷ (MonadIO μ,
-                MonadLog (Log ω) μ, Default ω, HasIOClass ω, HasDoMock ω,
-                AsIOError ε, MonadError ε μ) ⇒
-               File → DoMock → μ Text
-readFileUTF8 fn =
-  mkIOL'E (mockParens $ [fmtT|read %T|] fn) (return "")
-          (MonadIO.File.readFile fn)
+  let i = input opts
+  parseFile i ≫ \ case
+    𝕹 → warn $ [fmtT|error parsing file '%T'|] i
+    𝕵 (_,as) → do
+      ms ← forM (toList $ as ⊣ accounts) $ \ (a,ts) →
+        let m = sum (view amount ⊳ ts)
+        in  putStrLn ([fmt|%20T  %10t|] a (asText m)) ⪼ return m
+      putStrLn $ [fmt|Total:  %10t|] (asText $ sum ms)
 
-readFileUTF8Lenient ∷ (MonadIO μ,
-                       MonadLog (Log ω) μ, Default ω, HasIOClass ω, HasDoMock ω,
-                       AsIOError ε, MonadError ε μ) ⇒
-                      File → DoMock → μ Text
-readFileUTF8Lenient fn =
-  mkIOL'E (mockParens $ [fmtT|read %T|] fn) (return "")
-          (MonadIO.File.readFileUTF8Lenient fn)
--}
-{-
-{- | Parse a file whose contents are UTF8-encoded text; with lenient decoding
-     (see `readFileUTF8Lenient`. -}
-parsecFileUTF8L ∷ ∀ χ ω ε μ .
-                  (MonadIO μ, Parsecable χ,
-                   MonadLog (Log ω) μ, Default ω, HasIOClass ω, HasDoMock ω,
-                   AsIOError ε, AsParseError ε, MonadError ε μ) ⇒
-                  File → χ → DoMock → μ χ
-parsecFileUTF8L fn x mck = do
-  t ← readFileUTF8Lenient fn mck
-  mkIOL'E (mockParens $ [fmtT|parse %T|] fn) (return x) (parsec (fn ⫥ filepath) t) mck
--}
---------------------------------------------------------------------------------
+-- XXX only in -x
 
--- run with, e.g., `:run main -v -v data/joint'`
-{-
-main ∷ MonadIO μ ⇒ μ ()
-main = stdMain'' "parse accounts file" parseOpts main_
+      let _fld (x@(_,_,c):xs) (i,ts) =
+            let new = (i,(sum $ view amount ⊳ ts),c + (sum $ view amount ⊳ ts))
+            in  new : x : xs
+          _init = [([stmtindex||],0,0)]
+          sts = foldl _fld _init (sortOn fst ∘ toList $ as ⊣ stmts)
+      forM_ (reverse sts) $ \ (i,a,t) →
+        if i ≡ [stmtindex||]
+        then putStrLn $ [fmt|Total: %t|] (asText t)
+        else putStrLn ([fmt|  Statement %03T  This Stmt %12t  Accumulated %12t|]
+                       i (asText a) (asText t))
+  say i
 
-main_ ∷ (MonadIO μ, MonadLog (Log MockIOClass) μ, MonadError AcctError μ) ⇒
-        DryRunLevel One → Options → μ ()
-main_ mck opts = do
-  let mock = if count mck ≥ 1 then DoMock else NoMock
--}
---  (Transactions ts) ← parsecFileUTF8L (input opts) (Transactions []) mock
---  ts ← parsecFileUTF8L @Transactions (input opts) emptyTrans mock
---  liftIO $ putStrLn ("head ts")
---  liftIO $ putStrLn ("head ts: '" ⊕ toText (head $ tail ts) ⊕ "'")
---  liftIO $ forM_ (unTransactions ts) (putStrLn ∘ toText)
---  liftIO $ putStrLn ("head ts: '" ⊕ toText t ⊕ "'")
-{-
-  _ ← ѥ (pResolve $ input opts) ≫ \ case
-    Left e  → throwError e
-    Right f → readAcctFile f mock
--}
-{-
-  return ()
--}
 -- that's all, folks! ----------------------------------------------------------

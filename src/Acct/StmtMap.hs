@@ -1,6 +1,6 @@
 {-| Map from account name to a list of that account's transactions. -}
-module Acct.AcctMap
-  ( AcctMap )
+module Acct.StmtMap
+  ( StmtMap )
 where
 
 import Base1T  hiding  ( toList )
@@ -27,35 +27,35 @@ import TastyPluser  ( TestCmp( testCmp ) )
 --                     local imports                      --
 ------------------------------------------------------------
 
-import Acct.Account     ( Account )
-import Acct.Mapish      ( Mapish( Key, Value, adjust, empty, insert ) )
-import Acct.TrxSimp     ( TrxSimp )
+import Acct.Mapish     ( Mapish( Key, Value, adjust, empty, insert ) )
+import Acct.StmtIndex  ( StmtIndex )
+import Acct.TrxSimp    ( TrxSimp )
 
 --------------------------------------------------------------------------------
 
-newtype AcctMap = AcctMap (Map.Map Account [TrxSimp])
+newtype StmtMap = StmtMap (Map.Map StmtIndex [TrxSimp])
   deriving (Eq,Show)
 
 --------------------
 
-instance IsList AcctMap where
-  type instance Item AcctMap = (Account,[TrxSimp])
-  fromList xs = AcctMap $ fromList xs
-  toList (AcctMap xs) = toList xs
+instance IsList StmtMap where
+  type instance Item StmtMap = (StmtIndex,[TrxSimp])
+  fromList xs = StmtMap $ fromList xs
+  toList (StmtMap xs) = toList xs
 
 --------------------
 
-instance Mapish AcctMap where
-  type Key AcctMap = Account
-  type Value AcctMap = [TrxSimp]
-  adjust f k (AcctMap m) = AcctMap (Map.adjust f k m)
-  empty                  = AcctMap ф
-  insert k v (AcctMap m) = AcctMap (Map.insert k v m)
+instance Mapish StmtMap where
+  type Key StmtMap = StmtIndex
+  type Value StmtMap = [TrxSimp]
+  adjust f k (StmtMap m) = StmtMap (Map.adjust f k m)
+  empty                  = StmtMap ф
+  insert k v (StmtMap m) = StmtMap (Map.insert k v m)
 
 --------------------
 
-instance TestCmp AcctMap where
-  testCmp nm (AcctMap am) (AcctMap am') =
+instance TestCmp StmtMap where
+  testCmp nm (StmtMap am) (StmtMap am') =
     testGroup nm $ do
       let ks  = sort $ Map.keys am
           ks' = sort $ Map.keys am'
@@ -67,8 +67,8 @@ instance TestCmp AcctMap where
 
 --------------------
 
-instance HasMember AcctMap where
-  type MemberType AcctMap = Account
-  member k (AcctMap m) = Map.member k m
+instance HasMember StmtMap where
+  type MemberType StmtMap = StmtIndex
+  member k (StmtMap m) = Map.member k m
 
 -- that's all, folks! ----------------------------------------------------------

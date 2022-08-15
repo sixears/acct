@@ -3,7 +3,7 @@
 {-# LANGUAGE UnicodeSyntax     #-}
 
 module Acct.Amount
-  ( Amount( Amount ), HasAmount( amount ), amt, tests )
+  ( Amount( Amount ), HasAmount( amount ), amt, asText, tests )
 where
 
 import Base1T
@@ -16,6 +16,10 @@ import Text.Read  ( read )
 -- data-textual ------------------------
 
 import Data.Textual  ( Textual( textual ) )
+
+-- deepseq -----------------------------
+
+import Control.DeepSeq  ( NFData )
 
 -- genvalidity -------------------------
 
@@ -85,7 +89,8 @@ signmult SIGN_MINUS = -1
 
 ------------------------------------------------------------
 
-newtype Amount  = Amount ℤ  deriving (Enum,Eq,Integral,Lift,Num,Ord,Real,Show)
+newtype Amount  = Amount ℤ
+  deriving (Enum,Eq,Integral,Lift,NFData,Num,Ord,Real,Show)
 
 {-| construct an `Amount` from pounds, pence & sign -}
 fromPPS ∷ ℕ → Word8 → Sign → Amount
@@ -113,6 +118,10 @@ instance Arbitrary Amount where
 
 instance Printable Amount where
   print p = P.text $ [fmt|%d.%02d%T|] (p ⊣ pounds) (p ⊣ pence) (p ⊣ sign)
+
+asText ∷ Amount → 𝕋
+asText p = [fmt|%s£%d.%02d|]
+           (if p ⊣ sign ≡ SIGN_PLUS then "" else "-") (p ⊣ pounds) (p ⊣ pence)
 
 ----------
 

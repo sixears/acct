@@ -1,6 +1,6 @@
 module Acct.AcctState
-  ( AcctState
-  , accounts, addToAcct, newAcctState, otherAccounts, parseEntry, startAcct )
+  ( AcctState, accounts, addToAcct, newAcctState, otherAccounts, parseEntry
+  , startAcct, stmts )
 where
 
 import Base1T  hiding  ( (∈), toList )
@@ -16,6 +16,10 @@ import ContainersPlus.Member  ( (∈) )
 -- data-textual ------------------------
 
 import Data.Textual  ( Textual( textual ) )
+
+-- deepseq -----------------------------
+
+-- import Control.DeepSeq  ( rnf )
 
 -- lens --------------------------------
 
@@ -44,17 +48,20 @@ import Acct.Entry       ( Entry( TAcctStart, TBrk, TrxComment, TOStmtStart
                                , TSimpleTrx ) )
 import Acct.Mapish      ( Mapish( adjust, empty, insert ) )
 import Acct.OAcctMap    ( OAcctMap, addTrx )
-import Acct.OStmt       ( HasOStmtY( oStmtY ), oAcct )
+import Acct.OStmt       ( oAcct )
 import Acct.OStmtName   ( OStmtName )
+import Acct.StmtMap     ( StmtMap )
 import Acct.TrxBrk      ( trx )
-import Acct.TrxSimp     ( TrxSimp )
+import Acct.TrxSimp     ( TrxSimp, oStmtGetY, stmtGetY )
 
 --------------------------------------------------------------------------------
 
 ------------------------------------------------------------
 
 data AcctState = AcctState { _accounts      ∷ AcctMap
-                           , _otherAccounts ∷ OAcctMap }
+                           , _otherAccounts ∷ OAcctMap
+                           , _stmts         ∷ StmtMap
+                           }
   deriving (Eq,Show)
 
 ----------------------------------------
@@ -69,8 +76,13 @@ otherAccounts = lens _otherAccounts (\ s a → s { _otherAccounts = a })
 
 ----------------------------------------
 
+stmts ∷ Lens' AcctState StmtMap
+stmts = lens _stmts (\ s x → s { _stmts = x })
+
+----------------------------------------
+
 newAcctState ∷ AcctState
-newAcctState = AcctState empty empty
+newAcctState = AcctState empty empty empty
 
 ----------------------------------------
 
@@ -90,27 +102,38 @@ startOAcct oaccts c =
 
 ----------------------------------------
 
-addToAcct ∷ (MonadFail η, MonadState AcctState η) ⇒ AcctMap → TrxSimp → η ()
-addToAcct acctmap t =
+addToAcct ∷ (MonadFail η, MonadState AcctState η) ⇒ TrxSimp → η ()
+addToAcct t = do
+  acctmap ← use accounts
   let a = t ⊣ account
-  in  if a ∈ acctmap
-      then accounts %= adjust (t:) a
-      else fail $ [fmt|Not a valid account '%T' (%T)|] a t
+  if a ∈ acctmap
+  then accounts %= adjust (\ ts → t:ts) a
+  else fail $ [fmt|Not a valid account '%T' (%T)|] a t
 
 ----------------------------------------
 
 addToOAcct ∷ (MonadFail η, MonadState AcctState η) ⇒ TrxSimp → η ()
 addToOAcct t = do
   oaccts ← use otherAccounts
-  case t ⊣ oStmtY of
+  case oStmtGetY t of
     𝕵 oa →
       let
         toact = oa ⊣ oAcct
       in
         if toact ∈ oaccts
         then otherAccounts %= addTrx t
-        else fail $ [fmt|Not a valid other account '%T' (%T)|] oa t
+        else fail $ [fmt|Not a valid other account '%T' (%T)|] (oa ⊣ oAcct) t
     𝕹    → return ()
+
+----------------------------------------
+
+addToStmt ∷ (MonadFail η, MonadState AcctState η) ⇒ TrxSimp → η ()
+addToStmt t = do
+  let st = stmtGetY t
+  stmtmap ← use stmts
+  if st ∈ stmtmap
+  then stmts %= adjust (\ ts → t:ts) st
+  else stmts %= insert st [t]
 
 ----------------------------------------
 
@@ -125,15 +148,17 @@ parseEntry' (TOStmtStart c) = do
   startOAcct oaccts c
   return 𝕹
 parseEntry' e@(TSimpleTrx t) = do
-  accts ← use accounts
-  addToAcct accts t
+--  return $ rnf t
+  addToAcct t
   addToOAcct t
+  addToStmt t
   return (𝕵 e)
 parseEntry' e@(TBrk t) = do
-  accts ← use accounts
+--  return $ rnf t
   forM_ (trx t) $ \ t' → do
-    addToAcct accts t'
+    addToAcct t'
     addToOAcct t'
+    addToStmt t'
   return (𝕵 e)
 
 --------------------
@@ -146,6 +171,7 @@ instance TestCmp AcctState where
     testGroup nm $
     [ testCmp (nm ⊕ ":accounts") (as ⊣ accounts) (as' ⊣ accounts)
     , testCmp (nm ⊕ ":otherAccounts") (as ⊣ otherAccounts) (as' ⊣ otherAccounts)
+    , testCmp (nm ⊕ ":stmts") (as ⊣ stmts) (as' ⊣ stmts)
     ]
 
 -- that's all, folks! ----------------------------------------------------------

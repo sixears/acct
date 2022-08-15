@@ -12,6 +12,10 @@ import GHC.Generics  ( Generic )
 
 import Data.Textual  ( Textual( textual ) )
 
+-- deepseq -----------------------------
+
+import Control.DeepSeq  ( NFData )
+
 -- genvalidity -------------------------
 
 import Data.GenValidity  ( GenUnchecked( genUnchecked, shrinkUnchecked )
@@ -60,8 +64,7 @@ import Data.Validity  ( Validity( validate ), declare )
 
 --------------------------------------------------------------------------------
 
-newtype Comment = Comment 𝕋
-  deriving (Eq,Generic,Lift,Printable,Show)
+newtype Comment = Comment 𝕋  deriving  (Eq,Generic,Lift,NFData,Printable,Show)
 
 ----------
 

@@ -603,10 +603,10 @@ oStart: R
 
 
 
-924.89+	#D<31.xii.96>B<>C<wage>X<10>
+924.89+	#D<31.xi.96>B<>C<wage>X<10>
 #220+	#D<31.xii.96>A<Food>
 #130+	#D<31.xii.96>A<Tithe>
-#30+	#D<31.xii.96>A<Bills>
+#30+	#D<31.xi.96>A<Bills>
 #150+	#D<31.xii.96>A<Petrol>
 #228+	#D<31.xii.96>A<CarFund>
 #93.70+	#D<31.xii.96>A<Save>C<for hx Jan>
@@ -1164,7 +1164,7 @@ oStart: R
 5.65-	#D<20.vi.97>A<Save>C<antibiotics>O<P:6>X<18>
 
 100.62-	#D<7.vi.97>A<CarFund>C<exhaust>X<16>
-102-	#D<11.vi.97>A<CarFund>C<RAC membership>O<G:6>X<18>
+102-	#D<11.vi..97>A<CarFund>C<RAC membership>O<G:6>X<18>
 20-	#D<1.vii.97>A<CarFund>C<Imperial blue dish Lindsay and Neil>O<P:6>X<18>
 9.59-	#D<1.vii.97>A<CarFund>C<extractor hood filter>O<G:6>X<18>
 
@@ -1456,7 +1456,7 @@ oStart: R
 16.30-	#D<30.viii.97>A<Petrol>C<rail ticket for induc., to be ref.>O<G:7>X<19>
 16.30+	#D<17.ix.97>A<Save>C<refund from KPMG>X<19>
 
-124.89-	#D<30.vi.97>A<Food>O<G:7>X<19>
+124.89-	#D<31.vi.97>A<Food>O<G:7>X<19>
 17.19-	#D<14.viii.97>A<Food>O<G:7>X<19>
 4.98-	#D<16.viii.97>A<Food>C<flowers and chocs for Mark>O<G:7>X<19>
 20.44-	#D<22.viii.97>A<Food>O<G:7>X<19>
@@ -1605,7 +1605,7 @@ oStart: R
 #0.65-	#D<27.ix.97>A<CarFund>C<card for Kyle>
 ##
 
-23.05-	#D<23.viii.97>A<HEntz>C<lunch with Adrian, Mx owes>O<P:8>X<20>
+23.05-	#D<234.viii.97>A<HEntz>C<lunch with Adrian, Mx owes>O<P:8>X<20>
 5.97-	#D<8.ix.97>A<HEntz>C<Virgin Mx owes>O<P:8>X<20>
 24.99-	#D<9.ix.97>A<HEntz>C<Mx owes>O<P:8>X<20>
 2.99-	#D<14.ix.97>A<HEntz>C<Mx owes>O<P:8>X<20>
@@ -2281,7 +2281,7 @@ oStart: R
 
 110-	#D<2.iii.98>A<Food>C<with vouchers>X<24>
 20-	#D<13.iii.98>A<Food>C<voucher part of 21.39 bill>X<24>
-9.99-	#D<6.iii.98>A<Food>C<dry cleaning>O<G:14>X<26>
+9.99-	#D<6.iii.9>A<Food>C<dry cleaning>O<G:14>X<26>
 5.69-	#D<8.iii.98>A<Food>O<G:14>X<26>
 15.18-	#D<24.iii.98>A<Food>O<G:14>X<26>
 
@@ -3266,7 +3266,7 @@ oStart: R
 
 10-	#D<3.xi.98>A<Food>C<Vouchers>X<33>
 35.90-	#D<31.x.98>B<>C<take-away>O<G:21>X<33>
-#11.90-	#D<31.x.98>A<Food>
+#11.90-	#D<31.xi.98>A<Food>
 #24-	#D<31.x.98>A<IDLtd>C<to b refunded by Dave>
 ##
 909.31-	#D<4.xi.98>A<IDLtd>C<chair to be reimbursed>O<P:22>X<34>
@@ -3606,7 +3606,7 @@ oStart: R
 30-	#D<19.ii.99>A<Cleaner>X<36>
 20-	#D<27.ii.99>A<Alex>X<36>
 
-94.90-	#D<3.ii.99>A<Food>C<monthly shop>O<G:25>X<37>
+94.90-	#D<3.ii.9>A<Food>C<monthly shop>O<G:25>X<37>
 5.29-	#D<13.ii.99>A<Food>O<G:25>X<37>
 4.73-	#D<13.ii.99>A<Food>C<vitamins etc>O<G:25>X<37>
 12.36-	#D<18.ii.99>A<Lunch>C<delta>X<36>
@@ -3627,7 +3627,7 @@ oStart: R
 17.10-	#D<12.ii.99>A<Petrol>O<G:25>X<37>
 22.20-	#D<19.ii.99>B<>O<G:25>X<37>
 #14.19-	#D<19.ii.99>A<Petrol>
-#8.01-	#D<19.ii.99>A<Expense>
+#8.01-	#D<19.ii.9>A<Expense>
 ##
 17.10-	#D<17.ii.99>A<Expense>C<train>O<G:25>X<37>
 16.20-	#D<18.ii.99>A<Expense>O<G:25>X<37>
@@ -3649,7 +3649,7 @@ oStart: R
 ##
 
 40.74-	#D<20.ii.99>B<>C<food etc>X<36>
-#5.07-	#D<20.ii.99>A<Food>
+#5.07-	#D<20.ii.9>A<Food>
 #22.64-	#D<20.ii.99>A<Lunch>
 #13.03-	#D<20.ii.99>A<Expense>
 ##
@@ -3664,7 +3664,7 @@ oStart: R
 #40+	#D<26.ii.99>A<HSave>
 #350+	#D<26.ii.99>A<Petrol>
 #140+	#D<26.ii.99>A<Food>
-#120+	#D<28.ii.99>A<Lunch>
+#120+	#D<28.ii.9>A<Lunch>
 #615.21+	#D<26.ii.99>A<Save>
 #85+	#D<26.ii.99>A<Hols>
 ##
@@ -4269,7 +4269,7 @@ oStart: R
 155-	#D<23.vii.99>A<CarFund>C<Sophie car tax>X<41>
 13.49-	#D<31.vii.99>A<CarFund>C<fan>O<G:31>X<43>
 40-	#D<30.vii.99>A<CarFund>C<ROSPA>X<42>
-11.72-	#D<31.vii.99>A<Bills>C<BT>X<41>
+11.72-	#D<31.vi.99>A<Bills>C<BT>X<41>
 11.56-	#D<31.vii.99>A<Bills>O<G:31>X<43>
 
 13.45-	#D<23.vii.99>A<MEntz>O<G:30>X<42>
@@ -4302,7 +4302,7 @@ oStart: R
 4.35-	#D<30.vii.99>A<Petrol>O<G:30>X<42>
 
 40-	#D<21.vii.99>A<Lunch>C<cash wdwl>X<41>
-40-	#D<31.vii.99>B<>C<transfer and cash>X<41>
+40-	#D<31.vii.9>B<>C<transfer and cash>X<41>
 #50-	#D<27.vii.99>A<Lunch>
 #10+	#D<27.vii.99>A<Hols>
 ##
@@ -4821,7 +4821,7 @@ oStart: R
 12.05-	#D<3.xi.99>A<Petrol>O<G:34>X<46>
 12.05-	#D<4.xi.99>A<Petrol>O<G:34>X<46>
 12.05-	#D<5.xi.99>A<Petrol>O<G:34>X<46>
-21.45-	#D<31.x.99>A<Petrol>O<G:33>X<45>
+21.45-	#D<31.xi.99>A<Petrol>O<G:33>X<45>
 7.70-	#D<8.xi.99>A<Petrol>O<G:34>X<46>
 4.35-	#D<8.xi.99>A<Petrol>O<G:34>X<46>
 7.20-	#D<9.xi.99>A<Petrol>O<G:34>X<46>
@@ -5227,7 +5227,7 @@ oStart: R
 #197.50+	#D<29.ii.00>A<Save>C<RBS>
 #40+	#D<29.ii.00>A<Tithe>
 #80+	#D<29.ii.00>A<MEntz>
-#40+	#D<29.ii.00>A<HEntz>
+#40+	#D<29.ii.99>A<HEntz>
 #40+	#D<29.ii.00>A<HSave>
 #420+	#D<29.ii.00>A<Petrol>
 #120+	#D<29.ii.00>A<Lunch>
@@ -5253,7 +5253,7 @@ oStart: R
 325.23-	#D<26.ii.00>A<CarFund>C<Sophie service and four tyres>X<48>
 15.64-	#D<4.iii.00>A<CarFund>C<Mum b'day>O<G:38>X<50>
 85.19-	#D<2.iii.00>A<CarFund>C<car adaptor for latop>O<G:38>X<50>
-10.39-	#D<10.ii.00>A<CarFund>C<pressie for vevers>O<G:37>X<49>
+10.39-	#D<10.ii.0>A<CarFund>C<pressie for vevers>O<G:37>X<49>
 54.40-	#D<25.iii.00>A<CarFund>C<Jase and Nicole pressie>O<G:38>X<50>
 155-	#D<24.iii.00>A<CarFund>C<tax Talia>X<49>
 
@@ -5678,7 +5678,7 @@ oStart: R
 
 16.71-	#D<2.vi.00>A<Food>O<G:41>X<53>
 7.19-	#D<5.vi.00>A<Food>O<G:41>X<53>
-10.99-	#D<31.v.00>A<Food>C<dry cleaning>O<P:41>X<53>
+10.99-	#D<31.v.0>A<Food>C<dry cleaning>O<P:41>X<53>
 2.39-	#D<8.vi.00>A<Food>C<strepsils>O<P:41>X<53>
 31-	#D<8.vi.00>A<Food>O<P:41>X<53>
 11.27-	#D<16.vi.00>A<Food>C<cream etc>O<P:41>X<53>
@@ -5725,7 +5725,7 @@ oStart: R
 #400+	#D<30.vi.00>A<Save>C<for pension>
 #800+	#D<30.vi.00>A<Tithe>
 #1245+	#D<30.vi.00>A<Save>C<for RBS>
-#3000+	#D<30.vi.00>A<Save>C<for comfort Â£465 short>
+#3000+	#D<30.vi.00>A<Save>C<for comfort £465 short>
 ##
 
 1245-	#D<30.vi.00>A<Save>C<RBS>X<52>
@@ -6203,7 +6203,7 @@ oStart: R
 11.84-	#D<11.xi.00>A<CarFund>C<family cards>O<G:45>X<58>
 19.99-	#D<11.xi.00>A<CarFund>C<rucksack for us>O<G:45>X<58>
 38.54-	#D<11.xi.00>A<CarFund>C<cd writeables etc>O<P:44>X<58>
-483-	#D<3.xii.00>A<CarFund>C<ICAEW membership incl. Â£161 subs>O<M:4>X<59>
+483-	#D<3.xii.00>A<CarFund>C<ICAEW membership incl. £161 subs>O<M:4>X<59>
 
 
 20.60-	#D<12.xi.00>A<HEntz>C<Browns Sunday>O<G:45>X<58>
@@ -6520,7 +6520,7 @@ oStart: R
 #50+	#D<1.ii.01>A<Alex>
 #300+	#D<1.ii.01>A<Hols>
 #480+	#D<1.ii.01>A<CarFund>
-#173.21+	#D<1.ii.01>A<Cattsdell>C<cover B&C ins>
+#173.21+	#D<1.ii.0>A<Cattsdell>C<cover B&C ins>
 #1257.78+	#D<1.ii.01>A<Save>
 ##
 
@@ -6786,7 +6786,7 @@ oStart: R
 #13.30+	#D<28.xii.00>A<CarFund>
 #13.30+	#D<26.i.01>A<CarFund>
 #337.52+	#D<24.ii.01>A<CarFund>
-#15.73+	#D<23.iv.01>A<CarFund>C<to clear, paid Â£38.74>
+#15.73+	#D<23.iv.01>A<CarFund>C<to clear, paid £38.74>
 ##
 
 17-	#D<12.xii.00>A<CarFund>C<first Empire payment>X<58>
@@ -6949,7 +6949,7 @@ oStart: R
 #70+	#D<1.vi.01>A<Bills>
 #60+	#D<1.vi.01>A<Cleaner>
 #60+	#D<1.vi.01>A<Alex>
-#210+	#D<1.vi.01>A<Hols>C<after Â£100 cash from RBS std savings>
+#210+	#D<1.vi.01>A<Hols>C<after £100 cash from RBS std savings>
 #430+	#D<1.vi.01>A<CarFund>
 #172.89+	#D<1.vi.01>A<Cattsdell>
 #300+	#D<1.vi.01>A<House>C<pension delay>
@@ -7162,7 +7162,7 @@ oStart: R
 31.80-	#D<3.viii.01>A<Cleaner>X<66>
 28-	#D<24.viii.01>A<Alex>X<66>
 31.80-	#D<17.viii.01>A<Cleaner>X<66>
-31.80-	#D<31.viii.01>A<Cleaner>X<66>
+31.80-	#D<31.xiii.01>A<Cleaner>X<66>
 15-	#D<17.viii.01>A<Bills>C<ntl>O<M:12>X<67>
 
 202.28-	#D<28.vii.01>A<QFood>O<M:12>X<67>
@@ -7210,7 +7210,7 @@ oStart: R
 25.61-	#D<4.viii.01>A<Petrol>O<M:12>X<67>
 27.11-	#D<13.viii.01>A<Petrol>O<M:12>X<67>
 29.49-	#D<21.viii.01>A<Petrol>O<M:13>X<68>
-297-	#D<31.viii.01>A<Petrol>C<Hx train to 5 Oct>O<M:13>X<68>
+297-	#D<31.xiii.01>A<Petrol>C<Hx train to 5 Oct>O<M:13>X<68>
 27.65-	#D<31.viii.01>A<Petrol>O<M:13>X<68>
 27.20-	#D<30.viii.01>A<Petrol>O<M:13>X<68>
 32.97-	#D<27.viii.01>A<Petrol>O<M:13>X<68>
@@ -7237,8 +7237,8 @@ oStart: R
 44.95-	#D<21.viii.01>A<Save>C<6 way with power surge>O<M:13>X<68>
 85-	#D<22.viii.01>A<Save>C<more cables>O<M:13>X<68>
 59.75-	#D<6.viii.01>A<Save>C<curtain pole>O<M:12>X<67>
-19.99-	#D<30.viii.01>A<Save>C<bean bag>O<M:13>X<68>
-27-	#D<31.viii.01>A<Save>C<pot pourri and books NT>O<M:13>X<68>
+19.99-	#D<30.xiii.01>A<Save>C<bean bag>O<M:13>X<68>
+27-	#D<31.xiii.01>A<Save>C<pot pourri and books NT>O<M:13>X<68>
 11.78-	#D<4.viii.01>A<Save>C<Wickes>O<M:12>X<67>
 
 40-	#D<13.viii.01>A<Lunch>X<66>
@@ -7267,9 +7267,9 @@ oStart: R
 ##
 
 30-	#D<1.ix.01>A<Lunch>C<cash wdwl>X<66>
-40-	#D<31.viii.01>B<>C<cash wdwl>X<66>
-#20-	#D<31.viii.01>A<QFood>C<softener salt>
-#20-	#D<31.viii.01>A<Hols>C<meals out at gardens>
+40-	#D<31.xiii.01>B<>C<cash wdwl>X<66>
+#20-	#D<31.xiii.01>A<QFood>C<softener salt>
+#20-	#D<31.xiii.01>A<Hols>C<meals out at gardens>
 ##
 
 30.45-	#D<29.viii.01>A<Hols>C<Mogul during week off>O<M:13>X<68>
@@ -7296,11 +7296,11 @@ oStart: R
 #40+	#D<1.ix.01>A<Tithe>
 #60+	#D<1.ix.01>A<Bills>
 #73.60+	#D<1.ix.01>A<Cleaner>
-#80+	#D<1.ix.01>A<Alex>
+#80+	#D<1,ix,01>A<Alex>
 #300+	#D<1.ix.01>A<Hols>
 #430+	#D<1.ix.01>A<CarFund>
 #371.39+	#D<1.ix.01>A<Save>C<RBS>
-#115.72+	#D<1.ix.01>A<Cattsdell>C<to bring to Â£1005.19>
+#115.72+	#D<1.ix.01>A<Cattsdell>C<to bring to £1005.19>
 #17.93+	#D<1.ix.01>A<Save>C<excess>
 ##
 
@@ -7394,7 +7394,7 @@ oStart: R
 
 2422.05+	#D<28.ix.01>B<>C<Mx wages>X<67>
 #164.96+	#D<1.x.01>A<CarFund>
-#2257.09+	#D<1.x.01>A<Save>C<Â£462.91 short>
+#2257.09+	#D<1.x.01>A<Save>C<£462.91 short>
 ##
 
 40-	#D<1.x.01>A<Tithe>X<67>
@@ -7519,8 +7519,8 @@ oStart: R
 20-	#D<12.xi.01>A<Petrol>C<cash wdwl for train>X<69>
 
 0-	#D<1.xi.01>B<>C<Tidy up>X<69>
-#791.44+	#D<1.xi.01>A<Save>C<to make Â£3.7k for TV and STB>
-#387-	#D<1.xi.01>A<Comp>C<to make comp bal Â£1k>
+#791.44+	#D<1.xi.01>A<Save>C<to make £3.7k for TV and STB>
+#387-	#D<1.xi.01>A<Comp>C<to make comp bal £1k>
 #404.44-	#D<1.xi.01>A<Tax>C<over provision>
 ##
 
@@ -7662,7 +7662,7 @@ oStart: R
 3413.17+	#D<1.xii.01>B<>C<Hx wage>X<69>
 #2615+	#D<1.xii.01>A<Save>C<RBS>
 #188.14+	#D<1.xii.01>A<Cattsdell>
-#500+	#D<1.xii.01>A<Save>C<to bring down to Â£4k deficit>
+#500+	#D<1.xii.01>A<Save>C<to bring down to £4k deficit>
 #110.03+	#D<1.xii.01>A<Hall>C<excess of Hx bonus>
 ##
 
@@ -7756,8 +7756,8 @@ oStart: R
 #46+	#D<1.i.02>A<Entz>
 #110+	#D<1.i.02>A<QFood>
 #120+	#D<1.i.02>A<Lunch>
-#155+	#D<1.i.02>A<Food>C<extra Â£35 for excess Dec>
-#584+	#D<1.i.02>A<CarFund>C<extra Â£144 for excess Dec>
+#155+	#D<1.i.02>A<Food>C<extra £35 for excess Dec>
+#584+	#D<1.i.02>A<CarFund>C<extra £144 for excess Dec>
 #260+	#D<1.i.02>A<Petrol>C<incl two weeks Hx London>
 #76+	#D<1.i.02>A<Cleaner>
 #60+	#D<1.i.02>A<Bills>
@@ -7909,7 +7909,7 @@ oStart: R
 ##
 
 1515.50+	#D<1.ii.02>B<>X<71>
-#1149.73+	#D<1.ii.02>A<Save>C<Â£1150 Hx last AA wage for RBS>
+#1149.73+	#D<1.ii.02>A<Save>C<£1150 Hx last AA wage for RBS>
 #365.77+	#D<1.ii.02>A<Hall>
 ##
 
@@ -7990,7 +7990,7 @@ oStart: R
 #234.72+	#D<28.ii.02>A<Hall>C<part of Hx golden hello>
 #211.72+	#D<28.ii.02>A<Cattsdell>
 #460+	#D<28.ii.02>A<CarFund>
-#626.64-	#D<28.ii.02>A<Hols>C<Mx hols cost Â£1,050 pa>
+#626.64-	#D<28.ii.02>A<Hols>C<Mx hols cost £1,050 pa>
 #54+	#D<28.ii.02>A<Alex>
 #76+	#D<28.ii.02>A<Cleaner>
 #60+	#D<28.ii.02>A<Bills>
@@ -8005,7 +8005,7 @@ oStart: R
 #55.43+	#D<28.ii.02>A<Comp>C<expenses>
 ##
 
-453.13-	#D<28.ii.02>A<Save>C<Woolwich, Hx golden hello, after Â£200 float>X<73>
+453.13-	#D<28.ii.02>A<Save>C<Woolwich, Hx golden hello, after £200 float>X<73>
 40-	#D<1.iii.02>A<Tithe>C<monthly>X<72>
 
 128.25+	#D<29.i.02>A<Hall>C<refund Silverlink 2001>O<M:18>X<73>
@@ -8100,7 +8100,7 @@ oStart: R
 
 2553.38+	#D<28.iii.02>B<>C<Mx wages>X<73>
 #330+	#D<28.iii.02>A<Hall>C<not needed for Open Plan xcess RBSetc>
-#48+	#D<28.iii.02>A<Petrol>C<replace Â£48 cos ho.>
+#48+	#D<28.iii.02>A<Petrol>C<replace £48 cos ho.>
 #216.37+	#D<28.iii.02>A<Garden>C<expenses incl ICAEW>
 #211.72+	#D<28.iii.02>A<Cattsdell>
 #70+	#D<28.iii.02>A<MEntz>
@@ -8939,7 +8939,7 @@ oStart: R
 12.36-	#D<29.xi.02>A<CarFund>C<stamps xmas>O<M:28>X<82>
 17.50-	#D<4.xii.02>A<CarFund>C<David presie>X<82>
 
-16.91+	#D<4.xii.02>A<Hall>C<Mx shares>X<82>
+16.91+	#D<4.xii.0>A<Hall>C<Mx shares>X<82>
 5.94-	#D<23.xii.02>A<Hall>C<testers>O<M:28>X<82>
 53.96-	#D<23.xi.02>A<Hall>C<new paint>O<M:28>X<82>
 5.98-	#D<24.xi.02>A<Hall>C<pads etc>O<M:28>X<82>
@@ -8974,7 +8974,7 @@ oStart: R
 43.47-	#D<4.xi.02>A<Entz>C<Dabs ?>O<M:27>X<81>
 
 
-2638.88+	#D<1.xii.02>B<>C<Mx wage and Â£78 exp>X<81>
+2638.88+	#D<1.xii.02>B<>C<Mx wage and £78 exp>X<81>
 #70+	#D<1.xii.02>A<MEntz>
 #40+	#D<1.xii.02>A<HSave>
 #192.67+	#D<1.xii.02>A<Entz>
@@ -9038,7 +9038,7 @@ oStart: R
 114.96-	#D<16.xii.02>A<Hall>C<lights and poles>O<M:28>X<82>
 29.96-	#D<14.xii.02>A<Hall>C<coat hooks>O<M:28>X<82>
 
-34.73-	#D<1.xii.02>A<Food>C<w/e incl Â£3 cards>O<M:28>X<82>
+34.73-	#D<1.xii.02>A<Food>C<w/e incl £3 cards>O<M:28>X<82>
 15.50-	#D<7.xii.02>A<Food>C<cury>O<M:28>X<82>
 20.40-	#D<18.xii.02>A<Food>C<Dom and Debs>O<M:28>X<82>
 11.44-	#D<22.xii.02>A<Food>C<turkey etc>O<M:29>X<83>
@@ -9366,7 +9366,7 @@ oStart: R
 
 30-	#D<4.iv.03>A<Entz>C<stag cash wdwl>X<85>
 
-320-	#D<14.iii.03>A<Entz>C<Adi stag night, Â£280 to be ref>O<M:31>X<86>
+320-	#D<14.iii.03>A<Entz>C<Adi stag night, £280 to be ref>O<M:31>X<86>
 80-	#D<14.iii.03>A<Entz>C<Adi stag night to be ref>O<M:31>X<86>
 
 1274.96-	#D<17.iii.03>A<Save>C<keyboard and accessories>O<M:31>X<86>
@@ -9740,7 +9740,7 @@ oStart: R
 #100+	#D<1.vii.03>A<Cattsdell>
 #60+	#D<1.vii.03>A<Alex>
 #170+	#D<1.vii.03>A<Bills>
-#430+	#D<1.vii.03>A<CarFund>
+#430+	#D<1.vii.0p3>A<CarFund>
 #108.90+	#D<1.vii.03>A<Cleaner>
 #100.75+	#D<1.vii.03>A<Entz>
 #375.16+	#D<1.vii.03>A<Food>
@@ -10040,7 +10040,7 @@ oStart: R
 8.07-	#D<11.x.03>A<Food>C<travel bits>O<G:65>X<93>
 12.98-	#D<7.x.03>A<Food>C<pizza hut>O<M:38>X<93>
 9.69-	#D<15.x.03>A<Lunch>C<E45 lotion>O<G:65>X<93>
-350-	#D<16.x.03>A<Food>C<Mx final lunch drinks cash ref Â£180>X<92>
+350-	#D<16.x.03>A<Food>C<Mx final lunch drinks cash ref £180>X<92>
 
 3.90-	#D<3.x.03>A<Petrol>O<M:38>X<93>
 77-	#D<8.x.03>A<Petrol>C<train Nottingham>O<G:65>X<93>
@@ -10245,7 +10245,7 @@ oStart: R
 14.70-	#D<25.xi.03>A<CarFund>C<Chris books>O<M:40>X<95>
 29.86-	#D<24.xi.03>B<>O<M:40>X<95>
 #15.86-	#D<12.xi.03>A<Comp>C<Mac OS X Panther Ed>
-#14-	#D<7.xii.03>A<CarFund>C<Hannah and Reb>
+#14-	#D<7.xii.3>A<CarFund>C<Hannah and Reb>
 ##
 20.99-	#D<12.xii.03>A<CarFund>C<Kirsty for D>O<M:40>X<95>
 7.99-	#D<24.xi.03>A<CarFund>C<Tie>O<M:40>X<95>
@@ -10256,13 +10256,13 @@ oStart: R
 
 12-	#D<29.xi.03>A<HSave>C<Mx>O<M:40>X<95>
 69.99-	#D<29.xi.03>A<HSave>C<Mx>O<M:40>X<95>
-16.96-	#D<3.i.04>A<Entz>C<Mxlego>O<M:41>X<96>
+16.96-	#D<3.i.4>A<Entz>C<Mxlego>O<M:41>X<96>
 19.99-	#D<5.xii.03>A<HSave>C<101DVD>O<M:40>X<95>
 15-	#D<29.xi.03>A<HSave>C<pingu>O<M:40>X<95>
 14.99-	#D<5.xii.03>A<HSave>C<CD>O<M:40>X<95>
 14.60-	#D<26.xii.03>A<Entz>O<M:40>X<95>
 12.60-	#D<28.xii.03>A<Entz>C<cinema>O<M:41>X<96>
-14.80-	#D<20.xii.03>A<Entz>C<Master and Commander>O<M:41>X<96>
+14.80-	#D<20.xii.0>A<Entz>C<Master and Commander>O<M:41>X<96>
 24-	#D<17.ii.03>A<HSave>C<tuner>O<M:40>X<95>
 9.95-	#D<8.xii.03>A<HSave>C<jigsaw>O<M:40>X<95>
 94.49-	#D<8.xii.03>A<HSave>C<ATAT>O<M:40>X<95>
@@ -10397,7 +10397,7 @@ oStart: R
 210-	#D<12.xii.03>A<CarFund>C<CIOT to be ref>O<M:40>X<95>
 215-	#D<12.xii.03>A<CarFund>C<ICAEWto be ref>O<M:40>X<95>
 35-	#D<26.i.04>A<CarFund>C<Col and Joe>O<M:42>X<97>
-35-	#D<4.ii.04>A<CarFund>C<Cameracasndbinocs>O<M:42>X<97>
+35-	#D<4.ii.4>A<CarFund>C<Cameracasndbinocs>O<M:42>X<97>
 24.99-	#D<22.i.04>A<CarFund>C<SoF 3>O<M:42>X<97>
 75.53-	#D<18.i.04>A<CarFund>C<Buffy DVDs>X<95>
 51.75-	#D<7.ii.04>B<>O<M:42>X<97>
@@ -10627,7 +10627,7 @@ oStart: R
 9.70-	#D<31.iii.04>A<Bills>C<F1 Racing>X<97>
 
 2352.64-	#D<27.ii.04>A<Bills>C<Ritz$3940.76,$206.13 pers,All>O<A:1>X<97>
-2112.09+	#D<17.iii.04>A<Bills>C<refund from GS missing Â£250>X<97>
+2112.09+	#D<17.iii.04>A<Bills>C<refund from GS missing £250>X<97>
 1.10-	#D<21.ii.04>A<Petrol>C<$2 Mx metro>O<M:43>X<98>
 0-	#D<29.ii.04>B<>X<97>
 #100-	#D<29.ii.04>A<Hols>
@@ -10768,7 +10768,7 @@ oStart: R
 #70+	#D<1.v.04>A<MEntz>
 #50+	#D<1.v.04>A<HSave>
 #80+	#D<1.v.04>A<Entz>
-#125+	#D<1.v.04>A<Cattsdell>C<tax Â£12, Cats Â£13,Cattsdell Â£100>
+#125+	#D<1.v.04>A<Cattsdell>C<tax £12, Cats £13,Cattsdell £100>
 #72+	#D<1.v.04>A<Cats>
 #30+	#D<1.v.04>A<Petrol>
 #100+	#D<1.v.04>A<QFood>
@@ -10906,7 +10906,7 @@ oStart: R
 46-	#D<3.vi.04>A<Hols>C<dinner $82>O<M:46>X<101>
 70.06-	#D<6.vi.04>A<Hols>C<gifts etc $124.91>O<M:46>X<101>
 67.88-	#D<6.vi.04>A<CarFund>C<presents $121.01>O<M:46>X<101>
-43.21-	#D<7.vi.04>A<CarFund>C<presents $76.92>O<M:46>X<101>
+43.21-	#D<7.vi.4>A<CarFund>C<presents $76.92>O<M:46>X<101>
 8.94-	#D<7.vi.04>A<Hols>C<gifts $15.89>O<M:46>X<101>
 5.93-	#D<7.vi.04>A<Hols>C<gifts $10.60>O<M:46>X<101>
 13.77-	#D<7.vi.04>A<Hols>C<petrol $24.53>O<M:46>X<101>
@@ -10928,7 +10928,7 @@ oStart: R
 
 439-	#D<14.vi.04>A<Cattsdell>C<new washing machine>O<M:46>X<101>
 
-2860.01+	#D<1.vi.04>B<>C<Mx>X<99>
+2860.46+	#D<1.vi.04>B<>C<Mx>X<99>
 #70+	#D<1.vi.04>A<MEntz>
 #40+	#D<1.vi.04>A<Tithe>
 #1400+	#D<1.vi.04>A<Save>C<DDs>
@@ -10937,7 +10937,7 @@ oStart: R
 #50+	#D<1.vi.04>A<Cats>
 #177.82+	#D<1.vi.04>A<Petrol>
 #62.18+	#D<1.vi.04>A<QFood>
-#114.05+	#D<1.vi.04>A<Lunch>
+#114.5+	#D<1.vi.04>A<Lunch>
 #186.05+	#D<1.vi.04>A<Food>
 #80+	#D<1.vi.04>A<Cattsdell>C<swap with savings DD 5.5mths>
 #50+	#D<1.vi.04>A<Bills>
@@ -10949,7 +10949,7 @@ oStart: R
 #0.46+	#D<1.vi.04>A<Save>
 #31+	#D<1.vi.04>A<Alex>C<re-direct from petrol>
 #66.65+	#D<1.vi.04>A<Bills>C<re-direct from petrol>
-#97.65-	#D<1.vi.04>A<Petrol>
+#97.65-	#D<1.vi.0>A<Petrol>
 #120.59+	#D<1.vi.04>A<Hall>C<tfr save>
 #120.59-	#D<1.vi.04>A<Save>
 ##
@@ -11021,7 +11021,7 @@ oStart: R
 1275-	#D<1.vii.04>A<Save>C<Open Plam>X<100>
 125-	#D<1.vii.04>A<Save>C<Savings>X<100>
 40-	#D<1.vii.04>A<Tithe>X<100>
-70-	#D<1.vii.04>A<MEntz>X<100>
+70-	#D<1.vii.4>A<MEntz>X<100>
 
 58.97-	#D<15.vii.04>A<HSave>C<Play>O<M:47>X<102>
 
@@ -11084,7 +11084,7 @@ oStart: R
 ##
 
 35.25-	#D<16.vii.04>A<Cleaner>X<101>
-35.25-	#D<30.vii.04>A<Cleaner>X<101>
+35.25-	#D<30.vii.4>A<Cleaner>X<101>
 
 39.78-	#D<2.vii.04>A<CarFund>C<Dad P pressies>X<101>
 20-	#D<16.vii.04>A<CarFund>C<Hannah>O<M:47>X<102>
@@ -11193,7 +11193,7 @@ oStart: R
 22.69-	#D<3.ix.04>A<Petrol>O<M:49>X<104>
 
 50-	#D<23.viii.04>B<>X<102>
-#40-	#D<23.viii.04>A<Hols>C<Â£40for dollars>
+#40-	#D<23.viii.04>A<Hols>C<£40for dollars>
 #10-	#D<23.viii.04>A<Food>
 ##
 24.96-	#D<25.viii.04>A<Hols>C<N books>O<M:49>X<104>
@@ -11650,7 +11650,7 @@ oStart: R
 6-	#D<17.xii.04>A<Food>C<Mx moisturiser>O<M:52>X<107>
 6.92-	#D<1.i.05>A<Food>O<M:53>X<108>
 29.46-	#D<29.xii.04>A<Food>O<M:53>X<108>
-62.15-	#D<27.xii.04>A<Food>C<Mogul with Fletch Â£30 ref>O<M:53>X<108>
+62.15-	#D<27.xii.04>A<Food>C<Mogul with Fletch £30 ref>O<M:53>X<108>
 14.27-	#D<31.xii.04>A<Food>C<M&S duck 1>O<M:53>X<108>
 7.99-	#D<31.xii.04>A<Food>C<M&S duck 2>O<M:53>X<108>
 42.56-	#D<1.i.05>A<Food>O<M:53>X<108>
@@ -11724,7 +11724,7 @@ oStart: R
 #99.10-	#D<20.i.05>A<Entz>C<Buffy and Angel $179.20 owed to Mx>
 #362.21+	#D<20.ii.05>A<MEntz>C<refund>
 ##
-450-	#D<21.ii.05>A<MEntz>C<refund above plus Â£100 buffer>X<108>
+450-	#D<21.ii.05>A<MEntz>C<refund above plus £100 buffer>X<108>
 
 179.61-	#D<21.i.05>A<Save>C<ipod for Jie owed to Mx and from Adi>O<M:54>X<109>
 
@@ -11759,13 +11759,13 @@ oStart: R
 #180+	#D<1.ii.05>A<Petrol>C<M and H no train payment>
 #108.76+	#D<1.ii.05>A<MEntz>C<supplement>
 #46.37+	#D<1.ii.05>A<Cats>C<supplement>
-#12+	#D<1.ii.05>A<Hair>C<supplement>
+#12+	#D<1.ii.5>A<Hair>C<supplement>
 #72.87+	#D<1.ii.05>A<Food>C<supplement>
 ##
 
 1450-	#D<1.ii.05>A<Save>C<Open Plan>X<107>
 70-	#D<1.ii.05>A<MEntz>X<107>
-40-	#D<1.ii.05>A<Tithe>X<107>
+40-	#D<1.ii.0>A<Tithe>X<107>
 
 30-	#D<28.i.05>A<Lunch>X<107>
 40-	#D<2.ii.05>A<Lunch>C<cash wdwl>X<107>
@@ -12709,7 +12709,7 @@ oStart: R
 #50-	#D<1.x.05>A<QFood>
 #123+	#D<1.x.05>A<Petrol>
 #103.41+	#D<1.x.05>A<Lunch>
-#71.22+	#D<1.x.05>A<Bills>
+#71.22+	#D<1.x.5>A<Bills>
 #159.59+	#D<1.x.05>A<Alex>
 #310+	#D<1.x.05>A<Hols>
 #171+	#D<1.x.05>A<CarFund>
@@ -12730,7 +12730,7 @@ oStart: R
 68+	#D<27.ix.05>A<ChBen>X<115>
 100-	#D<26.ix.05>A<ChBen>X<115>
 
-60-	#D<4.x.05>A<Save>C<Cover drop in Hx pay Sept,cash wdwl Â£5 extra>X<116>
+60-	#D<4.x.05>A<Save>C<Cover drop in Hx pay Sept,cash wdwl £5 extra>X<116>
 139.41-	#D<8.x.05>A<Save>C<TG foodshop Sainsburys>O<A:2>X<116>
 50-	#D<9.x.05>A<Save>C<TG hall hire>X<117>
 
@@ -13036,7 +13036,7 @@ oStart: R
 
 100-	#D<31.xii.05>A<Glasses>C<dep Mxnew lenses>O<A:5>X<119>
 
-8.49-	#D<31.xii.05>A<HSave>C<Mx>O<M:65>X<120>
+8.49-	#D<31.xi.05>A<HSave>C<Mx>O<M:65>X<120>
 
 40-	#D<2.xii.05>B<>C<cash wdwl>X<117>
 #20-	#D<2.xii.05>A<Food>C<Mx Wed out>
@@ -13250,7 +13250,7 @@ oStart: R
 
 38.86-	#D<7.ii.06>A<Gifts>C<3 babies start of gift>O<M:67>X<122>
 11.38-	#D<9.ii.06>A<Gifts>C<George Hawes>O<A:7>X<121>
-9.50-	#D<16.ii.06>A<Gifts>C<Giraffe for George>O<A:7>X<121>
+9.50-	#D<16/2/06>A<Gifts>C<Giraffe for George>O<A:7>X<121>
 
 3.99-	#D<9.ii.06>A<HSave>X<120>
 51.50-	#D<9.ii.06>A<Entz>C<Sportspass>O<M:66>X<121>
@@ -13431,7 +13431,7 @@ oStart: R
 1570-	#D<1.iv.06>A<Save>X<121>
 70-	#D<1.iv.06>A<MEntz>X<121>
 
-175-	#D<30.iii.06>A<CarFund>C<Talia tax>X<121>
+175-	#D<30.ii.06>A<CarFund>C<Talia tax>X<121>
 
 74.98-	#D<30.iii.06>A<Bills>C<Zen>O<M:68>X<123>
 
@@ -13452,7 +13452,7 @@ oStart: R
 12-	#D<7.iv.06>A<Cleaner>C<windows>X<122>
 
 26.94-	#D<3.iv.06>A<Hall>C<fence panel>O<M:68>X<123>
-11.99-	#D<3.iv.06>A<Hall>C<paint or arbor>O<A:8>X<122>
+11.99-	#D<3.iv.6>A<Hall>C<paint or arbor>O<A:8>X<122>
 
 30-	#D<30.iii.06>A<Childcare>C<cashwdwl>X<121>
 
@@ -13639,7 +13639,7 @@ oStart: R
 
 4120+	#D<11.v.06>B<>C<ISA and OP re CT>X<123>
 #3800+	#D<11.v.06>A<Save>C<For mortgage>
-#320+	#D<11.v.06>A<Hols>C<sbe Â£420 to be correctde>
+#320+	#D<11.v.06>A<Hols>C<sbe £420 to be correctde>
 ##
 
 116.50-	#D<17.v.06>A<Clothes>C<LandsEnd>O<A:10>X<124>
@@ -13765,7 +13765,7 @@ oStart: R
 13.40-	#D<13.vi.06>A<Train>O<A:11>X<125>
 13.40-	#D<15.vi.06>A<Train>O<A:11>X<125>
 40.20-	#D<15.vi.06>A<Train>O<A:11>X<125>
-48.47-	#D<28.vi.06>A<Petrol>O<A:11>X<125>
+48.47-	#D<28.vi.6>A<Petrol>O<A:11>X<125>
 53.60-	#D<22.vi.06>A<Train>O<A:11>X<125>
 
 23.11-	#D<3.vi.06>A<Food>C<Asda>O<A:10>X<124>
@@ -14158,7 +14158,7 @@ oStart: R
 
 100-	#D<3.ix.06>B<>C<cash>X<126>
 #40-	#D<3.ix.06>A<Childcare>
-#30-	#D<3.ix.06>A<Cleaner>
+#30-	#D<3.ix..06>A<Cleaner>
 #30-	#D<3.ix.06>A<Lunch>
 ##
 
@@ -14663,7 +14663,7 @@ oStart: R
 #140+	#D<1.i.07>A<CarFund>
 #25+	#D<1.i.07>A<Hedge>
 #90+	#D<1.i.07>A<Clothes>
-#17+	#D<1.i.07>A<Glasses>
+#17+	#D<1.i.0>A<Glasses>
 #12+	#D<1.i.07>A<Hair>
 #45+	#D<1.i.07>A<Xmas>
 #55+	#D<1.i.07>A<Gifts>
@@ -14804,7 +14804,7 @@ oStart: R
 19.21-	#D<27.i.07>A<Hols>C<$36.84 airport restaurant>O<A:18>X<132>
 13.03-	#D<25.i.07>A<Hols>C<$24.99 Cracker Barrel>O<A:18>X<132>
 22.43-	#D<24.i.07>A<Hols>C<$43 KSC cafe>O<A:18>X<132>
-70.94-	#D<24.i.07>A<Hols>C<Â£136 KSC trip>O<A:18>X<132>
+70.94-	#D<24.i.07>A<Hols>C<£136 KSC trip>O<A:18>X<132>
 34.65-	#D<23.i.07>A<Hols>C<$67.02 breakfast RF cafe>O<A:18>X<132>
 20.16-	#D<23.i.07>A<Hols>C<$39 RF cafe dinner>O<A:18>X<132>
 278.30-	#D<22.i.07>A<Hols>C<Disney 5 day passes $534.64>O<A:18>X<132>
@@ -14915,7 +14915,7 @@ oStart: R
 #8.80-	#D<17.ii.07>A<Food>C<aprons>O<A:20>X<134>
 #15.20-	#D<17.ii.07>A<Gifts>C<Abi craft>O<A:20>X<134>
 ##
-131.48-	#D<19.ii.07>A<Gifts>C<theatre M&D MP Â£75.98, SoM Â£55.50>O<M:88>X<134>
+131.48-	#D<19.ii.07>A<Gifts>C<theatre M&D MP £75.98, SoM £55.50>O<M:88>X<134>
 
 30.99-	#D<18.ii.07>A<Clothes>C<Ebay>O<M:87>X<133>
 30.99+	#D<1.iii.07>A<Clothes>C<Refund lost cosytoe>O<M:88>X<134>
@@ -15022,7 +15022,7 @@ oStart: R
 130-	#D<28.iii.07>B<>C<Cash>X<133>
 #60-	#D<28.iii.07>A<Childcare>C<wc 2 April>
 #30-	#D<28.iii.07>A<Cleaner>C<wc 2 April>
-#40-	#D<28.iii.07>A<Food>
+#40-	#D<28.iii..07>A<Food>
 ##
 
 2.44+	#D<5.iii.07>A<Food>C<interest>X<132>
@@ -15075,7 +15075,7 @@ oStart: R
 #42+	#D<1.iv.07>A<Bills>
 #140+	#D<1.iv.07>A<Cleaner>
 #270+	#D<1.iv.07>A<Childcare>
-#40+	#D<1.iv.07>A<MDCC>
+#40+	#D<1.iv.0.7>A<MDCC>
 #60+	#D<1.iv.07>A<Alex>
 #10+	#D<1.iv.07>A<RAC>
 #65+	#D<1.iv.07>A<Sophia>
@@ -15220,7 +15220,7 @@ oStart: R
 #25+	#D<1.v.07>A<Bills>
 #140+	#D<1.v.07>A<Cleaner>
 #270+	#D<1.v.07>A<Childcare>
-#40+	#D<1.v.07>A<MDCC>
+#40+	#D<1.v.0.7>A<MDCC>
 #60+	#D<1.v.07>A<Alex>
 #10+	#D<1.v.07>A<RAC>
 #65+	#D<1.v.07>A<Sophia>
@@ -15346,7 +15346,7 @@ oStart: R
 #42+	#D<1.iv.07>A<Bills>
 #140+	#D<1.iv.07>A<Cleaner>
 #270+	#D<1.iv.07>A<Childcare>
-#40+	#D<1.iv.07>A<MDCC>
+#40+	#D<1.iv.0.7>A<MDCC>
 #60+	#D<1.iv.07>A<Alex>
 #10+	#D<1.iv.07>A<RAC>
 #65+	#D<1.iv.07>A<Sophia>
@@ -15406,7 +15406,7 @@ oStart: R
 25-	#D<30.v.07>A<Save>C<Sachin contra in OP>O<A:22>X<136>
 
 14-	#D<4.vi.07>A<Train>O<A:22>X<136>
-14-	#D<31.v.07>A<Train>O<A:22>X<136>
+14-	#D<31.vi.07>A<Train>O<A:22>X<136>
 14-	#D<7.vi.07>A<Train>O<A:22>X<136>
 
 48.37-	#D<4.vi.07>A<Petrol>O<A:22>X<136>
@@ -15484,7 +15484,7 @@ oStart: R
 1416-	#D<26.vi.07>A<Save>C<Wills etc>X<137>
 
 9500+	#D<21.vi.07>B<>C<Transfer from OP>X<136>
-#4000+	#D<21.vi.07>A<Hols>C<Hx Bonus part of Â£7.5k>
+#4000+	#D<21.vi.07>A<Hols>C<Hx Bonus part of £7.5k>
 #5500+	#D<21.vi.07>A<Save>
 ##
 
@@ -15604,7 +15604,7 @@ oStart: R
 140-	#D<2.vii.07>B<>C<cash>X<136>
 #60-	#D<2.vii.07>A<Childcare>C<wc 9 July>
 #30-	#D<2.vii.07>A<Cleaner>C<wc 9 July>
-#50-	#D<2.vii.07>A<Food>C<incl Mx Â£40>
+#50-	#D<2.vii.07>A<Food>C<incl Mx £40>
 ##
 80-	#D<4.vii.07>B<>C<cash>X<136>
 #20-	#D<4.vii.07>A<Lunch>
@@ -15735,7 +15735,7 @@ oStart: R
 19.99-	#D<17.viii.07>A<Hols>C<bag Argos>O<A:25>X<139>
 39.99-	#D<26.viii.07>A<Hols>C<suitcase>O<A:25>X<139>
 
-1300-	#D<7.viii.07>A<Save>C<1 Aug error in tfr plus Â£300 cons and gap>X<138>
+1300-	#D<7.viii.07>A<Save>C<1 Aug error in tfr plus £300 cons and gap>X<138>
 
 120-	#D<5.viii.07>B<>C<cash>X<138>
 #100-	#D<5.viii.07>A<Save>C<Cons>
@@ -15905,7 +15905,7 @@ oStart: R
 18.50-	#D<24.ix.07>A<Glasses>C<eyetest>O<M:94>X<140>
 
 14-	#D<24.ix.07>A<Train>O<A:26>X<140>
-7.70-	#D<21.ix.07>A<Train>O<A:26>X<140>
+7.70-	#D<21.ix..07>A<Train>O<A:26>X<140>
 9.80-	#D<20.ix.07>A<Train>O<A:26>X<140>
 14-	#D<19.ix.07>A<Train>O<A:26>X<140>
 
@@ -16157,7 +16157,7 @@ oStart: R
 15.96-	#D<31.x.07>A<Gifts>C<BFC books in error for Woody>X<141>
 14.78-	#D<3.xi.07>A<Gifts>C<Joseph Toysrus>O<A:27>X<141>
 88.37-	#D<9.xi.07>B<>C<Amazon>O<A:28>X<142>
-#50-	#D<9.xi.07>A<Save>C<Hoover after Â£50 voucher>O<A:28>X<142>
+#50-	#D<9.xi.07>A<Save>C<Hoover after £50 voucher>O<A:28>X<142>
 #13.37-	#D<9.xi.07>A<Xmas>C<Chris bday, Paul bday and xmas>O<A:28>X<142>
 #25-	#D<9.xi.07>A<Gifts>O<A:28>X<142>
 ##
@@ -16201,21 +16201,21 @@ oStart: R
 
 39.58-	#D<2.xi.07>A<Food>O<A:27>X<141>
 35.54-	#D<3.xi.07>A<Food>C<Fireworks night>O<A:27>X<141>
-59.99-	#D<7.xi.07>A<Food>C<incl Â£8.50 Chris xmas>O<A:27>X<141>
+59.99-	#D<7.xi.07>A<Food>C<incl £8.50 Chris xmas>O<A:27>X<141>
 33.87-	#D<12.xi.07>B<>C<Tesco>O<A:28>X<142>
 #8-	#D<12.xi.07>A<Clothes>C< Abi pants and tights>O<A:28>X<142>
 #15-	#D<12.xi.07>A<Xmas>C<Peter DVD>O<A:28>X<142>
 #10.87-	#D<12.xi.07>A<Food>O<A:28>X<142>
 ##
-18.78-	#D<16.xi.07>A<Food>C<Mx curry etc incl Â£3.80 Abi crackers>O<A:28>X<142>
-91-	#D<14.xi.07>A<Food>C<Incl Â£6.50 Xmas crackers>O<A:28>X<142>
+18.78-	#D<16.xi.07>A<Food>C<Mx curry etc incl £3.80 Abi crackers>O<A:28>X<142>
+91-	#D<14.xi.07>A<Food>C<Incl £6.50 Xmas crackers>O<A:28>X<142>
 179.47-	#D<22.xi.07>B<>C<Sainsburys>O<A:28>X<142>
 #100-	#D<22.xi.07>A<Tithe>C<Asimbas>O<A:28>X<142>
 #79.47-	#D<22.xi.07>A<Food>O<A:28>X<142>
 ##
 20-	#D<26.xi.07>A<Food>C<Mx GS account>O<M:96>X<142>
 13.47-	#D<27.xi.07>A<Food>C<potette liners and toothbruch heads>O<A:28>X<142>
-126.76-	#D<6.xii.07>A<Food>C<incl Â£12 xmas>O<A:28>X<142>
+126.76-	#D<6.xii.07>A<Food>C<incl £12 xmas>O<A:28>X<142>
 
 44.72-	#D<29.x.07>A<Petrol>O<A:27>X<141>
 30.43-	#D<24.x.07>A<Petrol>O<A:27>X<141>
@@ -16230,7 +16230,7 @@ oStart: R
 14-	#D<6.xii.07>A<Train>O<A:28>X<142>
 19-	#D<30.xi.07>A<Train>C<Disney>O<A:28>X<142>
 
-50-	#D<5.xi.07>B<>C<cash>X<140>
+50-	#D<5.xi..07>B<>C<cash>X<140>
 #30-	#D<5.xi.07>A<Cleaner>
 #20-	#D<5.xi.07>A<Lunch>
 ##
@@ -16245,7 +16245,7 @@ oStart: R
 
 30-	#D<8.xi.07>A<Cleaner>C<3 mths windows cheque>X<141>
 
-40-	#D<13.xi.07>A<Train>C<Â£35 Oyster Hx>X<141>
+40-	#D<13.xi.07>A<Train>C<£35 Oyster Hx>X<141>
 14-	#D<15.xi.07>A<Train>O<A:28>X<142>
 14-	#D<21.xi.07>A<Train>O<A:28>X<142>
 14-	#D<26.xi.07>A<Train>O<A:28>X<142>
@@ -16395,7 +16395,7 @@ oStart: R
 29.44-	#D<14.xii.07>A<Food>C<Carol service>O<A:29>X<143>
 37.15-	#D<16.xii.07>A<Food>C<Bridgewater Arms aniv>O<A:29>X<143>
 
-250-	#D<14.xii.07>A<Childcare>C<Xmas Â£200 + Â£50 toward 3 wc 17 D Â£170>X<142>
+250-	#D<14.xii.07>A<Childcare>C<Xmas £200 + £50 toward 3 wc 17 D £170>X<142>
 250-	#D<13.xii.07>B<>C<cash wdwl>X<142>
 #120-	#D<13.xii.07>A<Childcare>C<rest of cash for Gonne 2 wc 17 Dec>
 #50-	#D<13.xii.07>A<Cleaner>C<Anna xmas>
@@ -16480,7 +16480,7 @@ oStart: R
 44.68-	#D<6.i.07>A<Petrol>O<A:29>X<143>
 14.70-	#D<21.i.08>A<Train>O<A:30>X<144>
 14.70-	#D<16.i.08>A<Train>O<A:30>X<144>
-10.10-	#D<15.i.08>A<Train>O<A:30>X<144>
+10.10-	#D<15.i..08>A<Train>O<A:30>X<144>
 
 58.85-	#D<22.xii.07>B<>C<Paper Mill lunch>O<A:29>X<143>
 #40-	#D<22.xii.07>A<Lunch>C<cash from D&M>
@@ -16513,7 +16513,7 @@ oStart: R
 118-	#D<29.xii.07>A<HSave>C<Lego Mx>O<M:97>X<143>
 
 50-	#D<5.i.07>B<>C<cash wdwl>X<143>
-#44-	#D<5.i.07>A<Childcare>C<wc 7 Jan 2008>
+#44-	#D<5..i.07>A<Childcare>C<wc 7 Jan 2008>
 #6-	#D<5.i.07>A<Lunch>
 ##
 
@@ -17031,7 +17031,7 @@ oStart: R
 15-	#D<18.iv.08>A<Bills>C<annual return>O<A:33>X<147>
 
 237.95-	#D<30.iv.08>A<Talia>C<rest service and MOT excl tyres>X<146>
-200-	#D<30.iv.08>A<Tyres>C<2 tyres Â£89 plus VAT for Talia>X<146>
+200-	#D<30.iv.08>A<Tyres>C<2 tyres £89 plus VAT for Talia>X<146>
 
 17-	#D<19.iv.08>A<Save>C<NCT baby>X<146>
 0-	#D<19.iv.08>B<>X<147>
@@ -17139,7 +17139,7 @@ oStart: R
 70-	#D<8.v.08>B<>C<cash>X<147>
 #20-	#D<8.v.08>A<Train>C<Mx Oyster>
 #6-	#D<8.v.08>A<Clothes>C<Xander hat>
-#44-	#D<8.v.08>A<Lunch>C<incl Â£20 for Mx>
+#44-	#D<8.v.08>A<Lunch>C<incl £20 for Mx>
 ##
 
 15-	#D<6.v.08>A<Clothes>C<Hx glasses>O<A:33>X<147>
@@ -18492,7 +18492,7 @@ oStart: R
 
 50-	#D<31.i.09>B<>C<cash>X<155>
 #20-	#D<31.i.09>A<Train>C<Mx tube>
-#4-	#D<31.i.09>A<Gifts>C<wrap>
+#4-	#D<31.i.09A>A<Gifts>C<wrap>
 #26-	#D<31.i.09>A<Lunch>
 ##
 
@@ -18792,7 +18792,7 @@ oStart: R
 850-	#D<1.iv.09>A<Save>C<RBS>X<157>
 
 19.34-	#D<2.iv.09>A<Food>O<S:3>X<158>
-3.40-	#D<2.iv.09>A<Food>O<M:113>X<159>
+3.40-	#D<2.iv.0.9>A<Food>O<M:113>X<159>
 5.30-	#D<17.iv.09>A<Food>O<M:113>X<159>
 4.21-	#D<26.iii.09>A<Food>O<A:44>X<158>
 6.95-	#D<24.iii.09>A<Food>O<A:44>X<158>
@@ -20323,7 +20323,7 @@ oStart: R
 #7.50-	#D<30.xii.09>A<ClothesH>C<boots>
 #5-	#D<29.xii.09>A<Entz>C<Abi sticker hol book, crackers>
 #5-	#D<30.xii.09>A<Cleaner>C<rest of 5 Jan>
-#8.50-	#D<29.xii.09>A<Food>C<?>
+#8.5-	#D<29.xii.09>A<Food>C<?>
 ##
 
 28-	#D<29.xii.09>A<Clothes>C<boots>O<A:53>X<167>
@@ -23972,7 +23972,7 @@ oStart: R
 48.50-	#D<30.iv.11>A<Cattsdell>C<lunch M&D>O<S:14>X<183>
 17.65-	#D<30.iv.11>A<Cattsdell>C<lunch M&D>O<S:14>X<183>
 
-2.50+	#D<30.iv.11>A<ClothesX>C<ref thomas suit>O<S:14>X<183>
+2.50+	#D<30.iv.111>A<ClothesX>C<ref thomas suit>O<S:14>X<183>
 
 53.50-	#D<30.iv.11>B<>C<Clothes>O<A:69>X<183>
 #3.50+	#D<30.iv.11>A<ClothesM>C<Mx net trouser, belt ref>O<A:69>X<183>
@@ -26689,7 +26689,7 @@ oStart: R
 #33+				   #D<1.iv.12>A<XFam>
 #25+				   #D<1.iv.12>A<Xmas>
 #280+				   #D<1.iv.12>A<Save>C<Halifax>
-#2340+			   #D<1.iv.12>A<Mtge>C<less Â£480 comp for HDD>
+#2340+			   #D<1.iv.12>A<Mtge>C<less £480 comp for HDD>
 ##
 
 70-	#D<1.iv.12>A<MEntz>X<193>
@@ -26928,7 +26928,7 @@ oStart: R
 #33+				   #D<1.v.12>A<XFam>
 #25+				   #D<1.v.12>A<Xmas>
 #280+				   #D<1.v.12>A<Save>C<Halifax>
-#2700+			   #D<1.v.12>A<Mtge>C<less Â£480 comp for HDD>
+#2700+			   #D<1.v.12>A<Mtge>C<less £480 comp for HDD>
 ##
 
 70-	#D<1.v.12>A<MEntz>X<194>
@@ -27201,7 +27201,7 @@ oStart: R
 #33+				   #D<1.vi.12>A<XFam>
 #25+				   #D<1.vi.12>A<Xmas>
 #280+				   #D<1.vi.12>A<Save>C<Halifax>
-#2700+			   #D<1.vi.12>A<Mtge>C<less Â£480 comp for HDD>
+#2700+			   #D<1.vi.12>A<Mtge>C<less £480 comp for HDD>
 ##
 
 70-	#D<1.vi.12>A<MEntz>X<195>
@@ -27436,7 +27436,7 @@ oStart: R
 #33+				   #D<1.vii.12>A<XFam>
 #25+				   #D<1.vii.12>A<Xmas>
 #280+				   #D<1.vii.12>A<Save>C<Halifax>
-#2765+			   #D<1.vii.12>A<Mtge>C<less Â£480 comp for HDD>
+#2765+			   #D<1.vii.12>A<Mtge>C<less £480 comp for HDD>
 ##
 
 
@@ -28203,7 +28203,7 @@ oStart: R
 110.83-	#D<11.x.12>A<Food>C<Tesco>O<A:86>X<200>
 
 9.88-	#D<11.x.12>A<Food>C<11+ practise tests>O<A:86>X<200>
-0-	#D<10.x.12>B<>X<199>
+0-	#D<10.x.12.>B<>X<199>
 #15.30-	#D<10.x.12>A<Food>C<Mx prescriptions>
 #15.30+	#D<10.x.12>A<MEntz>
 ##
@@ -29517,7 +29517,7 @@ oStart: R
 52.99-	#D<26.ii.13>A<Baby>C<cot mattress>O<A:91>X<205>
 
 2000-	#D<8.i.13>A<Mtge>C<Transfer to 123 account pre closure Hal>X<202>
-3300+	#D<15.ii.13>A<Mtge>C<Halifax bal incl kids xmas 2012 Â£610 int>X<204>
+3300+	#D<15.ii.13>A<Mtge>C<Halifax bal incl kids xmas 2012 £610 int>X<204>
 380-	#D<28.ii.13>A<Mtge>C<Harpenden BS equiv JJ, top up X + virgin>X<205>
 
 4028.75+	#D<15.ii.13>B<>C<RBS tfr>X<204>
@@ -30491,7 +30491,7 @@ oStart: R
 
 20-	#D<24.vi.13>A<Cleaner>C<Cash for windows>X<208>
 
-4-	#D<25.vi.13>A<Entz>C<Mx O reilly book Â£5.99>O<A:95>X<209>
+4-	#D<25.vi.13>A<Entz>C<Mx O reilly book £5.99>O<A:95>X<209>
 26.21-	#D<30.vi.13>A<Entz>C<Mx Autosport renewal $40>O<S:40>X<209>
 
 24.50-	#D<27.vi.13>A<Childcare>C<breakfast club>X<208>
@@ -30674,7 +30674,7 @@ oStart: R
 
 5000+	#D<12.vii.13>A<Cattsdell>C<transfer from RBS>X<209>
 
-28.74-	#D<11.vii.13>A<Entz>C<Bengal Tiger with Ali Â£15 cash>O<A:95>X<209>
+28.74-	#D<11.vii.13>A<Entz>C<Bengal Tiger with Ali £15 cash>O<A:95>X<209>
 
 43.72-	#D<13.vii.13>A<Mtge>C<printer bit etc>O<A:95>X<209>
 5.80-	#D<15.vii.13>A<Mtge>C<? printer>O<A:95>X<209>
@@ -31139,7 +31139,7 @@ oStart: R
 
 223.70-	#D<20.ix.13>B<>C<Food, FOLGS, Lizzie Becca>O<A:98>X<212>
 #40-	#D<20.ix.13>A<Tithe>C<Lizzie, Becca>O<A:98>X<212>
-#60.67-	#D<20.ix.13>A<Food>C<to be ref from FOLGS>O<A:98>X<212>
+#60.67-	#D<20..ix.13>A<Food>C<to be ref from FOLGS>O<A:98>X<212>
 #123.03-			 #D<20.ix.13>A<Food>O<A:98>X<212>
 ##
 
@@ -32081,7 +32081,7 @@ oStart: R
 291.21-	#D<1.i.14>A<Party>C<BWA>O<S:46>X<215>
 
 0-	#D<1.i.14>B<>C<Cash ref BWA>X<214>
-#282+	#D<1.i.14>A<Party>C<cash after Â£50 tip>
+#282+	#D<1.i.14>A<Party>C<cash after £50 tip>
 #85-	#D<8.i.14>A<Tithe>C<Kathryn petrol etc>
 #40-	#D<8.i.14>A<Lunch>
 #100-	#D<1.i.13>A<Cleaner>C<2+ sessions>
@@ -32113,7 +32113,7 @@ oStart: R
 #15+   #D<1.i.14>A<GAbi>
 #15+   #D<1.i.14>A<GJJ>
 #15+   #D<1.i.14>A<GXan>
-#42.50+   #D<1.i.14>A<GFam>
+#42.5+   #D<1.i.14>A<GFam>
 #10+   #D<1.i.14>A<GRob>
 #5+   #D<1.i.14>A<Gifts>
 #15+  #D<1.i.14>A<Glasses>
@@ -32137,7 +32137,7 @@ oStart: R
 #70+	#D<1.i.14>A<TSBase>
 #100+	#D<1.i.14>A<TSFli>
 #50+   #D<1.i.14>A<Tithe>
-#330+   #D<1.i.14>A<Train>C<add Â£230 1 Feb>
+#330+   #D<1.i.14>A<Train>C<add £230 1 Feb>
 #15+   #D<1.i.14>A<Tyres>
 #17.50+	 #D<1.i.14>A<XAbi>
 #17.50+	 #D<1.i.14>A<XJJ>
@@ -32146,7 +32146,7 @@ oStart: R
 #5+   #D<1.i.14>A<XCards>
 #42.50+   #D<1.i.14>A<XFam>
 #30+	#D<1.i.14>A<Xmas>
-#2240+	#D<1.i.14>A<Save>C<123 add Â£700 1 Feb>
+#2240+	#D<1.i.14>A<Save>C<123 add £700 1 Feb>
 #703+	#D<1.i.14>A<Mtge>
 ##
 
@@ -32330,7 +32330,7 @@ oStart: R
 #15+   #D<1.ii.14>A<GAbi>
 #15+   #D<1.ii.14>A<GJJ>
 #15+   #D<1.ii.14>A<GXan>
-#42.50+   #D<1.ii.14>A<GFam>
+#42.5+   #D<1.ii.14>A<GFam>
 #5+   #D<1.ii.14>A<Gifts>
 #15+  #D<1.ii.14>A<Glasses>
 #20+   #D<1.ii.14>A<Guitar>
@@ -32353,7 +32353,7 @@ oStart: R
 #70+	#D<1.ii.14>A<TSBase>
 #100+	#D<1.ii.14>A<TSFli>
 #50+   #D<1.ii.14>A<Tithe>
-#400+   #D<1.ii.14>A<Train>C<Â£560 from 1 Mar>
+#400+   #D<1.ii.14>A<Train>C<£560 from 1 Mar>
 #15+   #D<1.ii.14>A<Tyres>
 #17.50+	 #D<1.ii.14>A<XAbi>
 #17.50+	 #D<1.ii.14>A<XJJ>
@@ -32362,7 +32362,7 @@ oStart: R
 #5+   #D<1.ii.14>A<XCards>
 #42.50+   #D<1.ii.14>A<XFam>
 #30+	#D<1.ii.14>A<Xmas>
-#2940+	#D<1.ii.14>A<Save>C<123 add Â£700 1 Feb>
+#2940+	#D<1.ii.14>A<Save>C<123 add £700 1 Feb>
 #580+	#D<1.ii.14>A<Mtge>
 #3900+	#D<1.ii.14>A<Mtge>C<kids savings 2014 moved in Isa>
 #3103.37+	#D<1.ii.14>A<Tithe>C<Mx bonus>
@@ -32496,7 +32496,7 @@ oStart: R
 37.52-	#D<29.1.14>A<Comp>O<A:102>X<216>
 
 120-	#D<20.ii.14>B<>X<216>
-#80-	#D<20.ii.14>A<Cleaner>
+#80-	#D<20.ii.4>A<Cleaner>
 #40-	#D<20.ii.14>A<Lunch>
 ##
 
@@ -32558,7 +32558,7 @@ oStart: R
 #15+   #D<1.iii.14>A<GAbi>
 #15+   #D<1.iii.14>A<GJJ>
 #15+   #D<1.iii.14>A<GXan>
-#42.50+   #D<1.iii.14>A<GFam>
+#42.5+   #D<1.iii.14>A<GFam>
 #5+   #D<1.iii.14>A<Gifts>
 #15+  #D<1.iii.14>A<Glasses>
 #20+   #D<1.iii.14>A<Guitar>
@@ -32583,7 +32583,7 @@ oStart: R
 #70+	#D<1.iii.14>A<TSBase>
 #100+	#D<1.iii.14>A<TSFli>
 #50+   #D<1.iii.14>A<Tithe>
-#560+   #D<1.iii.14>A<Train>C<Â£560 from 1 Mar>
+#560+   #D<1.iii.14>A<Train>C<£560 from 1 Mar>
 #15+   #D<1.iii.14>A<Tyres>
 #17.50+	 #D<1.iii.14>A<XAbi>
 #17.50+	 #D<1.iii.14>A<XJJ>
@@ -32592,7 +32592,7 @@ oStart: R
 #5+   #D<1.iii.14>A<XCards>
 #42.50+   #D<1.iii.14>A<XFam>
 #30+	#D<1.iii.14>A<Xmas>
-#1365+	#D<1.iii.14>A<Save>C<123 add Â£700 1 Feb>
+#1365+	#D<1.iii.14>A<Save>C<123 add £700 1 Feb>
 #1504+	#D<1.iii.14>A<Mtge>
 ##
 
@@ -32865,7 +32865,7 @@ oStart: R
 ##
 32.99+	#D<11.iv.14>A<BikeServ>O<A:104>X<217>
 
-92.20-	#D<11.iv.14>A<Save>C<LL X bday Easter break>O<A:104>X<217>
+92.20-	#D<11..iv.14>A<Save>C<LL X bday Easter break>O<A:104>X<217>
 44.92-	#D<8.iv.14>A<Party>C<X bday>O<A:104>X<217>
 61.57-	#D<15.iv.14>A<Save>C<PE Hols>O<A:105>X<218>
 
@@ -32940,7 +32940,7 @@ oStart: R
 #15+   #D<1.iv.14>A<GAbi>
 #15+   #D<1.iv.14>A<GJJ>
 #15+   #D<1.iv.14>A<GXan>
-#42.50+   #D<1.iv.14>A<GFam>
+#42.5+   #D<1.iv.14>A<GFam>
 #5+   #D<1.iv.14>A<Gifts>
 #15+  #D<1.iv.14>A<Glasses>
 #20+   #D<1.iv.14>A<Guitar>
@@ -32962,7 +32962,7 @@ oStart: R
 #70+	#D<1.iv.14>A<TSBase>
 #100+	#D<1.iv.14>A<TSFli>
 #50+   #D<1.iv.14>A<Tithe>
-#560+   #D<1.iv.14>A<Train>C<Â£560 from 1 Mar>
+#560+   #D<1.iv.14>A<Train>C<£560 from 1 Mar>
 #15+   #D<1.iv.14>A<Tyres>
 #17.50+	 #D<1.iv.14>A<XAbi>
 #17.50+	 #D<1.iv.14>A<XJJ>
@@ -32971,7 +32971,7 @@ oStart: R
 #5+   #D<1.iv.14>A<XCards>
 #42.50+   #D<1.iv.14>A<XFam>
 #30+	#D<1.iv.14>A<Xmas>
-#1365+	#D<1.iv.14>A<Save>C<123 add Â£700 1 Feb>
+#1365+	#D<1.iv.14>A<Save>C<123 add £700 1 Feb>
 #1575.40+	#D<1.iv.14>A<Mtge>
 ##
 
@@ -33060,7 +33060,7 @@ oStart: R
 #15+   #D<1.v.14>A<GAbi>
 #15+   #D<1.v.14>A<GJJ>
 #15+   #D<1.v.14>A<GXan>
-#42.50+   #D<1.v.14>A<GFam>
+#42.5+   #D<1.v.14>A<GFam>
 #5+   #D<1.v.14>A<Gifts>
 #15+  #D<1.v.14>A<Glasses>
 #20+   #D<1.v.14>A<Guitar>
@@ -33092,7 +33092,7 @@ oStart: R
 #5+   #D<1.v.14>A<XCards>
 #42.50+   #D<1.v.14>A<XFam>
 #30+	#D<1.v.14>A<Xmas>
-#1365+	#D<1.v.14>A<Save>C<123 add Â£700 1 Feb>
+#1365+	#D<1.v.14>A<Save>C<123 add £700 1 Feb>
 #1471.40+	#D<1.v.14>A<Mtge>
 ##
 
@@ -33349,7 +33349,7 @@ oStart: R
 #15+   #D<1.vi.14>A<GAbi>
 #15+   #D<1.vi.14>A<GJJ>
 #15+   #D<1.vi.14>A<GXan>
-#42.50+   #D<1.vi.14>A<GFam>
+#42.5+   #D<1.vi.14>A<GFam>
 #5+   #D<1.vi.14>A<Gifts>
 #15+  #D<1.vi.14>A<Glasses>
 #20+   #D<1.vi.14>A<Guitar>
@@ -33385,7 +33385,7 @@ oStart: R
 #5+   #D<1.vi.14>A<XCards>
 #42.50+   #D<1.vi.14>A<XFam>
 #30+	#D<1.vi.14>A<Xmas>
-#1365+	#D<1.vi.14>A<Save>C<123 add Â£700 1 Feb>
+#1365+	#D<1.vi.14>A<Save>C<123 add £700 1 Feb>
 #1471.40+	#D<1.vi.14>A<Mtge>
 ##
 
@@ -33544,7 +33544,7 @@ oStart: R
 #40-	#D<26.vi.14>A<Lunch>
 ##
 
-15.16-	#D<1.vii.14>A<Food>O<A:107>X<220>
+15.16-	#D<1.vii.14A>A<Food>O<A:107>X<220>
 
 74-				 #D<26.iv.14>A<AnnualSubs>C<TT>X<217>
 74-				 #D<31.v.14>A<AnnualSubs>C<TT>X<219>
@@ -33580,7 +33580,7 @@ oStart: R
 #15+   #D<1.vii.14>A<GAbi>
 #15+   #D<1.vii.14>A<GJJ>
 #15+   #D<1.vii.14>A<GXan>
-#42.50+   #D<1.vii.14>A<GFam>
+#42.5+   #D<1.vii.14>A<GFam>
 #5+   #D<1.vii.14>A<Gifts>
 #15+  #D<1.vii.14>A<Glasses>
 #20+   #D<1.vii.14>A<Guitar>
@@ -33865,7 +33865,7 @@ oStart: R
 #15+   #D<1.viii.14>A<GAbi>
 #15+   #D<1.viii.14>A<GJJ>
 #15+   #D<1.viii.14>A<GXan>
-#42.50+   #D<1.viii.14>A<GFam>
+#42.5+   #D<1.viii.14>A<GFam>
 #5+   #D<1.viii.14>A<Gifts>
 #15+  #D<1.viii.14>A<Glasses>
 #20+   #D<1.viii.14>A<Guitar>
@@ -34124,7 +34124,7 @@ oStart: R
 #15+   #D<1.ix.14>A<GAbi>
 #15+   #D<1.ix.14>A<GJJ>
 #15+   #D<1.ix.14>A<GXan>
-#42.50+   #D<1.ix.14>A<GFam>
+#42.5+   #D<1.ix.14>A<GFam>
 #5+   #D<1.ix.14>A<Gifts>
 #15+  #D<1.ix.14>A<Glasses>
 #20+   #D<1.ix.14>A<Guitar>
@@ -34391,7 +34391,7 @@ oStart: R
 #15+   #D<1.x.14>A<GAbi>
 #15+   #D<1.x.14>A<GJJ>
 #15+   #D<1.x.14>A<GXan>
-#42.50+   #D<1.x.14>A<GFam>
+#42.5+   #D<1.x.14>A<GFam>
 #5+   #D<1.x.14>A<Gifts>
 #15+  #D<1.x.14>A<Glasses>
 #20+   #D<1.x.14>A<Guitar>
@@ -34677,7 +34677,7 @@ oStart: R
 #15+   #D<1.xi.14>A<GAbi>
 #15+   #D<1.xi.14>A<GJJ>
 #15+   #D<1.xi.14>A<GXan>
-#42.50+   #D<1.xi.14>A<GFam>
+#42.5+   #D<1.xi.14>A<GFam>
 #5+   #D<1.xi.14>A<Gifts>
 #15+  #D<1.xi.14>A<Glasses>
 #20+   #D<1.xi.14>A<Guitar>
@@ -34918,8 +34918,8 @@ oStart: R
 151.13-	#D<30.xi.14>B<>O<S:57>X<226>
 #78-	#D<30.xi.14>A<Nappies>O<S:57>X<226>
 #15.13-	#D<30.xi.14>A<XFam>C<Zoe Hannah>O<S:57>X<226>
-#41.50-	#D<30.xi.14>A<XJJ>O<S:57>X<226>
-#16.50-	#D<30.xi.14>A<XXan>C<solar and choc>O<S:57>X<226>
+#41.5-	#D<30.xi.14>A<XJJ>O<S:57>X<226>
+#16.5-	#D<30.xi.14>A<XXan>C<solar and choc>O<S:57>X<226>
 ##
 
 160-	#D<20.xi.14>A<Party>C<deposit BWA>O<S:57>X<226>
@@ -35015,7 +35015,7 @@ oStart: R
 #15+   #D<1.xii.14>A<GAbi>
 #15+   #D<1.xii.14>A<GJJ>
 #15+   #D<1.xii.14>A<GXan>
-#42.50+   #D<1.xii.14>A<GFam>
+#42.5+   #D<1.xii.14>A<GFam>
 #5+   #D<1.xii.14>A<Gifts>
 #15+  #D<1.xii.14>A<Glasses>
 #20+   #D<1.xii.14>A<Guitar>
@@ -35052,7 +35052,7 @@ oStart: R
 #230+		#D<1.xii.14>A<BikeServ>C<top-up>
 #32+		#D<1.xii.14>A<Bills>
 #96+		#D<1.xii.14>A<ClothesM>
-#3.50+		#D<1.xii.14>A<Childcare>
+#3.5+		#D<1.xii.14>A<Childcare>
 #36+		#D<1.xii.14>A<Cleaner>
 #40+		#D<1.xii.14>A<ClothesA>
 #24+		#D<1.xii.14>A<Entz>
@@ -35076,7 +35076,7 @@ oStart: R
 ##
 
 665-	#D<17.xii.14>A<Save>C<123 DDs>X<225>
-1200-	#D<1.xii.14>A<Save>C<RBS Â£650 from 2 Jan>X<225>
+1200-	#D<1.xii.14>A<Save>C<RBS £650 from 2 Jan>X<225>
 70-	#D<1.xii.14>A<MEntz>X<225>
 35-	#D<1.xii.14>A<MDCC>X<224>
 
@@ -35411,7 +35411,7 @@ oStart: R
 51.11+	#D<18.x.13>A<Mtge>C<123 acc incl  int>X<212>
 7.45+	#D<23.x.13>A<Mtge>C<123 CC>O<M:150>X<212>
 5+	#D<4.x.13>A<Mtge>C<Hal CC>O<S:44>X<213>
-53.78+	#D<21.xi.13>A<Mtge>C<123 acc incl int and Â£3.67 nPower>X<213>
+53.78+	#D<21.xi.13>A<Mtge>C<123 acc incl int and £3.67 nPower>X<213>
 9+	#D<25.xi.13>A<Mtge>C<123 CC>O<M:151>X<215>
 5+	#D<6.xi.13>A<Mtge>C<Hal CC>O<S:45>X<214>
 54.83+	#D<12.xii.13>A<Mtge>C<123 acc incl int>X<214>
@@ -35527,7 +35527,7 @@ oStart: R
 #30+	#D<1.i.15>A<Xmas>
 #62+	#D<1.i.14>A<Save>C<DDs review April Hx no salary>
 #250+	#D<1.i.15>A<Save>C<347 from 2 Feb>
-#900+	#D<1.i.15>A<Save>C<Tithe at Â£700 until end April 1 off>
+#900+	#D<1.i.15>A<Save>C<Tithe at £700 until end April 1 off>
 #1207.52+		       #D<1.i.15>A<Mtge>C<Excess with Hx salary>
 ##
 
@@ -35536,7 +35536,7 @@ oStart: R
 70-	#D<1.i.15>A<MEntz>X<226>
 650-	#D<1.i.15>B<>X<226>
 #400-	#D<1.i.15>A<Cattsdell>
-#250-	#D<1.i.15>A<Save>C<RBS Â£347 from 2 Feb>
+#250-	#D<1.i.15>A<Save>C<RBS £347 from 2 Feb>
 ##
 35-		#D<1.i.15>A<MDCC>X<225>
 
@@ -35766,7 +35766,7 @@ oStart: R
 70-	#D<1.ii.15>A<MEntz>X<227>
 747-	#D<1.ii.15>B<>X<227>
 #400-	#D<1.ii.15>A<Cattsdell>
-#347-	#D<1.ii.15>A<Save>C<RBS Â£347 from 2 Feb>
+#347-	#D<1.ii.15>A<Save>C<RBS £347 from 2 Feb>
 ##
 35-		#D<1.i.15>A<MDCC>X<226>
 
@@ -35791,7 +35791,7 @@ oStart: R
 10.50-	#D<3.ii.15>A<GFam>C<REbecca etc>O<M:166>X<228>
 7.99-	#D<3.ii.15>A<GFam>C<Andrew VH>O<M:166>X<228>
 
-19.31-	#D<28.ii.15>A<GFam>C<Trev Amazon>O<A:114>X<228>
+19.31-	#D<29.ii.15>A<GFam>C<Trev Amazon>O<A:114>X<228>
 
 168.95-	#D<5.ii.15>A<Food>O<A:114>X<228>
 
@@ -36084,7 +36084,7 @@ oStart: R
 70-	#D<1.iii.15>A<MEntz>X<228>
 747-	#D<1.iii.15>B<>X<228>
 #400-	#D<1.iii.15>A<Cattsdell>
-#347-	#D<1.iii.15>A<Save>C<RBS Â£347 from 2 Feb>
+#347-	#D<1.iii.15>A<Save>C<RBS £347 from 2 Feb>
 ##
 35-		#D<1.iii.15>A<MDCC>X<228>
 
@@ -36404,7 +36404,7 @@ oStart: R
 70-	#D<1.iv.15>A<MEntz>X<229>
 747-	#D<1.iv.15>B<>X<229>
 #400-	#D<1.iv.15>A<Cattsdell>
-#347-	#D<1.iv.15>A<Save>C<RBS Â£347 from 2 Feb>
+#347-	#D<1.iv.15>A<Save>C<RBS £347 from 2 Feb>
 ##
 35-	#D<1.iv.15>A<MDCC>X<228>
 
@@ -36646,7 +36646,7 @@ oStart: R
 70-	#D<1.v.15>A<MEntz>X<230>
 747-	#D<1.v.15>B<>X<230>
 #400-	#D<1.v.15>A<Cattsdell>
-#347-	#D<1.v.15>A<Save>C<RBS Â£347 from 2 Feb>
+#347-	#D<1.v.15>A<Save>C<RBS £347 from 2 Feb>
 ##
 35-	#D<1.v.15>A<MDCC>X<229>
 
@@ -37003,7 +37003,7 @@ oStart: R
 70-	#D<1.vi.15>A<MEntz>X<231>
 747-	#D<1.vi.15>B<>X<231>
 #400-	#D<1.vi.15>A<Cattsdell>
-#347-	#D<1.vi.15>A<Save>C<RBS Â£347 from 2 Feb>
+#347-	#D<1.vi.15>A<Save>C<RBS £347 from 2 Feb>
 ##
 35-	#D<1.vi.15>A<MDCC>X<230>
 
@@ -37264,7 +37264,7 @@ oStart: R
 70-	#D<1.vii.15>A<MEntz>X<232>
 747-	#D<1.vii.15>B<>X<232>
 #400-	#D<1.vii.15>A<Cattsdell>
-#347-	#D<1.vii.15>A<Save>C<RBS Â£347 from 2 Feb>
+#347-	#D<1.vii.15>A<Save>C<RBS £347 from 2 Feb>
 ##
 35-	#D<1.vii.15>A<MDCC>X<231>
 
@@ -37618,7 +37618,7 @@ oStart: R
 70-	#D<1.viii.15>A<MEntz>X<233>
 747-	#D<1.viii.15>B<>X<233>
 #400-	#D<1.viii.15>A<Cattsdell>
-#347-	#D<1.viii.15>A<Save>C<RBS Â£347 from 2 Feb>
+#347-	#D<1.viii.15>A<Save>C<RBS £347 from 2 Feb>
 ##
 35-	#D<1.viii.15>A<MDCC>X<232>
 
@@ -37718,7 +37718,7 @@ oStart: R
 24.20-	#D<30.viii.15>A<Save>C<Brownlows lunch>O<S:66>X<235>
 27.09-	#D<28.viii.15>A<Save>C<ZSL lunch>O<A:121>X<234>
 
-35-	#D<26.viii.15>A<Save>C<Cinema cousins Â£20 cash rebate Mx>O<S:66>X<235>
+35-	#D<26.viii.15>A<Save>C<Cinema cousins £20 cash rebate Mx>O<S:66>X<235>
 
 19-	#D<30.viii.15>A<Bills>C<Top grass late SUmmer>X<234>
 
@@ -37812,7 +37812,7 @@ oStart: R
 70-	#D<1.ix.15>A<MEntz>X<234>
 747-	#D<1.ix.15>B<>X<234>
 #400-	#D<1.ix.15>A<Cattsdell>
-#347-	#D<1.ix.15>A<Save>C<RBS Â£347 from 2 Feb>
+#347-	#D<1.ix.15>A<Save>C<RBS £347 from 2 Feb>
 ##
 35-	#D<1.ix.15>A<MDCC>X<233>
 
@@ -38029,7 +38029,7 @@ oStart: R
 70-	#D<1.x.15>A<MEntz>X<235>
 747-	#D<1.x.15>B<>X<235>
 #400-	#D<1.x.15>A<Cattsdell>
-#347-	#D<1.x.15>A<Save>C<RBS Â£347 from 2 Feb>
+#347-	#D<1.x.15>A<Save>C<RBS £347 from 2 Feb>
 ##
 35-	#D<1.x.15>A<MDCC>X<234>
 
@@ -38076,7 +38076,7 @@ oStart: R
 
 152.91-	#D<1.x.15>A<Food>O<A:122>X<235>
 
-102.30-	#D<2.x.15>A<Tithe>C<JAM and HPav Â£13>O<A:122>X<235>
+102.30-	#D<2.x.15>A<Tithe>C<JAM and HPav £13>O<A:122>X<235>
 
 53.94-	#D<2.x.15>B<>O<A:122>X<235>
 #17-	#D<2.x.15>A<XAbi>O<A:122>X<235>
@@ -38390,7 +38390,7 @@ oStart: R
 70-	#D<1.xi.15>A<MEntz>X<236>
 747-	#D<1.xi.15>B<>X<236>
 #400-	#D<1.x.15>A<Cattsdell>
-#347-	#D<1.x.15>A<Save>C<RBS Â£347 from 2 Feb>
+#347-	#D<1.x.15>A<Save>C<RBS £347 from 2 Feb>
 ##
 35-	#D<1.xi.15>A<MDCC>X<235>
 
@@ -38665,7 +38665,7 @@ oStart: R
 #40-	#D<25.xi.15>A<Lunch>
 #45-	#D<25.xi.15>A<Cleaner>
 #15-	#D<25.xi.15>A<AnnualSubs>C<piano>
-#60-	#D<25.xi.15>A<Tithe>C<Â£50 kids, Â£10 us bazaar>
+#60-	#D<25.xi.15>A<Tithe>C<£50 kids, £10 us bazaar>
 ##
 
 63.52-	#D<26.xi.15>B<>O<S:69>X<238>
@@ -38854,7 +38854,7 @@ oStart: R
 70-	#D<1.xi.15>A<MEntz>X<237>
 747-	#D<1.xii.15>B<>X<237>
 #400-	#D<1.xii.15>A<Cattsdell>
-#347-	#D<1.xii.15>A<Save>C<RBS Â£347 from 2 Feb>
+#347-	#D<1.xii.15>A<Save>C<RBS £347 from 2 Feb>
 ##
 35-	#D<1.xii.15>A<MDCC>X<236>
 
@@ -38955,7 +38955,7 @@ oStart: R
 #20-	#D<8.xii.15>A<XFam>C<R&M>
 #20-	#D<8.xii.15>A<Lunch>
 #20-	#D<8.xii.15>A<LunchM>
-#120-	#D<8.xii.15>A<XFam>C<nephews and nieces cash Â£20 each>
+#120-	#D<8.xii.15>A<XFam>C<nephews and nieces cash £20 each>
 #50-	#D<8.xii.15>A<Cleaner>
 ##
 
@@ -39224,7 +39224,7 @@ oStart: R
 70-	#D<1.i.16>A<MEntz>X<238>
 747-	#D<1.i.16>B<>C<not required from Feb>X<238>
 #400-	#D<1.i.16>A<Cattsdell>
-#347-	#D<1.i.16>A<Save>C<RBS Â£347 from 2 Feb>
+#347-	#D<1.i.16>A<Save>C<RBS £347 from 2 Feb>
 ##
 
 20.40-	#D<5.i.16>A<Train>O<M:177>X<239>
@@ -39467,7 +39467,7 @@ oStart: R
 #15+   #D<1.ii.16>A<Mobile>
 #20+   #D<1.ii.16>A<Nappies>
 #45+  #D<1.ii.16>A<Party>
-#249.50+ #D<1.ii.16>A<Petrol>
+#249.5+ #D<1.ii.16>A<Petrol>
 #60+  #D<1.ii.16>A<PM>C<Pocket Money from Sept 2016>
 #70+   #D<1.ii.16>A<QFood>
 #30+	#D<1.ii.16>A<Replace>C<fridge etc>
@@ -39731,7 +39731,7 @@ oStart: R
 #15+   #D<1.iii.16>A<Mobile>
 #20+   #D<1.iii.16>A<Nappies>
 #45+  #D<1.iii.16>A<Party>
-#249.50+ #D<1.iii.16>A<Petrol>
+#249.5+ #D<1.iii.16>A<Petrol>
 #60+  #D<1.iii.16>A<PM>C<Pocket Money from Sept 2016>
 #70+   #D<1.iii.16>A<QFood>
 #30+	#D<1.iii.16>A<Replace>C<fridge etc>
@@ -40060,7 +40060,7 @@ oStart: R
 66-	#D<4.iii.16>A<AnnualSubs>C<TT3>X<240>
 
 198-	#D<6.i.16>A<AnnualSubs>C<Guitar Spring>X<238>
-272-	#D<6.i.16>A<AnnualSubs>C<Drum, piano school Spring after Â£4 cr>X<240>
+272-	#D<6.i.16>A<AnnualSubs>C<Drum, piano school Spring after £4 cr>X<240>
 30-	#D<20.i.16>A<AnnualSubs>C<recorder X Spring>X<239>
 32.50-	#D<6.i.16>A<AnnualSubs>C<football Spring>X<239>
 
@@ -40104,7 +40104,7 @@ oStart: R
 #15+   #D<1.iv.16>A<Mobile>
 #20+   #D<1.iv.16>A<Nappies>
 #45+  #D<1.iv.16>A<Party>
-#249.50+ #D<1.iv.16>A<Petrol>
+#249.5+ #D<1.iv.16>A<Petrol>
 #60+  #D<1.iv.16>A<PM>C<Pocket Money from Sept 2016>
 #70+   #D<1.iv.16>A<QFood>
 #30+	#D<1.iv.16>A<Replace>C<fridge etc>
@@ -40177,7 +40177,7 @@ oStart: R
 150-	#D<18.iv.16>A<Cattsdell>C<Gas saftey etc>X<241>
 
 170-	#D<18.iv.16>B<>C<Cash>X<241>
-#100-	#D<18.iv.16>A<Cattsdell>C<Cash Gas cooker Lyne Way, of Â£255 bill>
+#100-	#D<18.iv.16>A<Cattsdell>C<Cash Gas cooker Lyne Way, of £255 bill>
 #45-	#D<18.iv.16>A<Cleaner>
 #25-	#D<18.iv.16>A<Lunch>
 ##
@@ -40213,7 +40213,7 @@ oStart: R
 6.65-	#D<11.iv.16>A<Hols>C<airport crisps E8.65>O<M:180>X<241>
 241.64-	#D<11.iv.16>A<Hols>C<hotel bill E288.85>O<A:128>X<242>
 
-97.97-	#D<20.iv.16>A<Entz>C<hotel for wedding, Â£44 Dad>X<241>
+97.97-	#D<20.iv.16>A<Entz>C<hotel for wedding, £44 Dad>X<241>
 
 38.01-	#D<28.iii.16>A<Petrol>O<A:128>X<242>
 21.01-	#D<28.iii.16>A<Food>C<airport>O<A:128>X<242>
@@ -40380,7 +40380,7 @@ oStart: R
 #15+   #D<1.v.16>A<Mobile>
 #10+   #D<1.v.16>A<Nappies>
 #45+  #D<1.v.16>A<Party>
-#249.50+ #D<1.v.16>A<Petrol>
+#249.5+ #D<1.v.16>A<Petrol>
 #60+  #D<1.v.16>A<PM>C<Pocket Money from Sept 2016>
 #70+   #D<1.v.16>A<QFood>
 #30+	#D<1.v.16>A<Replace>C<fridge etc>
@@ -40606,7 +40606,7 @@ oStart: R
 
 163.22-	#D<25.v.16>A<Talia>C<service>X<243>
 
-40-	#D<25.v.16>A<Alex>C<Abi>X<242>
+40-	#D<25.v.6>A<Alex>C<Abi>X<242>
 
 12-	#D<27.v.16>A<Replace>C<remote lights>O<A:130>X<243>
 
@@ -40682,7 +40682,7 @@ oStart: R
 #15+   #D<1.vi.16>A<Mobile>
 #10+   #D<1.vi.16>A<Nappies>
 #45+  #D<1.vi.16>A<Party>
-#249.50+ #D<1.vi.16>A<Petrol>
+#249.5+ #D<1.vi.16>A<Petrol>
 #60+  #D<1.vi.16>A<PM>C<Pocket Money from Sept 2016>
 #70+   #D<1.vi.16>A<QFood>
 #30+	#D<1.vi.16>A<Replace>C<fridge etc>
@@ -40701,7 +40701,7 @@ oStart: R
 #5+   #D<1.vi.16>A<XCards>
 #45+   #D<1.vi.16>A<XFam>
 #30+	#D<1.vi.16>A<Xmas>
-#2588+	#D<1.vi.16>A<Save>C<becomes Â£2588 from 1 July>
+#2588+	#D<1.vi.16>A<Save>C<becomes £2588 from 1 July>
 #80+	#D<1.vi.16>A<Cattsdell>
 #130+	#D<1.vi.16>A<Tax>C<Pension extra>
 #4.03+ #D<1.vi.16>A<Mtge>
@@ -40757,7 +40757,7 @@ oStart: R
 #75.60-	#D<1.vi.16>A<Food>O<A:130>X<243>
 ##
 
-14.85-	#D<31.v.16>A<Save>C<Cinema>O<S:75>X<244>
+14.85-	#D<31.vi.16>A<Save>C<Cinema>O<S:75>X<244>
 20-	#D<1.vi.16>A<Save>C<cinema>O<S:75>X<244>
 
 164-	#D<1.vi.16>A<Hols>C<break M and H>O<A:130>X<243>
@@ -41007,7 +41007,7 @@ oStart: R
 #15+   #D<1.vii.16>A<Mobile>
 #10+   #D<1.vii.16>A<Nappies>
 #45+  #D<1.vii.16>A<Party>
-#249.50+ #D<1.vii.16>A<Petrol>
+#249.5+ #D<1.vii.16>A<Petrol>
 #60+  #D<1.vii.16>A<PM>C<Pocket Money from Sept 2016>
 #70+   #D<1.vii.16>A<QFood>
 #30+	#D<1.vii.16>A<Replace>C<fridge etc>
@@ -41371,7 +41371,7 @@ oStart: R
 #0+   #D<1.viii.16>A<Mobile>
 #0+   #D<1.viii.16>A<Nappies>
 #0+  #D<1.viii.16>A<Party>
-#249.50+ #D<1.viii.16>A<Petrol>
+#249.5+ #D<1.viii.16>A<Petrol>
 #0+  #D<1.viii.16>A<PM>C<Pocket Money from Sept 2016>
 #70+   #D<1.viii.16>A<QFood>
 #0+	#D<1.viii.16>A<Replace>C<fridge etc>
@@ -41440,7 +41440,7 @@ oStart: R
 #0+   #D<1.ix.16>A<Mobile>
 #0+   #D<1.ix.16>A<Nappies>
 #0+  #D<1.ix.16>A<Party>
-#249.50+ #D<1.ix.16>A<Petrol>
+#249.5+ #D<1.ix.16>A<Petrol>
 #0+  #D<1.ix.16>A<PM>C<Pocket Money from Sept 2016>
 #70+   #D<1.ix.16>A<QFood>
 #0+	#D<1.ix.16>A<Replace>C<fridge etc>
@@ -41468,7 +41468,7 @@ oStart: R
 2600-	#D<15.ix.16>A<Save>C<DDs>X<246>
 70-	#D<1.ix.16>A<MEntz>X<246>
 
-0-	#D<1.ix.16>C<Kingfisher>X<246>B<>
+0-	#D<1.ix.16>B<Kingfisher>X<246>
 #727+	#D<1.ix.16>A<Childcare>
 #727-	#D<1.ix.16>A<Mtge>
 ##
@@ -41538,8 +41538,8 @@ oStart: R
 5.50+	#D<29.ix.16>A<Food>O<M:185>X<246>
 16.70-	#D<1.ix.16>A<Food>O<A:133>X<247>
 
-10.38-	#D<31.iix.16>A<Entz>C<Dominoes>O<A:133>X<247>
-20.30-	#D<31.iix.16>A<Entz>C<Chinese>O<A:133>X<247>
+10.38-	#D<31.ix.16>A<Entz>C<Dominoes>O<A:133>X<247>
+20.30-	#D<31.ix.16>A<Entz>C<Chinese>O<A:133>X<247>
 27.40-	#D<30.ix.16>A<Entz>C<Borwnlow Ashridge>O<A:133>X<247>
 
 20-	#D<30.ix.16>A<Uniform>C<trainers Abi>O<A:133>X<247>
@@ -41966,7 +41966,7 @@ oStart: R
 #15+   #D<1.x.16>A<Mobile>
 #10+   #D<1.x.16>A<Nappies>
 #45+  #D<1.x.16>A<Party>
-#249.50+ #D<1.x.16>A<Petrol>
+#249.5+ #D<1.x.16>A<Petrol>
 #60+  #D<1.x.16>A<PM>C<Pocket Money from Sept 2016>
 #70+   #D<1.x.16>A<QFood>
 #30+	#D<1.x.16>A<Replace>C<fridge etc>
@@ -42167,13 +42167,13 @@ oStart: R
 
 69.99-	#D<18.x.16>A<XJJ>C<Christmas lego>O<A:135>X<249>
 
-393.69-	#D<17.x.16>A<HoIns>C<DL Â£414 best>O<A:135>X<249>
+393.69-	#D<17.x.16>A<HoIns>C<DL £414 best>O<A:135>X<249>
 
 100+	#D<18.x.16>A<Mtge>C<tfr excess from DD acc>X<247>
 
 1500-	#D<13.x.16>A<Dad>C<bathroon payment 1>X<247>
 1500-	#D<20.x.16>A<Dad>C<bathroom payment 2>X<247>
-2270-	#D<28.x.16>A<Dad>C<bathroom labour and Â£770 final>X<247>
+2270-	#D<28.x.16>A<Dad>C<bathroom labour and £770 final>X<247>
 
 7.50-				#D<8.x.16>A<Bills>O<S:80>X<249>
 7.50-				#D<13.x.16>A<Bills>O<S:80>X<249>
@@ -42292,7 +42292,7 @@ oStart: R
 #40-   #D<1.xi.16>A<Nappies>
 #40+   #D<1.xi.16>A<Lunch>
 #45+  #D<1.xi.16>A<Party>
-#249.50+ #D<1.xi.16>A<Petrol>
+#249.5+ #D<1.xi.16>A<Petrol>
 #60+  #D<1.xi.16>A<PM>C<Pocket Money from Sept 2016>
 #70+   #D<1.xi.16>A<QFood>
 #30+	#D<1.xi.16>A<Replace>C<fridge etc>
@@ -42832,7 +42832,7 @@ oStart: R
 #10+   #D<1.xii.16>A<Mobile>
 #10+   #D<1.xii.16>A<Nappies>
 #45+  #D<1.xii.16>A<Party>
-#249.50+ #D<1.xii.16>A<Petrol>
+#249.5+ #D<1.xii.16>A<Petrol>
 #60+  #D<1.xii.16>A<PM>C<Pocket Money from Sept 2016>
 #70+   #D<1.xii.16>A<QFood>
 #30+	#D<1.xii.16>A<Replace>C<fridge etc>
@@ -43123,7 +43123,7 @@ oStart: R
 #15+   #D<1.i.17>A<Mobile>
 #10+   #D<1.i.17>A<Nappies>
 #45+  #D<1.i.17>A<Party>
-#249.50+ #D<1.i.17>A<Petrol>
+#249.5+ #D<1.i.17>A<Petrol>
 #60+  #D<1.i.17>A<PM>C<Pocket Money from Sept 2016>
 #70+   #D<1.i.17>A<QFood>
 #30+	#D<1.i.17>A<Replace>C<fridge etc>
@@ -43402,7 +43402,7 @@ oStart: R
 #10+   #D<1.ii.17>A<Mobile>
 #10+   #D<1.ii.17>A<Nappies>
 #45+  #D<1.ii.17>A<Party>
-#249.50+ #D<1.ii.17>A<Petrol>
+#249.5+ #D<1.ii.17>A<Petrol>
 #60+  #D<1.ii.17>A<PM>C<Pocket Money from Sept 2016>
 #70+   #D<1.ii.17>A<QFood>
 #25+	#D<1.ii.17>A<Replace>C<fridge etc>
@@ -43429,7 +43429,7 @@ oStart: R
 70-	#D<1.ii.17>A<MEntz>X<251>
 5-	#D<20.i.17>A<Tithe>C<Parmiters Lottery 1>X<250>
 5-	#D<2.ii.17>A<Tithe>C<Parmiters Lottery>X<251>
-0-	#D<1.iii.17>A<CarS>C<from 6 Mar Â£450 HSBC, Â£400 bk CS-, Rent inc+>X<251>
+0-	#D<1.iii.17>A<CarS>C<from 6 Mar £450 HSBC, £400 bk CS-, Rent inc+>X<251>
 
 7.50-	#D<8.ii.17>A<Bills>C<Giff Gaff H>O<R:1>X<252>
 5-	#D<27.ii.17>A<Bills>C<giff Gaff A>O<R:2>X<253>
@@ -43606,11 +43606,11 @@ oStart: R
 39.11-	#D<15.ii.17>A<House>C<kettle, seive>O<A:138>X<252>
 6.98-	#D<15.ii.17>A<House>C<hand mixer>O<A:139>X<252>
 
-4.82-	#D<13.ii.17>A<Petrol>C<$6 Airtrain $1.245 for Â£1>O<M:190>X<251>
-8.25-	#D<13.ii.17>A<Petrol>C<$10 Long Island $1.2121 for Â£1>O<R:1>X<252>
-2.61-	#D<13.ii.17>A<Food>C<Starbucks $3.17 $1.215 for Â£1>O<A:138>X<252>
-8.28-	#D<13.ii.17>A<Petrol>C<$10 NYC Transit $1.208 for Â£1>O<A:138>X<252>
-35.10-	#D<12.ii.17>A<Food>C<$42.39 Peking Duck Fl $1.208 or Â£1>O<A:138>X<252>
+4.82-	#D<13.ii.17>A<Petrol>C<$6 Airtrain $1.245 for £1>O<M:190>X<251>
+8.25-	#D<13.ii.17>A<Petrol>C<$10 Long Island $1.2121 for £1>O<R:1>X<252>
+2.61-	#D<13.ii.17>A<Food>C<Starbucks $3.17 $1.215 for £1>O<A:138>X<252>
+8.28-	#D<13.ii.17>A<Petrol>C<$10 NYC Transit $1.208 for £1>O<A:138>X<252>
+35.10-	#D<12.ii.17>A<Food>C<$42.39 Peking Duck Fl $1.208 or £1>O<A:138>X<252>
 6.14-	#D<14.ii.17>A<Food>C<lunch Mx>O<A:138>X<252>
 
 74.07-	#D<15.ii.17>A<Food>O<A:139>X<252>
@@ -43649,7 +43649,7 @@ oStart: R
 #300-	#D<3.ii.17>A<Cattsdell>
 ##
 
-4000+	#D<17.ii.17>A<Cattsdell>X<251>
+4000+	#D<17.ii.7>A<Cattsdell>X<251>
 
 65-	#D<20.ii.17>A<Cattsdell>C<LWay Plumber>X<251>
 
@@ -43756,7 +43756,7 @@ oStart: R
 
 389.99-	#D<19.iv.17>A<Mtge>C<Corporate Amex>X<253>
 491.38+	#D<1.iii.17>A<Mtge>C<claim>X<252>
-7.84-	#D<21.ii.17>A<Mtge>C<SEK85 Korea rest S10.842 for Â£1>O<R:1>X<252>
+7.84-	#D<21.ii.17>A<Mtge>C<SEK85 Korea rest S10.842 for £1>O<R:1>X<252>
 50.57-	#D<20.ii.17>A<Mtge>C<Kr540 arlanda exp>O<A:139>X<252>
 
 500-	#D<1.iii.17>A<Mtge>C<Hx scan and dye test>X<252>
@@ -43786,7 +43786,7 @@ oStart: R
 #300+  #D<1.iii.17>A<CarS>
 #30+   #D<1.iii.17>A<Cats>
 #0+   #D<1.iii.17>A<ChildS>
-#620+ #D<1.iii.17>A<Cleaner>C<reduce to Â£20 from Apr>
+#620+ #D<1.iii.17>A<Cleaner>C<reduce to £20 from Apr>
 #35+	#D<1.iii.17>A<ClothesH>
 #35+  #D<1.iii.17>A<ClothesM>
 #45+   #D<1.iii.17>A<ClothesA>
@@ -43818,7 +43818,7 @@ oStart: R
 #10+   #D<1.iii.17>A<Mobile>
 #0+   #D<1.iii.17>A<Nappies>
 #45+  #D<1.iii.17>A<Party>
-#249.50+ #D<1.iii.17>A<Petrol>
+#249.5+ #D<1.iii.17>A<Petrol>
 #60+  #D<1.iii.17>A<PM>C<Pocket Money from Sept 2016>
 #70+   #D<1.iii.17>A<QFood>
 #20+	#D<1.iii.17>A<Replace>C<fridge etc>
@@ -43894,7 +43894,7 @@ oStart: R
 
 32.23-	#D<4.iii.17>A<Food>O<A:139>X<252>
 
-100-	#D<4.iii.17>A<Hedge>C<Cash Â£120 for hedge trim>X<252>
+100-	#D<4.iii.17>A<Hedge>C<Cash £120 for hedge trim>X<252>
 
 12.16-	#D<5.iii.17>A<Entz>C<McD>O<A:139>X<252>
 0.99-	#D<5.iii.17>A<Entz>C<McD>O<A:139>X<252>
@@ -43958,7 +43958,7 @@ oStart: R
 
 26.47-	#D<12.iii.17>B<>O<A:139>X<252>
 #12.99-	#D<12.iii.17>A<GXan>C<Abi and JJ>O<A:139>X<252>
-#13.48-	#D<12.iii.17>A<GFam>C<EB ABi to refund Â£6.75>O<A:139>X<252>
+#13.48-	#D<12.iii.17>A<GFam>C<EB ABi to refund £6.75>O<A:139>X<252>
 ##
 
 75-	#D<12.iii.17>B<>O<R:2>X<253>
@@ -44165,7 +44165,7 @@ oStart: R
 #300+  #D<1.iv.17>A<CarS>
 #30+   #D<1.iv.17>A<Cats>
 #0+   #D<1.iv.17>A<ChildS>
-#220+ #D<1.iv.17>A<Cleaner>C<reduce to Â£20 from end July>
+#220+ #D<1.iv.17>A<Cleaner>C<reduce to £20 from end July>
 #35+	#D<1.iv.17>A<ClothesH>
 #35+  #D<1.iv.17>A<ClothesM>
 #45+   #D<1.iv.17>A<ClothesA>
@@ -44197,7 +44197,7 @@ oStart: R
 #10+   #D<1.iv.17>A<Mobile>
 #0+   #D<1.iv.17>A<Nappies>
 #45+  #D<1.iv.17>A<Party>
-#249.50+ #D<1.iv.17>A<Petrol>
+#249.5+ #D<1.iv.17>A<Petrol>
 #60+  #D<1.iv.17>A<PM>C<Pocket Money from Sept 2016>
 #70+   #D<1.iv.17>A<QFood>
 #20+	#D<1.iv.17>A<Replace>C<fridge etc>
@@ -44412,7 +44412,7 @@ oStart: R
 #300+  #D<1.v.17>A<CarS>
 #30+   #D<1.v.17>A<Cats>
 #0+   #D<1.v.17>A<ChildS>
-#220+ #D<1.v.17>A<Cleaner>C<reduce to Â£20 from end July>
+#220+ #D<1.v.17>A<Cleaner>C<reduce to £20 from end July>
 #35+	#D<1.v.17>A<ClothesH>
 #35+  #D<1.v.17>A<ClothesM>
 #45+   #D<1.v.17>A<ClothesA>
@@ -44444,7 +44444,7 @@ oStart: R
 #10+   #D<1.v.17>A<Mobile>
 #0+   #D<1.v.17>A<Nappies>
 #45+  #D<1.v.17>A<Party>
-#249.50+ #D<1.v.17>A<Petrol>
+#249.5+ #D<1.v.17>A<Petrol>
 #60+  #D<1.v.17>A<PM>C<Pocket Money from Sept 2016>
 #70+   #D<1.v.17>A<QFood>
 #20+	#D<1.v.17>A<Replace>C<fridge etc>
@@ -44540,8 +44540,8 @@ oStart: R
 
 12+	#D<24.iv.17>A<GXan>C<money from Jacqui>X<253>
 
-920.70+	#D<28.iv.17>A<Mtge>X<253>
-920.70-	#D<1.v.17>A<Mtge>X<254>
+920.7+	#D<28.iv.17>A<Mtge>X<253>
+920.7-	#D<1.v.17>A<Mtge>X<254>
 169.95+	#D<8.v.17>A<Mtge>X<253>
 169.95-	#D<8.v.17>A<Mtge>C<move San CC bal to later statement>X<254>
 2946.57+	#D<28.iv.17>A<Mtge>X<253>
@@ -44740,7 +44740,7 @@ oStart: R
 #300+  #D<1.vi.17>A<CarS>
 #30+   #D<1.vi.17>A<Cats>
 #0+   #D<1.vi.17>A<ChildS>
-#220+ #D<1.vi.17>A<Cleaner>C<reduce to Â£20 from end July>
+#220+ #D<1.vi.17>A<Cleaner>C<reduce to £20 from end July>
 #35+	#D<1.vi.17>A<ClothesH>
 #35+  #D<1.vi.17>A<ClothesM>
 #45+   #D<1.vi.17>A<ClothesA>
@@ -44772,7 +44772,7 @@ oStart: R
 #10+   #D<1.vi.17>A<Mobile>
 #0+   #D<1.vi.17>A<Nappies>
 #45+  #D<1.vi.17>A<Party>
-#249.50+ #D<1.vi.17>A<Petrol>
+#249.5+ #D<1.vi.17>A<Petrol>
 #60+  #D<1.vi.17>A<PM>C<Pocket Money from Sept 2016>
 #70+   #D<1.vi.17>A<QFood>
 #20+	#D<1.vi.17>A<Replace>C<fridge etc>
@@ -44893,7 +44893,7 @@ oStart: R
 6.99+		#D<9.vi.17>A<Food>C<refund small chips>O<A:142>X<255>
 10.70-		#D<10.vi.17>A<Food>C<FOLGS coin tins>O<A:142>X<255>
 10.70+		#D<7.vii.17>A<Food>C<refund tins>O<A:143>X<256>
-15.05-		#D<12.vi.17>A<Tithe>C<FOLGS counters>O<A:142>X<255>
+15.05-		#D<12.vi.1>A<Tithe>C<FOLGS counters>O<A:142>X<255>
 
 5-		#D<9.vi.17>A<Tithe>C<Go Kart entry>X<255>
 
@@ -45133,7 +45133,7 @@ oStart: R
 #300+  #D<1.vii.17>A<CarS>
 #30+   #D<1.vii.17>A<Cats>
 #0+   #D<1.vii.17>A<ChildS>
-#220+ #D<1.vii.17>A<Cleaner>C<reduce to Â£20 from end July>
+#220+ #D<1.vii.17>A<Cleaner>C<reduce to £20 from end July>
 #35+	#D<1.vii.17>A<ClothesH>
 #35+  #D<1.vii.17>A<ClothesM>
 #45+   #D<1.vii.17>A<ClothesA>
@@ -45165,7 +45165,7 @@ oStart: R
 #10+   #D<1.vii.17>A<Mobile>
 #0+   #D<1.vii.17>A<Nappies>
 #45+  #D<1.vii.17>A<Party>
-#249.50+ #D<1.vii.17>A<Petrol>
+#249.5+ #D<1.vii.17>A<Petrol>
 #60+  #D<1.vii.17>A<PM>C<Pocket Money from Sept 2016>
 #70+   #D<1.vii.17>A<QFood>
 #20+	#D<1.vii.17>A<Replace>C<fridge etc>
@@ -45206,9 +45206,9 @@ oStart: R
 
 346.64-	#D<4.vii.17>A<Cattsdell>C<insurance Peartree 7 Jul>O<A:143>X<256>
 
-27.80-	#D<4.vii.17>A<LunchM>C<Brownlow incl Freda Â£10 cash>O<A:143>X<256>
+27.80-	#D<4.vii.17>A<LunchM>C<Brownlow incl Freda £10 cash>O<A:143>X<256>
 
-370.71-	#D<4.vii.17>A<Mtge>C<study materials Â£205 plus some labour>O<R:6>X<257>
+370.71-	#D<4.vii.17>A<Mtge>C<study materials £205 plus some labour>O<R:6>X<257>
 
 40-	#D<6.vii.17>A<Talia>C<LLoyd MOT>O<R:6>X<257>
 
@@ -45396,7 +45396,7 @@ oStart: R
 #300+  #D<1.viii.17>A<CarS>
 #30+   #D<1.viii.17>A<Cats>
 #0+   #D<1.viii.17>A<ChildS>
-#120+ #D<1.viii.17>A<Cleaner>C<reduce to Â£20 from end July>
+#120+ #D<1.viii.17>A<Cleaner>C<reduce to £20 from end July>
 #35+	#D<1.viii.17>A<ClothesH>
 #35+  #D<1.viii.17>A<ClothesM>
 #45+   #D<1.viii.17>A<ClothesA>
@@ -45428,7 +45428,7 @@ oStart: R
 #10+   #D<1.viii.17>A<Mobile>
 #0+   #D<1.viii.17>A<Nappies>
 #45+  #D<1.viii.17>A<Party>
-#249.50+ #D<1.viii.17>A<Petrol>
+#249.5+ #D<1.viii.17>A<Petrol>
 #60+  #D<1.viii.17>A<PM>C<Pocket Money from Sept 2016>
 #70+   #D<1.viii.17>A<QFood>
 #20+	#D<1.viii.17>A<Replace>C<fridge etc>
@@ -45770,7 +45770,7 @@ oStart: R
 #300+  #D<1.ix.17>A<CarS>
 #30+   #D<1.ix.17>A<Cats>
 #0+   #D<1.ix.17>A<ChildS>
-#20+ #D<1.ix.17>A<Cleaner>C<reduce to Â£20 from end July>
+#20+ #D<1.ix.17>A<Cleaner>C<reduce to £20 from end July>
 #35+	#D<1.ix.17>A<ClothesH>
 #35+  #D<1.ix.17>A<ClothesM>
 #45+   #D<1.ix.17>A<ClothesA>
@@ -45829,7 +45829,7 @@ oStart: R
 70-	#D<1.ix.17>A<MEntz>X<256>
 5-	#D<2.ix.17>A<Tithe>C<Parmiters Lottery>X<256>
 450-	#D<1.ix.17>A<CarS>C<HSBC top up and car savings>X<256>
-1400+	#D<6.ix.17>B<>C<also Â£1k transfer from RBS>X<256>
+1400+	#D<6.ix.17>B<>C<also £1k transfer from RBS>X<256>
 #150+	#D<6.ix.17>A<CarS>
 #250+	#D<6.ix.17>A<Mtge>C<rental inc save>
 #1000+	#D<6.ix.17>A<Mtge>C<rental replace>
@@ -46029,9 +46029,9 @@ oStart: R
 
 52.50-	#D<3.x.17>A<Guitar>C<grade 3 exam fee>X<256>
 
-138.50-	#D<3.x.17>A<Save>C<Lorax HTerm Â£38 Dad>O<A:156>X<256>
+138.50-	#D<3.x.17>A<Save>C<Lorax HTerm £38 Dad>O<A:156>X<256>
 
-115-	#D<3.x.17>A<Xmas>C<Xmas at Kew Dad Â£18.50>O<A:156>X<256>
+115-	#D<3.x.17>A<Xmas>C<Xmas at Kew Dad £18.50>O<A:156>X<256>
 
 598.28-	#D<4.x.17>A<Cattsdell>C<door for Peartree>X<256>
 
@@ -46039,7 +46039,7 @@ oStart: R
 
 28.70-	#D<4.x.17>A<Petrol>O<A:156>X<256>
 
-103.30-	#D<28.ix.17>A<Food>C<Tesco incl Â£7 JJ trousers below>O<A:156>X<256>
+103.30-	#D<28.ix.17>A<Food>C<Tesco incl £7 JJ trousers below>O<A:156>X<256>
 145.60-	#D<4.x.17>A<Food>C<Tesco incl 11 trousers X below>O<A:156>X<256>
 
 16-	#D<3.x.17>A<GKids>C<Frances bday>O<A:156>X<256>
@@ -46195,14 +46195,14 @@ oStart: R
 #273.24+	#D<1.x.17>A<Records>C<to come from Paypal Mx to mtge>
 #5447.23+	#D<1.x.17>A<Cattsdell>C<top up rental properties>
 #2000+		#D<1.x.17>A<HEntz>C<monies for MF Lego>
-#4178.26+	#D<1.x.17>A<Mtge>C<excess of shares bonus Â£12k>
+#4178.26+	#D<1.x.17>A<Mtge>C<excess of shares bonus £12k>
 ##
 
 2512-	#D<18.x.17>A<Save>C<DDs>X<256>
 70-	#D<1.x.17>A<MEntz>X<256>
 5-	#D<2.x.17>A<Tithe>C<Parmiters Lottery>X<256>
 450-	#D<1.x.17>A<CarS>C<HSBC top up and car savings>X<256>
-400+	#D<6.x.17>B<>C<also Â£1k transfer from RBS>X<256>
+400+	#D<6.x.17>B<>C<also £1k transfer from RBS>X<256>
 #150+	#D<6.x.17>A<CarS>
 #250+	#D<6.x.17>A<Mtge>C<rental inc save>
 ##
@@ -46409,7 +46409,7 @@ oStart: R
 70-	#D<1.xi.17>A<MEntz>X<256>
 5-	#D<2.xi.17>A<Tithe>C<Parmiters Lottery>X<256>
 450-	#D<1.xi.17>A<CarS>C<HSBC top up and car savings>X<256>
-400+	#D<6.xi.17>B<>C<also Â£1k transfer from RBS>X<256>
+400+	#D<6.xi.17>B<>C<also £1k transfer from RBS>X<256>
 #150+	#D<6.xi.17>A<CarS>
 #250+	#D<6.xi.17>A<Mtge>C<rental inc save>
 ##
@@ -46821,7 +46821,7 @@ oStart: R
 70-	#D<1.xii.17>A<MEntz>X<257>
 5-	#D<2.xii.17>A<Tithe>C<Parmiters Lottery>X<257>
 450-	#D<1.xii.17>A<CarS>C<HSBC top up and car savings>X<257>
-400+	#D<6.xii.17>B<>C<also Â£1k transfer from RBS>X<257>
+400+	#D<6.xii.17>B<>C<also £1k transfer from RBS>X<257>
 #150+	#D<6.xii.17>A<CarS>
 #250+	#D<6.xii.17>A<Mtge>C<rental inc save>
 ##
@@ -47114,7 +47114,7 @@ oStart: R
 20-	#D<25.xii.17>A<XFam>C<Natalie>X<257>
 20-	#D<25.xii.17>A<XFam>C<Rebecca>X<257>
 100-	#D<22.xii.17>B<>X<257>
-#75-	#D<22.xii.17>A<XFam>C<Chris, Peter, Jess>
+#75-	#D<22.xii.17A<XFam>C<Chris, Peter, Jess>>
 #25-	#D<23.xii.17>A<Hair>C<part of X and J>
 ##
 
@@ -47239,7 +47239,7 @@ oStart: R
 70-	#D<1.i.18>A<MEntz>X<257>
 5-	#D<2.i.18>A<Tithe>C<Parmiters Lottery>X<257>
 450-	#D<1.i.18>A<CarS>C<HSBC top up and car savings>X<257>
-400+	#D<6.i.18>B<>C<also Â£1k transfer from RBS>X<257>
+400+	#D<6.i.18>B<>C<also £1k transfer from RBS>X<257>
 #150+	#D<6.i.18>A<CarS>
 #250+	#D<6.i.18>A<Mtge>C<rental inc save>
 ##
@@ -47338,9 +47338,9 @@ oStart: R
 14.99-	#D<8.i.18>A<GJJ>C<DVDs>O<A:159>X<257>
 7.19-	#D<8.i.18>A<GJJ>C<Marshall>O<R:12>X<258>
 9.50-	#D<8.i.18>A<ClothesJ>C<vests and pants and dry shampoo A>O<A:159>X<257>
-16-	#D<8.i.18>A<GJJ>C<incl Â£6 Edward extra>O<R:12>X<258>
+16-	#D<8.i.18>A<GJJ>C<incl £6 Edward extra>O<R:12>X<258>
 
-50-	#D<8.i.18>A<House>C<Cash to coverÂ£42 Amazon vouch vacuum>X<257>
+50-	#D<8.i.18>A<House>C<Cash to cover£42 Amazon vouch vacuum>X<257>
 
 38.71+	#D<8.i.18>A<Tithe>C<expenses JAM from church>X<257>
 
@@ -47419,7 +47419,7 @@ oStart: R
 117.74-	#D<23.i.18>A<QFood>O<A:160>X<258>
 11.60+	#D<24.i.18>A<QFood>O<A:160>X<258>
 
-92.98-	#D<23.i.18>A<House>C<stair cleaner net Â£42 gift cards>O<A:160>X<258>
+92.98-	#D<23.i.18>A<House>C<stair cleaner net £42 gift cards>O<A:160>X<258>
 
 25+	#D<20.i.18>A<GJJ>C<bday gift from Jacqui>X<257>
 
@@ -47573,7 +47573,7 @@ oStart: R
 70-	#D<1.ii.18>A<MEntz>X<257>
 5-	#D<2.ii.18>A<Tithe>C<Parmiters Lottery>X<257>
 450-	#D<1.ii.18>A<CarS>C<HSBC top up and car savings>X<257>
-1400+	#D<6.ii.18>B<>C<also Â£1k to cover boiler 3 mths>X<257>
+1400+	#D<6.ii.18>B<>C<also £1k to cover boiler 3 mths>X<257>
 #150+	#D<6.ii.18>A<CarS>
 #250+	#D<6.ii.18>A<Mtge>C<rental inc save>
 #1000+	#D<5.ii.17>A<Cattsdell>C<cover Sempill boiler>
@@ -47920,7 +47920,7 @@ oStart: R
 70-	#D<1.iii.18>A<MEntz>X<258>
 5-	#D<2.iii.18>A<Tithe>C<Parmiters Lottery>X<258>
 450-	#D<1.iii.18>A<CarS>C<HSBC top up and car savings>X<258>
-1400+	#D<6.iii.18>B<>C<also Â£1k to cover boiler 3 mths>X<258>
+1400+	#D<6.iii.18>B<>C<also £1k to cover boiler 3 mths>X<258>
 #150+	#D<6.iii.18>A<CarS>
 #250+	#D<6.iii.18>A<Mtge>C<rental inc save>
 #1000+	#D<5.iii.17>A<Cattsdell>C<cover Sempill boiler>
@@ -48284,7 +48284,7 @@ oStart: R
 70-	#D<1.iv.18>A<MEntz>X<258>
 5-	#D<2.iv.18>A<Tithe>C<Parmiters Lottery>X<258>
 450-	#D<1.iv.18>A<CarS>C<HSBC top up and car savings>X<258>
-1400+	#D<6.iv.18>B<>C<also Â£1k to cover boiler 3 mths>X<258>
+1400+	#D<6.iv.18>B<>C<also £1k to cover boiler 3 mths>X<258>
 #150+	#D<6.iv.18>A<CarS>
 #250+	#D<6.iv.18>A<Mtge>C<rental inc save>
 #1000+	#D<5.iv.17>A<Cattsdell>C<cover Sempill boiler>
@@ -48584,7 +48584,7 @@ oStart: R
 70-	#D<1.v.18>A<MEntz>X<258>
 5-	#D<2.v.18>A<Tithe>C<Parmiters Lottery>X<258>
 450-	#D<1.v.18>A<CarS>C<HSBC top up and car savings>X<258>
-1400+	#D<6.v.18>B<>C<also Â£1k to cover boiler 3 mths>X<258>
+1400+	#D<6.v.18>B<>C<also £1k to cover boiler 3 mths>X<258>
 #150+	#D<6.v.18>A<CarS>
 #250+	#D<6.v.18>A<Mtge>C<rental inc save>
 #1000+	#D<5.v.17>A<Cattsdell>C<cover Sempill boiler>
@@ -48753,7 +48753,7 @@ oStart: R
 50-	#D<22.v.18>B<>X<258>
 #20-	#D<22.v.18>A<LunchM>C<gift at work>
 #20-	#D<22.v.18>A<AnnualSubs>C<Top Hat drama show>
-#10-	#D<22.v.18>A<Food>
+#10-	#D<22.v.18A>A<Food>
 ##
 
 109.74-	#D<24.v.18>A<QFood>C<Tesco>O<A:164>X<259>
@@ -48910,7 +48910,7 @@ oStart: R
 70-	#D<1.vi.18>A<MEntz>X<259>
 5-	#D<2.vi.18>A<Tithe>C<Parmiters Lottery>X<259>
 450-	#D<1.vi.18>A<CarS>C<HSBC top up and car savings>X<259>
-1400+	#D<6.vi.18>B<>C<also Â£1k to cover boiler 3 mths>X<259>
+1400+	#D<6.vi.18>B<>C<also £1k to cover boiler 3 mths>X<259>
 #150+	#D<6.vi.18>A<CarS>
 #250+	#D<6.vi.18>A<Mtge>C<rental inc save>
 #1000+	#D<5.vi.17>A<Cattsdell>C<cover Sempill boiler>
@@ -49257,7 +49257,7 @@ oStart: R
 70-	#D<1.vii.18>A<MEntz>X<259>
 5-	#D<2.vii.18>A<Tithe>C<Parmiters Lottery>X<259>
 450-	#D<1.vii.18>A<CarS>C<HSBC top up and car savings>X<259>
-1400+	#D<6.vii.18>B<>C<also Â£1k to cover boiler 3 mths>X<260>
+1400+	#D<6.vii.18>B<>C<also £1k to cover boiler 3 mths>X<260>
 #150+	#D<6.vii.18>A<CarS>
 #250+	#D<6.vii.18>A<Mtge>C<rental inc save>
 #1000+	#D<5.vii.17>A<Cattsdell>C<cover Sempill boiler>
@@ -49291,7 +49291,7 @@ oStart: R
 
 84.56-	#D<3.vii.18>A<Petrol>O<A:165>X<260>
 
-20-	#D<3.vii.18>A<XTeacher>C<Â£20 rec teachers>X<260>
+20-	#D<3.vii.18>A<XTeacher>C<£20 rec teachers>X<260>
 
 5.29-	#D<1.vii.18>A<Food>O<A:165>X<260>
 
@@ -49386,7 +49386,7 @@ oStart: R
 #7-	#D<13.vii.18>A<AnnualSubs>C<tennis J>
 #13-	#D<13.vii.18>A<Entz>C<Abi dominoes>
 #10-	#D<13.vii.18>A<Entz>C<JJ school trip>
-#220-	#D<13.vii.18>A<Hedge>C<part of Â£1800 fence and hedge>
+#220-	#D<13.vii.18>A<Hedge>C<part of £1800 fence and hedge>
 ##
 
 250-	#D<14.vii.18>A<Mtge>C<from prov for fence works>X<260>
@@ -49395,7 +49395,7 @@ oStart: R
 #100-	#D<14.vii.18>A<MDCC>
 #800-	#D<14.vii.18>A<Mtge>C<from prov for fence>
 ##
-250-	#D<15.vii.18>A<Mtge>C<Cash from prov for fence total Â£1800>X<260>
+250-	#D<15.vii.18>A<Mtge>C<Cash from prov for fence total £1800>X<260>
 
 19-	#D<14.vii.18>A<ClothesJ>O<A:165>X<260>
 
@@ -49468,7 +49468,7 @@ oStart: R
 #18-	#D<24.vii.18>A<Food>C<poundland bits>
 #2-	#D<24.vii.18>A<Food>C<hair clips>
 #20-	#D<30.vii.18>A<Tithe>C<Abi for Rocknation>
-#40-	#D<30.vii.18>A<Hols>C<Cash for Mx and taxi Â£26>
+#40-	#D<30.vii.18>A<Hols>C<Cash for Mx and taxi £26>
 #100-	#D<24.vii.18>A<Hair>C<Hx for 14th Aug>
 ##
 
@@ -49662,7 +49662,7 @@ oStart: R
 70-	#D<1.viii.18>A<MEntz>X<260>
 5-	#D<2.viii.18>A<Tithe>C<Parmiters Lottery>X<260>
 450-	#D<1.viii.18>A<CarS>C<HSBC top up and car savings>X<261>
-1400+	#D<6.viii.18>B<>C<also Â£1k to cover boiler 3 mths, PoA>X<261>
+1400+	#D<6.viii.18>B<>C<also £1k to cover boiler 3 mths, PoA>X<261>
 #150+	#D<6.viii.18>A<CarS>
 #250+	#D<6.viii.18>A<Mtge>C<rental inc save>
 #1000+	#D<5.viii.17>A<Cattsdell>C<cover Sempill boiler>
@@ -50045,7 +50045,7 @@ oStart: R
 70-	#D<1.ix.18>A<MEntz>X<261>
 5-	#D<2.ix.18>A<Tithe>C<Parmiters Lottery>X<261>
 450-	#D<1.ix.18>A<CarS>C<HSBC top up and car savings>X<261>
-1400+	#D<6.ix.18>B<>C<also Â£1k to cover boiler 3 mths, PoA>X<262>
+1400+	#D<6.ix.18>B<>C<also £1k to cover boiler 3 mths, PoA>X<262>
 #150+	#D<6.ix.18>A<CarS>
 #250+	#D<6.ix.18>A<Mtge>C<rental inc save>
 #1000+	#D<5.ix.17>A<Cattsdell>C<cover Sempill boiler>
@@ -50178,7 +50178,7 @@ oStart: R
 
 120-	#D<25.ix.18>B<>X<262>
 #100-	#D<25.ix.18>A<Hair>C<Hx>
-#20-	#D<25.ix.18>A<Food>C<hairbrush A, Â£5 sundry>
+#20-	#D<25.ix.18>A<Food>C<hairbrush A, £5 sundry>
 ##
 
 11.60-	#D<26.ix.18>A<Replace>C<light switch>O<A:168>X<263>
@@ -50279,7 +50279,7 @@ oStart: R
 5-	#D<2.x.18>A<Tithe>C<Parmiters Lottery>X<263>
 10-	#D<3.x.18>A<Tithe>C<EA>X<263>
 450-	#D<1.x.18>A<CarS>C<HSBC top up and car savings>X<263>
-1400+	#D<6.x.18>B<>C<also Â£1k to cover boiler 3 mths, PoA>X<263>
+1400+	#D<6.x.18>B<>C<also £1k to cover boiler 3 mths, PoA>X<263>
 #150+	#D<6.x.18>A<CarS>
 #250+	#D<6.x.18>A<Mtge>C<rental inc save>
 #1000+	#D<5.x.17>A<Cattsdell>C<cover Tax Hx>
@@ -50347,13 +50347,13 @@ oStart: R
 
 41-	#D<4.x.18>B<>C<Tiger xmas pres>O<R:21>X<264>
 #8-	#D<4.x.18>A<XXan>O<R:21>X<264>
-#14-	#D<4.x.18>A<XFam>C<Frances Â£6, Hannah C Â£8>O<R:21>X<264>
+#14-	#D<4.x.18>A<XFam>C<Frances £6, Hannah C £8>O<R:21>X<264>
 #19-	#D<4.x.18>A<PM>C<Abi xmas pres friends>O<R:21>X<264>
 ##
 
 45.86-	#D<4.x.18>B<>C<Card factory>O<R:21>X<264>
 #12-	#D<4.x.18>A<PM>C<Abi friends pres>O<R:21>X<264>
-#9.50-	#D<4.x.18>A<XFam>C<Rebecca Â£5.50, DVH Â£4>O<R:21>X<264>
+#9.50-	#D<4.x.18>A<XFam>C<Rebecca £5.50, DVH £4>O<R:21>X<264>
 #7-	#D<4.x.18>A<XCards>C<family>O<R:21>X<264>
 #17.36-	#D<4.x.18>A<Gifts>C<Birthday cards>O<R:21>X<264>
 ##
@@ -50672,7 +50672,7 @@ oStart: R
 5-	#D<2.xi.18>A<Tithe>C<Parmiters Lottery>X<263>
 10-	#D<3.x.18>A<Tithe>C<EA>X<264>
 450-	#D<1.xi.18>A<CarS>C<HSBC top up and car savings>X<264>
-1400+	#D<6.xi.18>B<>C<also Â£1k to cover boiler 3 mths, PoA>X<264>
+1400+	#D<6.xi.18>B<>C<also £1k to cover boiler 3 mths, PoA>X<264>
 #150+	#D<6.xi.18>A<CarS>
 #250+	#D<6.xi.18>A<Mtge>C<rental inc save>
 #1000+	#D<5.xi.18>A<Cattsdell>C<cover Tax Hx>
@@ -50815,7 +50815,7 @@ oStart: R
 100-	#D<13.xi.18>A<Hair>C<Cash>X<264>
 
 70.50-	#D<13.xi.18>B<>C<Sainsburys>O<A:169>X<264>
-#30-	#D<13.xi.18>A<Tithe>C<Â£10 ref, Â£20 in lieu of raffle tkts>O<A:169>X<264>
+#30-	#D<13.xi.18>A<Tithe>C<£10 ref, £20 in lieu of raffle tkts>O<A:169>X<264>
 #25-	#D<13.xi.18>A<XTeacher>C<5 tins biscuits for teachers>O<A:169>X<264>
 #15.50-	#D<13.xi.18>A<Cats>C<kitten bits>O<A:169>X<264>
 ##
@@ -51140,7 +51140,7 @@ oStart: R
 5-	#D<2.xii.18>A<Tithe>C<Parmiters Lottery>X<265>
 10-	#D<3.xii.18>A<Tithe>C<EA>X<265>
 450-	#D<1.xii.18>A<CarS>C<HSBC top up and car savings>X<265>
-1400+	#D<6.xii.18>B<>C<also Â£1k to cover boiler 3 mths, PoA>X<265>
+1400+	#D<6.xii.18>B<>C<also £1k to cover boiler 3 mths, PoA>X<265>
 #150+	#D<6.xii.18>A<CarS>
 #250+	#D<6.xii.18>A<Mtge>C<rental inc save>
 #1000+	#D<5.xii.17>A<Cattsdell>C<cover Tax Hx>
@@ -51428,7 +51428,7 @@ oStart: R
 #8.40+		#D<31.xii.18>A<QFood>
 #43.90+		#D<31.xii.18>A<Train>
 #477.67+	#D<31.xii.18>A<Tithe>
-#1179.70-	#D<31.xii.18>A<Mtge>
+#1179.7-	#D<31.xii.18>A<Mtge>
 ##
 
 21.11-	#D<28.xii.18>A<Food>O<R:24>X<267>
@@ -51557,7 +51557,7 @@ oStart: R
 5-	#D<2.i.19>A<Tithe>C<Parmiters Lottery>X<265>
 10-	#D<3.i.19>A<Tithe>C<EA>X<265>
 450-	#D<1.i.19>A<CarS>C<HSBC top up and car savings>X<265>
-1400+	#D<6.i.19>B<>C<also Â£1k to cover def, PoA>X<265>
+1400+	#D<6.i.19>B<>C<also £1k to cover def, PoA>X<265>
 #150+	#D<6.i.19>A<CarS>
 #250+	#D<6.i.19>A<Mtge>C<rental inc save>
 #1000+	#D<5.i.19>A<Cattsdell>C<cover Tax Hx>
@@ -51583,12 +51583,12 @@ oStart: R
 22-		#D<31.i.19>A<Train>O<A:172>X<268>
 
 437.33-		#D<1.i.19>B<>C<Mx birthday BWA 125 dep>O<A:171>X<266>
-#145-		#D<1.i.19>A<Party>C<ours ex dep drinks, Â£79 food>O<A:171>X<266>
+#145-		#D<1.i.19>A<Party>C<ours ex dep drinks, £79 food>O<A:171>X<266>
 #292.33-	#D<1.i.19>A<Entz>C<Balance of BWA after dep 125>O<A:171>X<266>
 ##
 
-0-		#D<1.i.19>B<>C<Cash after Â£45 tip, 70 Capon to come>X<265>
-#125+		#D<1.i.19>A<Party>C<of Â£270 borne by Party>
+0-		#D<1.i.19>B<>C<Cash after £45 tip, 70 Capon to come>X<265>
+#125+		#D<1.i.19>A<Party>C<of £270 borne by Party>
 #125-		#D<1.i.19>A<Mtge>
 #140+		#D<1.i.19>A<Entz>C<Cash>
 #40-		#D<1.i.19>A<Lunch>
@@ -51864,7 +51864,7 @@ oStart: R
 5-	#D<2.ii.19>A<Tithe>C<Parmiters Lottery>X<267>
 10-	#D<3.ii.19>A<Tithe>C<EA>X<267>
 450-	#D<1.ii.19>A<CarS>C<HSBC top up and car savings>X<267>
-1400+	#D<6.ii.19>B<>C<also Â£1k to cover def, PoA>X<267>
+1400+	#D<6.ii.19>B<>C<also £1k to cover def, PoA>X<267>
 #150+	#D<6.ii.19>A<CarS>
 #250+	#D<6.ii.19>A<Mtge>C<rental inc save>
 #1000+	#D<5.ii.19>A<Cattsdell>C<cover Tax Hx>
@@ -51917,7 +51917,7 @@ oStart: R
 106.09-	#D<4.ii.19>A<LunchM>C<Haz to be reim>O<A:172>X<268>
 106.09+	#D<4.ii.19>A<LunchM>C<expenses>X<267>
 
-11.98-	#D<5.ii.19>A<GFam>C<Rebecca net of Â£8 gift card error>O<A:172>X<268>
+11.98-	#D<5.ii.19>A<GFam>C<Rebecca net of £8 gift card error>O<A:172>X<268>
 
 117-	#D<5.ii.19>A<Tithe>C<DENS quix for 9 people>X<267>
 26+	#D<6.ii.19>A<Tithe>C<P Boggis DENs>X<267>
@@ -51962,7 +51962,7 @@ oStart: R
 
 20-	#D<13.ii.19>A<Tithe>C<Astria female products kits>X<267>
 
-34-	#D<14.ii.19>A<Food>C<school trips X Â£16, J Â£18 March>X<268>
+34-	#D<14.ii.19>A<Food>C<school trips X £16, J £18 March>X<268>
 
 125.05-	#D<15.ii.19>A<Food>O<A:173>X<269>
 
@@ -51990,7 +51990,7 @@ oStart: R
 4.80-	#D<18.ii.19>A<Petrol>C<parking station>O<A:173>X<269>
 
 31.49-	#D<18.ii.19>B<>O<A:173>X<269>
-#23.50-	#D<18.ii.19>A<GFam>C<X Â£10, Chris Â£13.50>O<A:173>X<269>
+#23.50-	#D<18.ii.19>A<GFam>C<X £10, Chris £13.50>O<A:173>X<269>
 #7.99-	#D<18.ii.19>A<Save>O<A:173>X<269>
 ##
 
@@ -52150,7 +52150,7 @@ oStart: R
 5-	#D<2.iii.19>A<Tithe>C<Parmiters Lottery>X<267>
 10-	#D<3.iii.19>A<Tithe>C<EA>X<268>
 450-	#D<1.iii.19>A<CarS>C<HSBC top up and car savings>X<268>
-1400+	#D<6.iii.19>B<>C<also Â£1k to cover def, PoA>X<268>
+1400+	#D<6.iii.19>B<>C<also £1k to cover def, PoA>X<268>
 #150+	#D<6.iii.19>A<CarS>
 #250+	#D<6.iii.19>A<Mtge>C<rental inc save>
 #1000+	#D<5.iii.19>A<Cattsdell>C<cover Tax Hx>
@@ -52164,7 +52164,7 @@ oStart: R
 
 48.92-	#D<18.iii.19>A<Life>C<H>X<268>
 
-103.20-	#D<12.xi.18>A<AnnualSubs>C<gym X Spring 2019>O<R:22>X<265>
+103.20-	#D<12.xi.8>A<AnnualSubs>C<gym X Spring 2019>O<R:22>X<265>
 108-	#D<12.xi.18>A<AnnualSubs>C<JJ swim Spring 2019>X<264>
 8.60-	#D<13.xii.18>A<AnnualSubs>C<JJ taster gym 2019 12 Jan>O<R:23>X<266>
 18.60-	#D<19.xii.18>A<AnnualSubs>C<gym top up intermediate class>O<R:23>X<266>
@@ -52476,7 +52476,7 @@ oStart: R
 5-	#D<2.iv.19>A<Tithe>C<Parmiters Lottery>X<269>
 10-	#D<3.iv.19>A<Tithe>C<EA>X<269>
 450-	#D<1.iv.19>A<CarS>C<HSBC top up and car savings>X<269>
-1400+	#D<6.iv.19>B<>C<also Â£1k to cover def, PoA>X<269>
+1400+	#D<6.iv.19>B<>C<also £1k to cover def, PoA>X<269>
 #150+	#D<6.iv.19>A<CarS>
 #250+	#D<6.iv.19>A<Mtge>C<rental inc save>
 #1000+	#D<5.iv.19>A<Cattsdell>C<cover Tax Hx>
@@ -52690,7 +52690,7 @@ oStart: R
 4.55-	#D<30.iv.19>A<Food>C<record postage>O<A:175>X<271>
 7.95-	#D<30.iv.19>A<Food>C<record postage>O<A:175>X<271>
 
-120-	#D<30.iv.19>A<Hair>C<Hx Â£105, X trim Â£20 Cash>X<269>
+120-	#D<30.iv.19>A<Hair>C<Hx £105, X trim £20 Cash>X<269>
 
 49.18-	#D<1.v.19>A<Food>C<Aldi>O<R:28>X<271>
 
@@ -52774,7 +52774,7 @@ oStart: R
 5-	#D<2.v.19>A<Tithe>C<Parmiters Lottery>X<269>
 10-	#D<3.v.19>A<Tithe>C<EA>X<270>
 450-	#D<1.v.19>A<CarS>C<HSBC top up and car savings>X<270>
-1400+	#D<6.v.19>B<>C<also Â£1k to cover def, PoA>X<270>
+1400+	#D<6.v.19>B<>C<also £1k to cover def, PoA>X<270>
 #150+	#D<6.v.19>A<CarS>
 #250+	#D<6.v.19>A<Mtge>C<rental inc save>
 #1000+	#D<5.v.19>A<Cattsdell>C<cover Tax Hx>
@@ -53132,7 +53132,7 @@ oStart: R
 5-	#D<2.vi.19>A<Tithe>C<Parmiters Lottery>X<271>
 10-	#D<3.vi.19>A<Tithe>C<EA>X<271>
 450-	#D<1.vi.19>A<CarS>C<HSBC top up and car savings>X<271>
-1400+	#D<6.vi.19>B<>C<also Â£1k to cover def, PoA>X<271>
+1400+	#D<6.vi.19>B<>C<also £1k to cover def, PoA>X<271>
 #200+	#D<6.vi.19>A<CarS>C<to be put into an ISA>
 #1200+	#D<5.vi.19>A<Cattsdell>C<cover Tax Hx from 1 Aug back to RBS)>
 ##
@@ -53258,7 +53258,7 @@ oStart: R
 50-	#D<15.vi.19>A<AnnualSubs>C<piano and guitar cash>X<271>
 
 40-	#D<16.vi.19>B<>X<271>
-#35-	#D<16.vi.19>A<Tithe>C<Â£10 JAM sweets, Â£5 Willow scones, Â£20 quiz>
+#35-	#D<16.vi.19>A<Tithe>C<£10 JAM sweets, £5 Willow scones, £20 quiz>
 #5-	#D<16.vi.19>A<Food>
 ##
 
@@ -53495,7 +53495,7 @@ oStart: R
 5-	#D<2.vii.19>A<Tithe>C<Parmiters Lottery>X<271>
 10-	#D<3.vii.19>A<Tithe>C<EA>X<272>
 450-	#D<1.vii.19>A<CarS>C<HSBC top up and car savings>X<272>
-1400+	#D<6.vii.19>B<>C<also Â£1k to cover def, PoA>X<272>
+1400+	#D<6.vii.19>B<>C<also £1k to cover def, PoA>X<272>
 #200+	#D<6.vii.19>A<CarS>C<to be put into an ISA>
 #1200+	#D<5.vii.19>A<Cattsdell>C<cover Tax Hx from 1 Aug back to RBS)>
 ##
@@ -53549,7 +53549,7 @@ oStart: R
 
 12.85-		#D<2.vii.19>A<Entz>C<M, A,  Rebecca ice-cream>O<A:177>X<273>
 
-30-		#D<2.vii.19>A<Petrol>C<Car wash both cars Â£35 Cash>X<272>
+30-		#D<2.vii.19>A<Petrol>C<Car wash both cars £35 Cash>X<272>
 
 50.83-		#D<4.vii.19>B<>X<272>
 #0.83-		#D<4.vii.19>A<Food>C<poostage records>
@@ -53866,7 +53866,7 @@ oStart: R
 5-	#D<2.viii.19>A<Tithe>C<Parmiters Lottery>X<273>
 10-	#D<3.viii.19>A<Tithe>C<EA>X<273>
 450-	#D<1.viii.19>A<CarS>C<HSBC top up and car savings>X<273>
-1400+	#D<6.viii.19>B<>C<also Â£1k to cover def, PoA>X<273>
+1400+	#D<6.viii.19>B<>C<also £1k to cover def, PoA>X<273>
 #200+	#D<6.viii.19>A<CarS>C<to be put into an ISA>X<273>
 #1200+	#D<5.viii.19>A<Cattsdell>C<cover Tax Hx from 1 Aug back to RBS)>
 ##
@@ -53957,7 +53957,7 @@ oStart: R
 18.06-	#D<10.viii.19>A<HolX>C<Tollpass Miami I95 $21.75>O<M:219>X<273>
 32.23-	#D<13.viii.19>A<HolX>C<sunscreen and lollies $38.82>O<M:219>X<273>
 30.04-	#D<13.viii.19>A<HolX>C<Mx medications etc $36.18>O<M:219>X<273>
-25.44-	#D<15.viii.19>A<HolX>C<A skirt and decoration $31.94 Â£1adj for bill>O<M:219>X<273>
+25.44-	#D<15.viii.19>A<HolX>C<A skirt and decoration $31.94 £1adj for bill>O<M:219>X<273>
 75.83-	#D<18.viii.19>A<HolX>C<Airboat tour $91.60>O<M:219>X<273>
 24.84-	#D<18.viii.19>A<HolX>C<park entry $30>O<M:219>X<273>
 109.01-	#D<18.viii.19>A<HolX>C<Longhorn dinner $131.96>O<M:220>X<274>
@@ -54145,7 +54145,7 @@ oStart: R
 5-	#D<2.ix.19>A<Tithe>C<Parmiters Lottery>X<274>
 10-	#D<3.ix.19>A<Tithe>C<EA>X<274>
 450-	#D<1.ix.19>A<CarS>C<HSBC top up and car savings>X<274>
-1400+	#D<6.ix.19>B<>C<also Â£1k to cover def, PoA>X<274>
+1400+	#D<6.ix.19>B<>C<also £1k to cover def, PoA>X<274>
 #200+	#D<6.ix.19>A<CarS>C<to be put into an ISA>
 #1200+	#D<5.ix.19>A<Cattsdell>C<cover Tax Hx from 1 Aug back to RBS>
 ##
@@ -54248,7 +54248,7 @@ oStart: R
 41.83-	#D<9.ix.19>A<Replace>C<Freeparking domain 9 years .co.uk>O<R:32>X<275>
 
 3.45-	#D<9.ix.19>A<Food>C<post record>O<A:179>X<274>
-80-	#D<9.ix.19>A<Hair>C<Hx part of Â£110>X<274>
+80-	#D<9.ix.19>A<Hair>C<Hx part of £110>X<274>
 
 6.46-	#D<9.ix.19>A<LunchM>C<D and C>O<A:179>X<274>
 8.55-	#D<9.ix.19>A<LunchM>O<A:179>X<274>
@@ -54486,9 +54486,9 @@ oStart: R
 5-	#D<2.x.19>A<Tithe>C<Parmiters Lottery>X<274>
 10-	#D<3.x.19>A<Tithe>C<EA>X<275>
 450-	#D<1.x.19>A<CarS>C<HSBC top up and car savings>X<275>
-1400+	#D<6.x.19>B<>C<also Â£1k to cover def, PoA>X<275>
+1400+	#D<6.x.19>B<>C<also £1k to cover def, PoA>X<275>
 #200+	#D<6.x.19>A<CarS>C<to be put into an ISA>
-#1200+	#D<5.x.19>A<Cattsdell>C<cover Tax Hx Â£7kpa and Ins etc>
+#1200+	#D<5.x.19>A<Cattsdell>C<cover Tax Hx £7kpa and Ins etc>
 ##
 4.34-	#D<1.x.19>A<Tithe>C<Hospice lottery>X<275>
 
@@ -54595,7 +54595,7 @@ oStart: R
 
 62.43-	#D<15.x.19>A<Petrol>O<A:181>X<276>
 
-230-		#D<15.x.19>A<Mtge>C<Kingswood remainder Â£80, French trip deposit Â£150>O<R:33>X<276>
+230-		#D<15.x.19>A<Mtge>C<Kingswood remainder £80, French trip deposit £150>O<R:33>X<276>
 
 14.38-		#D<16.x.19>A<Tithe>C<Lucky Dip Halloween party LG>O<A:181>X<276>
 
@@ -54616,8 +54616,8 @@ oStart: R
 ##
 
 
-500-	#D<18.x.19>A<Cattsdell>C<Part of Â£1300 for Lyne Way trees cash>X<275>
-500-	#D<19.x.19>A<Cattsdell>C<Part of Â£1300 LW trees>X<275>
+500-	#D<18.x.19>A<Cattsdell>C<Part of £1300 for Lyne Way trees cash>X<275>
+500-	#D<19.x.19>A<Cattsdell>C<Part of £1300 LW trees>X<275>
 700-	#D<19.x.19>B<>C<Cash wdwl>X<275>
 #300-	#D<19.x.19>A<Cattsdell>
 #350-	#D<19.x.19>A<Hedge>C<Polehanger>
@@ -54741,7 +54741,7 @@ oStart: R
 
 65-	#D<29.x.19>B<>O<R:34>X<277>
 #35-	#D<29.x.19>A<XFam>C<Capons, Millers, board>O<R:34>X<277>
-#30-	#D<29.x.19>A<Tithe>C<Â£14 shoe box, Â£16 Abi book club>O<R:34>X<277>
+#30-	#D<29.x.19>A<Tithe>C<£14 shoe box, £16 Abi book club>O<R:34>X<277>
 ##
 
 45.70-	#D<29.x.19>B<>O<R:34>X<277>
@@ -54806,7 +54806,7 @@ oStart: R
 
 
 
-9009.67+	#D<25.x.19>B<>C<Mx wage incl 30 Sep Â£673 gross>X<275>
+9009.67+	#D<25.x.19>B<>C<Mx wage incl 30 Sep £673 gross>X<275>
 #20+	#D<1.xi.19>A<Alex>
 #580+   #D<1.xi.19>A<AnnualSubs>
 #20+   #D<1.xi.19>A<BikeServ>
@@ -54868,8 +54868,8 @@ oStart: R
 #5+   #D<1.xi.19>A<XCards>
 #55+   #D<1.xi.19>A<XFam>
 #50+	#D<1.xi.19>A<Xmas>
-#2712+	#D<1.xi.19>A<Save>C<Will be Â£2680 from 18 Dec>
-#807.67+			 #D<1.xi.19>A<Mtge>C<excess to save, incl Â£400 Sep 30>
+#2712+	#D<1.xi.19>A<Save>C<Will be £2680 from 18 Dec>
+#807.67+			 #D<1.xi.19>A<Mtge>C<excess to save, incl £400 Sep 30>
 ##
 
 2712-	#D<18.xi.19>A<Save>X<276>
@@ -54877,9 +54877,9 @@ oStart: R
 5-	#D<2.xi.19>A<Tithe>C<Parmiters Lottery>X<275>
 10-	#D<3.xi.19>A<Tithe>C<EA>X<276>
 450-	#D<1.xi.19>A<CarS>C<HSBC top up and car savings>X<276>
-1400+	#D<6.xi.19>B<>C<also Â£1k to cover def, PoA>X<276>
+1400+	#D<6.xi.19>B<>C<also £1k to cover def, PoA>X<276>
 #200+	#D<6.xi.19>A<CarS>C<to be put into an ISA>
-#1200+	#D<5.xi.19>A<Cattsdell>C<cover Tax Hx Â£7kpa and Ins etc>
+#1200+	#D<5.xi.19>A<Cattsdell>C<cover Tax Hx £7kpa and Ins etc>
 ##
 4.34-	#D<1.xi.19>A<Tithe>C<Hospice lottery>X<276>
 
@@ -55013,7 +55013,7 @@ oStart: R
 
 24-	#D<21.xi.19>A<Train>C<Congestion charge and ULEZ T of the S>O<A:182>X<277>
 
-69.10-	#D<19.xi.19>A<Food>C<Sainsburys incl Â£12 xmas>O<A:182>X<277>
+69.10-	#D<19.xi.19>A<Food>C<Sainsburys incl £12 xmas>O<A:182>X<277>
 
 59.37-	#D<15.x.19>A<Comp>C<Plexinc pass lifetime>O<A:181>X<276>
 
@@ -55189,14 +55189,14 @@ oStart: R
 30-	#D<23.ix.19>A<AnnualSubs>C<recorder Autumn J>O<R:32>X<275>
 98-	#D<3.ix.19>A<AnnualSubs>C<deposit X Saxophone>X<274>
 98+	#D<1.x.19>A<AnnualSubs>C<deposit ref Saxophone>O<R:32>X<275>
-600-	#D<23.ix.19>A<AnnualSubs>C<X Sax, A sing and drums Autumn Â£98 dep too>O<R:32>X<275>
+600-	#D<23.ix.19>A<AnnualSubs>C<X Sax, A sing and drums Autumn £98 dep too>O<R:32>X<275>
 
 26.74-	#D<1.xii.19>A<Tithe>C<Bday lunch Beth>O<R:35>X<278>
 19.10-	#D<1.xii.19>A<Tithe>C<drinks all Bday>O<R:35>X<278>
 
 19.55-	#D<30.xi.19>A<Mtge>C<food extra incl 6 for xmas chocs>O<A:182>X<277>
 
-8347.14+	#D<27.xii.19>B<>C<Mx salary after Â£383.20 tenth season tkt>X<276>
+8347.14+	#D<27.xii.19>B<>C<Mx salary after £383.20 tenth season tkt>X<276>
 #20+	#D<1.xii.19>A<Alex>
 #580+   #D<1.xii.19>A<AnnualSubs>
 #20+   #D<1.xii.19>A<BikeServ>
@@ -55268,9 +55268,9 @@ oStart: R
 5-	#D<2.xii.19>A<Tithe>C<Parmiters Lottery>X<277>
 10-	#D<3.xii.19>A<Tithe>C<EA>X<277>
 450-	#D<1.xii.19>A<CarS>C<HSBC top up and car savings>X<277>
-1400+	#D<6.xii.19>B<>C<also Â£1k to cover def, PoA>X<277>
+1400+	#D<6.xii.19>B<>C<also £1k to cover def, PoA>X<277>
 #200+	#D<6.xii.19>A<CarS>C<to be put into an ISA>
-#1200+	#D<5.xii.19>A<Cattsdell>C<cover Tax Hx Â£7kpa and Ins etc>
+#1200+	#D<5.xii.19>A<Cattsdell>C<cover Tax Hx £7kpa and Ins etc>
 ##
 4.34-	#D<1.xii.19>A<Tithe>C<Hospice lottery>X<277>
 
@@ -55328,7 +55328,7 @@ oStart: R
 91-	#D<4.xii.19>A<Food>C<Tesco>O<A:182>X<277>
 
 40.48-	#D<4.xii.19>B<>C<Iwoot>O<A:182>X<277>
-#20-	#D<4.xii.19>A<ClothesJ>C<HP fleece 2 for Â£20>O<A:182>X<277>
+#20-	#D<4.xii.19>A<ClothesJ>C<HP fleece 2 for £20>O<A:182>X<277>
 #20.48-	#D<4.xii.19>A<ClothesX>C<2 T and 2 socks>O<A:182>X<277>
 ##
 
@@ -55432,7 +55432,7 @@ oStart: R
 #45-	#D<12.xii.19>A<AnnualSubs>
 #30-	#D<12.xii.19>A<Guitar>C<gift Callaine>
 #25-	#D<12.xii.19>A<XFam>C<gift Joseph xmas>
-#10-	#D<12.xii.19>A<XTeacher>C<part of Â£20>
+#10-	#D<12.xii.19>A<XTeacher>C<part of £20>
 #20-	#D<12.xii.19>A<Lunch>
 ##
 
@@ -55459,7 +55459,7 @@ oStart: R
 #25-	#D<13.xii.19>A<XFam>C<Oliver>
 ##
 
-15-	#D<14.xii.19>A<PM>C<Xander Dec less Â£5 for pres Jazs>X<277>
+15-	#D<14.xii.19>A<PM>C<Xander Dec less £5 for pres Jazs>X<277>
 28-	#D<14.xii.19>A<PM>C<Abi Dec>X<277>
 
 5.20-	#D<13.xii.19>A<LunchM>O<A:182>X<277>
@@ -55630,7 +55630,7 @@ oStart: R
 
 
 
-8282.34+	#D<27.i.20>B<>C<Mx salary after Â£383.20 tenth season tkt>X<277>
+8282.34+	#D<27.i.20>B<>C<Mx salary after £383.20 tenth season tkt>X<277>
 #20+	#D<1.i.20>A<Alex>
 #630+   #D<1.i.20>A<AnnualSubs>
 #20+   #D<1.i.20>A<BikeServ>
@@ -55707,9 +55707,9 @@ oStart: R
 5-	#D<2.i.20>A<Tithe>C<Parmiters Lottery>X<277>
 10-	#D<3.i.20>A<Tithe>C<EA>X<277>
 450-	#D<1.i.20>A<CarS>C<HSBC top up and car savings>X<277>
-1400+	#D<6.i.20>B<>C<also Â£1k to cover def, PoA>X<278>
+1400+	#D<6.i.20>B<>C<also £1k to cover def, PoA>X<278>
 #200+	#D<6.i.20>A<CarS>C<to be put into an ISA>
-#1200+	#D<5.i.20>A<Cattsdell>C<cover Tax Hx Â£7kpa and Ins etc>
+#1200+	#D<5.i.20>A<Cattsdell>C<cover Tax Hx £7kpa and Ins etc>
 ##
 4.34-	#D<1.i.20>A<Tithe>C<Hospice lottery>X<278>
 
@@ -55741,7 +55741,7 @@ oStart: R
 99-	#D<31.xii.19>B<>C<Cheque for X for cash and Amazon vouch xmas>X<278>
 #36-	#D<31.xii.19>A<Lunch>
 #20-	#D<31.xii.19>A<PM>
-#41-	#D<31.xii.19>A<AnnualSubs>C<Grandma 25, A Kathryn Â£10>
+#41-	#D<31.xii.19>A<AnnualSubs>C<Grandma 25, A Kathryn £10>
 #2-	#D<31.xii.19>A<Food>
 ##
 
@@ -55771,9 +55771,9 @@ oStart: R
 17.16-	#D<31.xii.19>A<Save>C<Last Christmas A and H>O<A:183>X<278>
 
 140.18-	#D<1.i.20>B<>C<BWA New Year's walk>O<A:183>X<278>
-#50-	#D<1.i.20>A<AnnualSubs>C<Cash from others Â£110, Â£45 tip>O<A:183>X<278>
+#50-	#D<1.i.20>A<AnnualSubs>C<Cash from others £110, £45 tip>O<A:183>X<278>
 #15-	#D<1.i.20>A<Lunch>C<rest of cash>O<A:183>X<278>
-#75.18-	#D<1.i.20>A<Save>C<our food and drinks/tip for all with Â£125 dep>O<A:183>X<278>
+#75.18-	#D<1.i.20>A<Save>C<our food and drinks/tip for all with £125 dep>O<A:183>X<278>
 ##
 
 30+	#D<2.i.20>A<Xmas>C<cheque from P&S used to buy gifts>X<277>
@@ -55830,7 +55830,7 @@ oStart: R
 
 82.33-	#D<7.i.20>A<Petrol>C<Amber>O<A:183>X<278>
 
-100-	#D<7.i.20>A<Hair>C<total Â£110 cash>X<278>
+100-	#D<7.i.20>A<Hair>C<total £110 cash>X<278>
 
 57.39-	#D<7.i.20>B<>C<Asda MK>O<A:183>X<278>
 #26-	#D<7.i.20>A<House>C<duvets x 2>O<A:183>X<278>
@@ -55845,7 +55845,7 @@ oStart: R
 
 40-	#D<8.i.20>A<ClothesX>C<school shoes>O<R:36>X<279>
 
-30-	#D<8.i.20>A<Hair>C<cash boys and Â£10 more me>X<278>
+30-	#D<8.i.20>A<Hair>C<cash boys and £10 more me>X<278>
 
 72.80-	#D<9.i.20>A<GJJ>O<A:183>X<278>
 
@@ -56032,9 +56032,9 @@ oStart: R
 5-	#D<2.ii.20>A<Tithe>C<Parmiters Lottery>X<279>
 10-	#D<3.ii.20>A<Tithe>C<EA>X<279>
 450-	#D<1.ii.20>A<CarS>C<HSBC top up and car savings cancel Mar 20>X<279>
-1400+	#D<6.ii.20>B<>C<also Â£1k to cover def, PoA, becomes 2280 Mar 20>X<279>
+1400+	#D<6.ii.20>B<>C<also £1k to cover def, PoA, becomes 2280 Mar 20>X<279>
 #200+	#D<6.ii.20>A<CarS>C<to be put into an ISA>
-#1200+	#D<5.ii.20>A<Cattsdell>C<cover Tax Hx Â£7kpa and Ins etc>
+#1200+	#D<5.ii.20>A<Cattsdell>C<cover Tax Hx £7kpa and Ins etc>
 ##
 4.34-	#D<1.ii.20>A<Tithe>C<Hospice lottery>X<279>
 
@@ -56303,7 +56303,7 @@ oStart: R
 
 84.59-	#D<24.ii.20>A<CompX>C<printer toner>O<A:185>X<280>
 299.77-	#D<24.ii.20>A<CompX>C<mboard, RAM etc>O<A:185>X<280>
-137-	#D<24.ii.20>A<CompX>C<CPU>O<A:185>X<280>
+137-	#D<24.ii.20A>A<CompX>C<CPU>O<A:185>X<280>
 46.95-	#D<24.ii.20>A<CompX>C<CPU cooler>O<A:185>X<280>
 8.99-	#D<24.ii.20>A<Comp>C<cables for charging station>O<A:185>X<280>
 
@@ -56468,7 +56468,7 @@ oStart: R
 10-	#D<3.iii.20>A<Tithe>C<EA>X<280>
 2280+	#D<6.iii.20>B<>C<to cover def, PoA, 2280 Mar 20>X<280>
 #250-	#D<6.iii.20>A<CarS>C<in HSBC online saver monthly later trf ISA>
-#2530+	#D<5.iii.20>A<Cattsdell>C<cover Tax Hx Â£7kpa and Ins etc>
+#2530+	#D<5.iii.20>A<Cattsdell>C<cover Tax Hx £7kpa and Ins etc>
 ##
 4.34-	#D<1.iii.20>A<Tithe>C<Hospice lottery>X<280>
 
@@ -56588,7 +56588,7 @@ oStart: R
 150-	#D<17.iii.20>B<>C<Cash>X<280>
 #30-	#D<17.iii.20>A<Lunch>C<Chinese take away>
 #30-	#D<17.iv.20>A<PM>C<Easter gifts Dad for kids>
-#60-	#D<17.iii.20>A<Hair>C<Â£25 X and J, rest prov>
+#60-	#D<17.iii.20>A<Hair>C<£25 X and J, rest prov>
 #30-	#D<20.iii.20>A<GFam>C<Cash EB and Dan VH bday with books>
 ##
 
@@ -56749,18 +56749,18 @@ oStart: R
 #5+   #D<1.iv.20>A<XCards>
 #55+   #D<1.iv.20>A<XFam>
 #50+	#D<1.iv.20>A<Xmas>
-#2680+	#D<1.iv.20>A<Save>C<Â£2662 from 20 May 20>
+#2680+	#D<1.iv.20>A<Save>C<£2662 from 20 May 20>
 #296.89+	#D<1.iv.20>A<Mtge>
 ##
 
 
-2680-	#D<18.iv.20>A<Save>C<Â£2662 from 20 May 20>X<281>
+2680-	#D<18.iv.20>A<Save>C<£2662 from 20 May 20>X<281>
 70-	#D<1.iv.20>A<MEntz>X<280>
 5-	#D<2.iv.20>A<Tithe>C<Parmiters Lottery>X<280>
 10-	#D<3.iv.20>A<Tithe>C<EA>X<281>
 2280+	#D<6.iv.20>B<>C<to cover def, PoA, becomes 2280 Mar 20>X<281>
 #250-	#D<6.iv.20>A<CarS>C<to be put into an ISA>
-#2530+	#D<5.iv.20>A<Cattsdell>C<cover Tax Hx Â£7kpa and Ins etc>
+#2530+	#D<5.iv.20>A<Cattsdell>C<cover Tax Hx £7kpa and Ins etc>
 ##
 4.34-	#D<1.iv.20>A<Tithe>C<Hospice lottery>X<281>
 8.67-	#D<14.iv.20>A<Tithe>C<LGS lottery>X<281>
@@ -56872,7 +56872,7 @@ oStart: R
 6.20-	#D<20.iv.20>A<Records>O<A:187>X<282>
 
 19.43-	#D<22.iv.20>A<Food>C<Woodenfloor cleaner>O<A:187>X<282>
-9.29-	#D<22.iv.20>A<Food>C<CoOp incl Â£1 cakes Dad>O<A:187>X<282>
+9.29-	#D<22.iv.20>A<Food>C<CoOp incl £1 cakes Dad>O<A:187>X<282>
 
 206.76-	#D<22.iv.20>A<Sophia>C<Ad Blue, tyre, diagnostic Amber>X<281>
 
@@ -56881,7 +56881,7 @@ oStart: R
 132.87-	#D<23.iv.20>A<Food>C<Aldi>O<A:187>X<282>
 7.62-	#D<23.iv.20>A<Food>C<F&R>O<A:187>X<282>
 2.44-	#D<23.iv.20>A<Food>C<M&DP>O<A:187>X<282>
-10.43-	#D<23.iv.20>A<Food>C<Dad plus floor cleaner and cake Â£5>O<A:187>X<282>
+10.43-	#D<23.iv.20>A<Food>C<Dad plus floor cleaner and cake £5>O<A:187>X<282>
 15.50+	#D<24.iv.20>A<Food>C<Dad>X<281>
 2.44+	#D<25.iv.20>A<Food>C<M&DP>X<281>
 
@@ -56895,7 +56895,7 @@ oStart: R
 ##
 81.85-	#D<26.iv.20>B<>C<Metro Xander>X<281>
 #21.85-	#D<26.iv.20>A<PM>C<to 26th Apr>
-#60-	#D<26.iv.20>A<Lunch>C<Â£15 Easter GPs, Â£65 Bday Grahams, L&G, Freda, etc>
+#60-	#D<26.iv.20>A<Lunch>C<£15 Easter GPs, £65 Bday Grahams, L&G, Freda, etc>
 ##
 
 4.50-	#D<25.iv.20>A<Food>C<CoOp>O<A:187>X<282>
@@ -56910,7 +56910,7 @@ oStart: R
 600-	#D<17.xii.19>A<AnnualSubs>C<music lesssons at Parmiter's A and X Spring>O<R:35>X<278>
 146.63-	#D<18.xii.19>A<AnnualSubs>C<Guitar JJ Spring>X<277>
 450-	#D<19.xii.19>A<AnnualSubs>C<Top Hat A and J Spring>X<277>
-40-	#D<23.i.20>A<AnnualSubs>C<JJ recorder Â£30, sci week Â£10>O<R:36>X<279>
+40-	#D<23.i.20>A<AnnualSubs>C<JJ recorder £30, sci week £10>O<R:36>X<279>
 100-	#D<8.ii.20>A<AnnualSubs>C<Abi Lamda Spring>X<279>
 52-	#D<29.ii.20>A<AnnualSubs>C<Tennis to May 2020 JJ mem to Apr 21>O<A:185>X<280>
 28+	#D<24.iii.20>A<AnnualSubs>C<Tennis refund>O<A:186>X<281>
@@ -56992,18 +56992,18 @@ oStart: R
 #5+   #D<1.v.20>A<XCards>
 #55+   #D<1.v.20>A<XFam>
 #50+	#D<1.v.20>A<Xmas>
-#2712+	#D<1.v.20>A<Save>C<Â£2712 from 20 May 20>
+#2712+	#D<1.v.20>A<Save>C<£2712 from 20 May 20>
 #402.50+	#D<1.v.20>A<Mtge>
 ##
 
 
-2712-	#D<18.v.20>A<Save>C<Â£2662 from 20 May 20>X<282>
+2712-	#D<18.v.20>A<Save>C<£2662 from 20 May 20>X<282>
 70-	#D<1.v.20>A<MEntz>X<282>
 5-	#D<2.v.20>A<Tithe>C<Parmiters Lottery>X<282>
 10-	#D<3.v.20>A<Tithe>C<EA>X<282>
 2280+	#D<6.v.20>B<>C<to cover def, PoA, becomes 2280 Mar 20>X<282>
 #250-	#D<6.v.20>A<CarS>C<to be put into an ISA>
-#2530+	#D<5.v.20>A<Cattsdell>C<cover Tax Hx Â£7kpa and Ins etc>
+#2530+	#D<5.v.20>A<Cattsdell>C<cover Tax Hx £7kpa and Ins etc>
 ##
 4.34-	#D<1.v.20>A<Tithe>C<Hospice lottery>X<282>
 8.67-	#D<14.v.20>A<Tithe>C<LGS lottery>X<282>
@@ -57148,7 +57148,7 @@ oStart: R
 
 11.65-	#D<18.v.20>A<Food>C<Mx Raors>O<A:188>X<283>
 
-512.43-	#D<18.v.20>A<House>C<wood for TV Cabinet c.Â£1k>X<282>
+512.43-	#D<18.v.20>A<House>C<wood for TV Cabinet c.£1k>X<282>
 500-	#D<14.vii.20>A<House>C<Paul for door and cabinet>X<284>
 
 9.80-	#D<19.v.20>A<Food>C<CoOp>O<A:188>X<283>
@@ -57264,7 +57264,7 @@ oStart: R
 100-	#D<15.xi.19>A<Mtge>C<1st instal French trip>O<R:34>X<277>
 100-	#D<3.i.20>A<Mtge>C<2nd instalment>O<R:36>X<279>
 120-	#D<16.i.20>B<>O<R:36>X<279>
-#100-	#D<16.i.20>A<Mtge>C<balance of French trip X Â£150 dep paid>O<R:36>X<279>
+#100-	#D<16.i.20>A<Mtge>C<balance of French trip X £150 dep paid>O<R:36>X<279>
 #20-	#D<16.i.20>A<Food>C<X top up food on Wisepay>O<R:36>X<279>
 ##
 150+	#D<28.iv.20>A<Mtge>C<ref cancelled French trip dep>O<R:41>X<283>
@@ -57335,7 +57335,7 @@ oStart: R
 #5+   #D<1.vi.20>A<XCards>
 #55+   #D<1.vi.20>A<XFam>
 #50+	#D<1.vi.20>A<Xmas>
-#2712+	#D<1.vi.20>A<Save>C<Â£2712 from 20 May 20>
+#2712+	#D<1.vi.20>A<Save>C<£2712 from 20 May 20>
 #324.20+	#D<1.vi.20>A<Mtge>
 ##
 
@@ -57346,7 +57346,7 @@ oStart: R
 10-	#D<3.vi.20>A<Tithe>C<EA>X<283>
 2280+	#D<6.vi.20>B<>C<to cover exp, PoA, becomes 2280 Mar 20>X<283>
 #250-	#D<6.vi.20>A<CarS>C<to be put into an ISA>
-#2530+	#D<5.vi.20>A<Cattsdell>C<cover Tax Hx Â£7kpa and Ins etc>
+#2530+	#D<5.vi.20>A<Cattsdell>C<cover Tax Hx £7kpa and Ins etc>
 ##
 4.34-	#D<1.vi.20>A<Tithe>C<Hospice lottery>X<283>
 8.67-	#D<14.vi.20>A<Tithe>C<LGS lottery>X<283>
@@ -57362,7 +57362,7 @@ oStart: R
 
 1.75-	#D<2.vi.20>A<Food>O<A:188>X<283>
 
-44.51-	#D<2.vi.20>A<Records>C<incl. 2 x Â£7.80 for Mum P>O<A:188>X<283>
+44.51-	#D<2.vi.20>A<Records>C<incl. 2 x £7.80 for Mum P>O<A:188>X<283>
 
 85-	#D<3.vi.20>B<>C<PM Abi and 45 bday money to 31st May plus 5>X<283>
 #40-	#D<3.vi.20>A<PM>
@@ -57448,7 +57448,7 @@ oStart: R
 5.98-	#D<17.vi.20>A<Entz>C<Kindle book Mx>O<A:189>X<284>
 
 28-	#D<18.vi.20>A<PM>C<Abi PM to 28th June>X<283>
-10-	#D<18.vi.20>A<PM>C<Xander to 28th June less Â£10 Steam>X<283>
+10-	#D<18.vi.20>A<PM>C<Xander to 28th June less £10 Steam>X<283>
 
 1-	#D<18.vi.20>A<Petrol>C<carpark>O<A:189>X<284>
 
@@ -57651,7 +57651,7 @@ oStart: R
 #5+   #D<1.vii.20>A<XCards>
 #55+   #D<1.vii.20>A<XFam>
 #50+	#D<1.vii.20>A<Xmas>
-#2712+	#D<1.vii.20>A<Save>C<Â£2712 from 20 May 20>
+#2712+	#D<1.vii.20>A<Save>C<£2712 from 20 May 20>
 #324.20+	#D<1.vii.20>A<Mtge>
 ##
 
@@ -57662,7 +57662,7 @@ oStart: R
 10-	#D<3.vii.20>A<Tithe>C<EA>X<284>
 2280+	#D<6.vii.20>B<>C<to cover exp, PoA, becomes 2280 Mar 20>X<284>
 #250-	#D<6.vii.20>A<CarS>C<to be put into an ISA>
-#2530+	#D<5.vii.20>A<Cattsdell>C<cover Tax Hx Â£7kpa and Ins etc>
+#2530+	#D<5.vii.20>A<Cattsdell>C<cover Tax Hx £7kpa and Ins etc>
 ##
 4.34-	#D<1.vii.20>A<Tithe>C<Hospice lottery>X<284>
 8.67-	#D<14.vii.20>A<Tithe>C<LGS lottery>X<284>
@@ -57712,7 +57712,7 @@ oStart: R
 
 7.40-	#D<7.vii.20>A<Food>C<CoOp>O<A:189>X<284>
 
-150-	#D<7.vii.20>A<Hair>C<Abi Â£30, JJ Â£12, Hx>X<284>
+150-	#D<7.vii.20>A<Hair>C<Abi £30, JJ £12, Hx>X<284>
 
 99.99-	#D<7.vii.20>A<Replace>C<new speaker Conservatory>O<A:189>X<284>
 
@@ -57761,7 +57761,7 @@ oStart: R
 
 18.79-	#D<15.vii.20>A<Food>C<Lawsons>O<A:190>X<285>
 30.96-	#D<15.vii.20>A<Food>C<M&DP>O<A:190>X<285>
-118.26-	#D<15.vii.20>A<Food>C<Aldi>O<A:190>X<285>
+118.26-	#D<15.vii.20A>A<Food>C<Aldi>O<A:190>X<285>
 18.79+	#D<15.vii.20>A<Food>C<Lawsons>X<284>
 30.96+	#D<15.vii.20>A<Food>C<M&DP>X<284>
 
@@ -57962,7 +57962,7 @@ oStart: R
 #5+   #D<1.viii.20>A<XCards>
 #55+   #D<1.viii.20>A<XFam>
 #50+	#D<1.viii.20>A<Xmas>
-#2712+	#D<1.viii.20>A<Save>C<Â£2712 from 20 May 20>
+#2712+	#D<1.viii.20>A<Save>C<£2712 from 20 May 20>
 #324.20+	#D<1.viii.20>A<Mtge>
 ##
 
@@ -57973,7 +57973,7 @@ oStart: R
 10-	#D<3.viii.20>A<Tithe>C<EA>X<285>
 2280+	#D<6.viii.20>B<>C<to cover exp, PoA, becomes 2280 Mar 20>X<285>
 #250-	#D<6.viii.20>A<CarS>C<to be put into an ISA>
-#2530+	#D<5.viii.20>A<Cattsdell>C<cover Tax Hx Â£7kpa and Ins etc>
+#2530+	#D<5.viii.20>A<Cattsdell>C<cover Tax Hx £7kpa and Ins etc>
 ##
 4.34-	#D<1.viii.20>A<Tithe>C<Hospice lottery>X<285>
 8.67-	#D<14.viii.20>A<Tithe>C<LGS lottery>X<285>
@@ -58042,7 +58042,7 @@ oStart: R
 
 10.65-	#D<4.viii.20>A<Entz>C<Chamber of Secrets Cinema>O<A:190>X<285>
 10.95-	#D<4.viii.20>A<Food>C<ice-cream at Cinema>O<A:190>X<285>
-2.45-	#D<4.viii.20>A<Food>C<Tesco>O<A:190>X<285>
+2.45-	#D<4.viii.20>A<Food>C<Tesco>O<A:190>X<285:190>X<285>
 
 7.85-	#D<4.viii.20>A<ClothesJ>C<school socks and baguette>O<A:190>X<285>
 12.47-	#D<4.viii.20>B<>C<Keech Hospice>O<R:44>X<286>
@@ -58190,7 +58190,7 @@ oStart: R
 2.88-	#D<19.viii.20>A<Hols>C<Starbucks HC>O<A:199>X<286>
 2.63-	#D<19.viii.20>A<Hols>C<Starbucks HC and cake>O<A:199>X<286>
 54.50-	#D<19.viii.20>A<Hols>C<Pottery pieces>O<A:199>X<286>
-30.09-	#D<19.viii.20>A<Hols>C<Bella Italia EOTHO and after Â£25 dep>O<R:44>X<286>
+30.09-	#D<19.viii.20>A<Hols>C<Bella Italia EOTHO and after £25 dep>O<R:44>X<286>
 2.60-	#D<19.viii.20>A<Food>C<milk>O<A:199>X<286>
 8-	#D<20.viii.20>A<Hols>C<icecream Treats>O<A:199>X<286>
 6.99-	#D<20.viii.20>A<Hols>C<BBQ>O<A:199>X<286>
@@ -58279,7 +58279,7 @@ oStart: R
 ##
 55+	#D<18.ix.20>A<ClothesA>C<Debenhams rtn>O<D:31>X<287>
 
-0-	#D<1.ix.20>B<>C<Top up prov weddings, 18th at Â£150 x 6 and Â£130 Woody>
+0-	#D<1.ix.20>B<>C<Top up prov weddings, 18th at £150 x 6 and £130 Woody>
 #730.87+	     #D<1.ix.20>A<GWed>
 #430.87-	     #D<1.ix.20>A<AnnualSubs>
 #300-		     #D<1.ix.20>A<Train>
@@ -58378,7 +58378,7 @@ oStart: R
 #5+   #D<1.ix.20>A<XCards>
 #55+   #D<1.ix.20>A<XFam>
 #50+	#D<1.ix.20>A<Xmas>
-#2712+	#D<1.ix.20>A<Save>C<Â£2712 from 20 May 20>
+#2712+	#D<1.ix.20>A<Save>C<£2712 from 20 May 20>
 #301.25+	#D<1.ix.20>A<Mtge>
 ##
 
@@ -58388,7 +58388,7 @@ oStart: R
 10-	#D<3.ix.20>A<Tithe>C<EA>X<286>
 2280+	#D<6.ix.20>B<>C<to cover exp, PoA, becomes 1180 from Oct 2020>X<286>
 #250-	#D<6.ix.20>A<CarS>C<to be put into an ISA>
-#2530+	#D<5.ix.20>A<Cattsdell>C<cover Tax Hx Â£7kpa and Ins etc>
+#2530+	#D<5.ix.20>A<Cattsdell>C<cover Tax Hx £7kpa and Ins etc>
 ##
 4.34-	#D<1.ix.20>A<Tithe>C<Hospice lottery>X<286>
 8.67-	#D<14.ix.20>A<Tithe>C<LGS lottery>X<286>
@@ -58701,7 +58701,7 @@ oStart: R
 #5+   #D<1.x.20>A<XCards>
 #55+   #D<1.x.20>A<XFam>
 #50+	#D<1.x.20>A<Xmas>
-#2720+	#D<1.x.20>A<Save>C<Â£2720 from 20 Oct 20>
+#2720+	#D<1.x.20>A<Save>C<£2720 from 20 Oct 20>
 #471.75+	#D<1.x.20>A<Mtge>
 ##
 
@@ -58711,7 +58711,7 @@ oStart: R
 10-	#D<3.x.20>A<Tithe>C<EA>X<287>
 1180+	#D<6.x.20>B<>C<to cover exp, PoA, becomes 1180 from Oct 2020 back to 2280 6 Nov>X<287>
 #250-	#D<6.x.20>A<CarS>C<to be put into an ISA>
-#1430+	#D<5.x.20>A<Cattsdell>C<cover Tax Hx Â£7kpa and Ins etc>
+#1430+	#D<5.x.20>A<Cattsdell>C<cover Tax Hx £7kpa and Ins etc>
 ##
 4.34-	#D<1.x.20>A<Tithe>C<Hospice lottery>X<287>
 8.67-	#D<14.x.20>A<Tithe>C<LGS lottery>X<287>
@@ -58789,7 +58789,7 @@ oStart: R
 
 5.50-	#D<18.x.20>A<Lunch>C<CoOp>O<A:201>X<288>
 
-220-	#D<19.x.20>A<Hedge>C<Part of Â£350 for hedge cutting>X<287>
+220-	#D<19.x.20>A<Hedge>C<Part of £350 for hedge cutting>X<287>
 
 17.73-	#D<19.x.20>A<Records>O<A:201>X<288>
 
@@ -58812,7 +58812,7 @@ oStart: R
 #47.03-	#D<22.x.20>A<LunchM>O<A:201>X<288>
 #24.89-	#D<22.x.20>A<Entz>O<A:201>X<288>
 ##
-3.50-	#D<22.x.20>A<Entz>C<cream Hx allergy rash>O<A:201>X<288>
+3.50-	#D<22.x.20>A<Entz>C<cream Hx allergy rash>O<A:201>X<288:201>X<288>
 3.45-	#D<22.x.20>A<Lunch>C<CoOp>O<A:201>X<288>
 1.10-	#D<16.ix.20>A<Entz>C<CoOp>O<A:200>X<287>
 
@@ -58822,7 +58822,7 @@ oStart: R
 
 7.28-	#D<22.x.20>A<PM>C<X Steam thing>O<A:201>X<288>
 
-20-	#D<22.x.20>A<PM>C<Abi Oct exc Â£8 Harry pres>X<287>
+20-	#D<22.x.20>A<PM>C<Abi Oct exc £8 Harry pres>X<287>
 15-	#D<22.x.20>A<PM>C<Xan Oct excl 5 toward Steam game>X<287>
 
 25.60-	#D<24.x.20>A<Entz>C<Treasure House>O<A:201>X<288>
@@ -58855,7 +58855,7 @@ oStart: R
 #24.99-	#D<26.x.20>A<Uniform>C<replacement school coat Mx>O<A:201>X<288>
 ##
 
-10.54-	#D<30.x.20>A<Save>C<CoOp food basics after CP break>O<A:201>X<288>
+10.54-	#D<30.x.20>A<Save>C<CoOp food basics after CP break>O<A:201>X<288:201>X<288>
 
 246.87-	#D<31.x.20>B<>C<Sainsburys>O<A:201>X<288>
 #212.50-	#D<31.x.20>A<QFood>O<A:201>X<288>
@@ -58909,7 +58909,7 @@ oStart: R
 10.50-	#D<27.x.20>A<Entz>C<Park market>O<A:201>X<288>
 60.29-	#D<27.x.20>A<Entz>C<Pancake House>O<A:201>X<288>
 31.50-	#D<27.x.20>A<Save>C<Castle and flower pot>O<A:201>X<288>
-81.45-	#D<28.x.20>A<Hols>C<rest of Bella Italia after Â£25 dep>O<R:47>X<289>
+81.45-	#D<28.x.20>A<Hols>C<rest of Bella Italia after £25 dep>O<R:47>X<289>
 16.30-	#D<28.x.20>A<Hols>C<Park Market bits>O<A:201>X<288>
 2.59-	#D<29.x.20>A<Hols>C<Starbucks coffee Hx>O<A:201>X<288>
 13.36-	#D<29.x.20>A<Hols>C<Drinks whilst Bowling>O<A:201>X<288>
@@ -58932,8 +58932,8 @@ oStart: R
 #1000-	#D<31.x.20>A<TSFli>
 #850-	#D<31.x.20>A<Train>
 #150-	#D<31.x.20>A<Hair>
-#2360+	#D<31.x.20>A<Hols>C<Â£7k bal Â£1200 days out xmas, Â£800 CP, Â£5k Iceland prov extra with Nov-Mar 21 Â£4k>
-#640+	#D<31.x.20>A<HolX>C<Towards Â£17k to come 2021 for planned trips Easter, Summer, Oct>
+#2360+	#D<31.x.20>A<Hols>C<£7k bal £1200 days out xmas, £800 CP, £5k Iceland prov extra with Nov-Mar 21 £4k>
+#640+	#D<31.x.20>A<HolX>C<Towards £17k to come 2021 for planned trips Easter, Summer, Oct>
 #91.03+	#D<31.x.20>A<ClothesH>
 #91.03-	#D<31.x.20>A<ClothesM>
 ##
@@ -59001,8 +59001,8 @@ oStart: R
 #5+   #D<1.xi.20>A<XCards>
 #55+   #D<1.xi.20>A<XFam>
 #50+	#D<1.xi.20>A<Xmas>
-#2720+	#D<1.xi.20>A<Save>C<Â£2720 from 20 Oct 20>
-#8896.75+	#D<1.xi.20>A<Mtge>C<incls. c16430 net comp less Â£8k to HolX instead of from 2021 bonus>
+#2720+	#D<1.xi.20>A<Save>C<£2720 from 20 Oct 20>
+#8896.75+	#D<1.xi.20>A<Mtge>C<incls. c16430 net comp less £8k to HolX instead of from 2021 bonus>
 #8000+		#D<1.xi.20>A<HolX>
 ##
 
@@ -59012,7 +59012,7 @@ oStart: R
 10-	#D<3.xi.20>A<Tithe>C<EA>X<288>
 2280+	#D<6.xi.20>B<>C<to cover exp, PoA, becomes 1180 from Oct 2020 back to 2280 6 Nov>X<288>
 #250-	#D<6.xi.20>A<CarS>C<to be put into an ISA>
-#2530+	#D<5.xi.20>A<Cattsdell>C<cover Tax Hx Â£7kpa and Ins etc>
+#2530+	#D<5.xi.20>A<Cattsdell>C<cover Tax Hx £7kpa and Ins etc>
 ##
 4.34-	#D<1.xi.20>A<Tithe>C<Hospice lottery>X<288>
 8.67-	#D<14.xi.20>A<Tithe>C<LGS lottery>X<288>
@@ -59060,7 +59060,7 @@ oStart: R
 25.60-	#D<6.xi.20>A<Food>C<TH>O<A:201>X<288>
 
 142.17-	#D<7.xi.20>B<>C<Amazon>O<A:201>X<288>
-#39-	#D<7.xi.20>A<ClothesX>O<A:201>X<288>
+#39-	#D<7.xi.2->A<ClothesX>O<A:201>X<288>
 #27.17-	#D<7.xi.20>A<XAbi>O<A:201>X<288>
 #64-	#D<7.xi.20>A<XXan>O<A:201>X<288>
 #12-	#D<7.xi.20>A<XJJ>O<A:201>X<288>
@@ -59073,8 +59073,8 @@ oStart: R
 #10+	#D<8.xi.20>A<PM>C<Abi's Year 10 effort prize>O<A:201>X<288>
 ##
 
-40-	#D<8.xi.20>A<PM>C<Abi 5x8 less Â£10 for Erin bday plus Â£10 for Year 10 gift>X<288>
-15-	#D<8.xi.20>A<PM>C<Xander 5x5 less Â£10 Steam games>X<288>
+40-	#D<8.xi.20>A<PM>C<Abi 5x8 less £10 for Erin bday plus £10 for Year 10 gift>X<288>
+15-	#D<8.xi.20>A<PM>C<Xander 5x5 less £10 Steam games>X<288>
 9-	#D<8.xi.20>A<PM>C<JJ incl 2 x teeth money>X<288>
 
 105-	#D<8.xi.20>B<>O<A:201>X<288>
@@ -59354,7 +59354,7 @@ oStart: R
 #5+   #D<1.xii.20>A<XCards>
 #55+   #D<1.xii.20>A<XFam>
 #50+	#D<1.xii.20>A<Xmas>
-#2720+	#D<1.xii.20>A<Save>C<Â£2720 from 20 Oct 20>
+#2720+	#D<1.xii.20>A<Save>C<£2720 from 20 Oct 20>
 #466.75+			   #D<1.xii.20>A<Mtge>
 ##
 
@@ -59364,7 +59364,7 @@ oStart: R
 10-	#D<3.xii.20>A<Tithe>C<EA>X<288>
 2280+	#D<6.xii.20>B<>C<to cover exp, PoA, becomes 1180 from Oct 2020 back to 2280 6 Nov>X<289>
 #250-	#D<6.xii.20>A<CarS>C<to be put into an ISA>
-#2530+	#D<5.xii.20>A<Cattsdell>C<cover Tax Hx Â£7kpa and Ins etc>
+#2530+	#D<5.xii.20>A<Cattsdell>C<cover Tax Hx £7kpa and Ins etc>
 ##
 4.34-	#D<1.xii.20>A<Tithe>C<Hospice lottery>X<289>
 8.67-	#D<14.xii.20>A<Tithe>C<LGS lottery>X<289>
@@ -59564,7 +59564,7 @@ oStart: R
 
 5.25-	#D<13.xii.20>A<Save>C<Santa sign>O<A>
 
-100-	#D<13.xii.20>B<>C<Cash>
+100-	#D<13.xii.20>B<Cash>
 #25-	#D<13.xii.20>A<Train>C<rest of plumber for our radiators>
 #40-	#D<13.xii.20>A<Hair>C<boys>
 #5-	#D<13.xii.20>A<Tithe>C<Non-uniform>
@@ -59573,7 +59573,7 @@ oStart: R
 
 318+	#D<13.xii.20>B<>
 #38+	#D<13.xii.20>A<Food>C<Dad incl Amazon bits>
-#280+	#D<13.xii.20>A<PM>C<Â£100 Abi, Â£90 each boys Dad xmas/bday JJ>
+#280+	#D<13.xii.20>A<PM>C<£100 Abi, £90 each boys Dad xmas/bday JJ>
 ##
 
 32-	#D<14.xii.20>A<PM>C<Abi Dec 4x8>
@@ -59780,7 +59780,7 @@ oStart: R
 1000+				   #D<1.v.20>A<JaJLoan>C<repayment half from provision>X<282>
 0+				   #D<12.viii.20>B<>C<Cash from JandJ>
 #750+				   #D<12.viii.20>A<JaJLoan>C<Cash from hot tub work used as below>
-#20-				   #D<12.viii.20>A<Lunch>C<Â£5 notes>
+#20-				   #D<12.viii.20>A<Lunch>C<£5 notes>
 #40-				   #D<12.viii.20>A<Lunch>C<Cash float Triv and cards toy stall, pressies Mx>
 #40-				   #D<27.viii.20>A<Hair>C<Boys and threading H and A>
 #20-				   #D<27.viii.20>A<Petrol>C<cash for bits and pieces>
@@ -59788,7 +59788,7 @@ oStart: R
 #20-				   #D<25.ix.20>A<Tithe>C<Macmillann Coffee morning>
 #50-				   #D<8.ix.20>A<Lunch>C<Cash>
 #250-				   #D<15.x.20>A<Cattsdell>C<shed installation and removal Lyne Way>
-#76.15-				   #D<19.x.20>A<Hedge>C<part of Â£130 cash as part of Â£350 hedge>
+#76.15-				   #D<19.x.20>A<Hedge>C<part of £130 cash as part of £350 hedge>
 #53.85-				   #D<19.x.20>A<Cleaner>
 ##
 
@@ -59811,7 +59811,7 @@ oStart: R
 300+	#D<21.xi.16>A<Mtge>C<repayment R>X<248>
 300+	#D<20.xii.16>A<Mtge>C<repayment R>X<249>
 300+	#D<20.i.17>A<Mtge>C<repayment R>X<250>
-300+	#D<20.ii.17>A<Mtge>C<repayment R>X<251>
+300+	#D<29.ii.17>A<Mtge>C<repayment R>X<251>
 300+	#D<20.iii.17>A<Mtge>C<repayment R>X<252>
 300+	#D<20.iv.17>A<Mtge>C<repament R>X<253>
 300+	#D<22.v.17>A<Mtge>C<repayment R>X<254>

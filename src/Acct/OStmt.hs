@@ -1,3 +1,5 @@
+{-# LANGUAGE DeriveAnyClass #-}
+
 module Acct.OStmt
   ( HasOStmtY( oStmtY ), OStmt, oAcct, oIndex, ostmt, tests )
 where
@@ -6,11 +8,16 @@ import Base1T
 
 -- base --------------------------------
 
-import Data.List  ( filter )
+import Data.List     ( filter )
+import GHC.Generics  ( Generic )
 
 -- data-textual ------------------------
 
 import Data.Textual  ( Textual( textual ) )
+
+-- deepseq -----------------------------
+
+import Control.DeepSeq  ( NFData )
 
 -- genvalidity -------------------------
 
@@ -68,7 +75,7 @@ import Acct.OStmtName   ( OStmtName, ostmtname )
 --------------------------------------------------------------------------------
 
 data OStmt = OStmt { _oAcct ∷ OStmtName, _oIndex ∷ OStmtIndex }
-  deriving (Eq,Lift,Show)
+  deriving (Eq,Generic,Lift,NFData,Show)
 
 oAcct ∷ Lens' OStmt OStmtName
 oAcct = lens _oAcct (\ os a → os { _oAcct = a })

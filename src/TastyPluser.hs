@@ -1,5 +1,5 @@
 module TastyPluser
-  ( TestCmp(..), lits, litt, shrinkString, shrinkText )
+  ( TestCmp(..), lits, litt, shrinkList, shrinkText )
 where
 
 import Base1T
@@ -24,10 +24,10 @@ class TestCmp α where
 
 ------------------------------------------------------------
 
-{-| Shrink a string @s@ by generating all the substrings that are @s@ with one
-    character removed -}
-shrinkString ∷ 𝕊 → [𝕊]
-shrinkString s =
+{-| Shrink a list @xs@ by generating all the sublists that are @xs@ with one
+    element removed -}
+shrinkList ∷ [α] → [[α]]
+shrinkList s =
     ((uncurry (⊕)) ⊳ zip (List.init $ List.inits s) (List.tail $ List.tails s))
 
 {-| Shrink a string @s@ by generating all the substrings that are @s@ with one

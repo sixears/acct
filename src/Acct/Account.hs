@@ -13,6 +13,10 @@ import Data.List  ( filter )
 
 import Data.Textual  ( Textual( textual ) )
 
+-- deepseq -----------------------------
+
+import Control.DeepSeq  ( NFData )
+
 -- genvalidity -------------------------
 
 import Data.GenValidity  ( GenValid( genValid, shrinkValid ), isValid )
@@ -58,7 +62,7 @@ import TrifectaPlus  ( liftTParse', testParse, testParseE, tParse, tParse' )
 
 --------------------------------------------------------------------------------
 
-newtype Account = Account 𝕋 deriving (Eq,Lift,Ord,Printable,Show)
+newtype Account = Account 𝕋 deriving (Eq,Lift,NFData,Ord,Printable,Show)
 
 ----------
 

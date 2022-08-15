@@ -1,5 +1,5 @@
 module Acct.Stmt
-  ( Stmt, stmt, tests )
+  ( HasStmtY( stmtY ), Stmt, stmt, tests )
 where
 
 import Base1T
@@ -11,6 +11,10 @@ import Text.Read  ( read )
 -- data-textual ------------------------
 
 import Data.Textual  ( Textual( textual ) )
+
+-- deepseq -----------------------------
+
+import Control.DeepSeq  ( NFData )
 
 -- genvalidity -------------------------
 
@@ -61,7 +65,7 @@ import Data.Validity  ( Validity( validate ), trivialValidation )
 
 --------------------------------------------------------------------------------
 
-newtype Stmt    = Stmt ℕ  deriving (Eq,Lift,Show)
+newtype Stmt    = Stmt ℕ  deriving (Eq,Lift,NFData,Ord,Show)
 
 --------------------
 
@@ -71,8 +75,8 @@ instance Validity Stmt where
 --------------------
 
 instance GenValid Stmt where
-  genValid    = Stmt ∘ fromIntegral ⊳ chooseInt (0,1_000_000)
-  shrinkValid = pure
+  genValid      = Stmt ∘ fromIntegral ⊳ chooseInt (0,1_000_000)
+  shrinkValid _ = []
 
 --------------------
 
@@ -116,6 +120,11 @@ parseTests =
 {-| QuasiQuoter for `Stmt` -}
 stmt ∷ QuasiQuoter
 stmt = mkQQExp "Stmt" (liftTParse' @Stmt tParse')
+
+------------------------------------------------------------
+
+class HasStmtY α where
+  stmtY ∷ Lens' α (𝕄 Stmt)
 
 -- tests -----------------------------------------------------------------------
 

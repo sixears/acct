@@ -1,5 +1,5 @@
 module Acct.OStmtIndex
-  ( OStmtIndex, ostmtindex )
+  ( OStmtIndex, ostmtindex, tests )
 where
 
 import Base1T
@@ -11,6 +11,10 @@ import Text.Read  ( read )
 -- data-textual ------------------------
 
 import Data.Textual  ( Textual( textual ) )
+
+-- deepseq -----------------------------
+
+import Control.DeepSeq  ( NFData )
 
 -- genvalidity -------------------------
 
@@ -65,7 +69,7 @@ import Data.Validity  ( Validity( validate ), trivialValidation )
 
 --------------------------------------------------------------------------------
 
-newtype OStmtIndex = OStmtIndex (𝕄 ℕ)  deriving  (Eq,Ord,Show)
+newtype OStmtIndex = OStmtIndex (𝕄 ℕ)  deriving  (Eq,NFData,Ord,Show)
 
 --------------------
 
@@ -158,7 +162,7 @@ ostmtindex = mkQQExp "OStmtIndex" (liftTParse' @OStmtIndex tParse')
 -- tests -----------------------------------------------------------------------
 
 tests ∷ TestTree
-tests = testGroup "Acct.OStmt" [ printTests, parseTests ]
+tests = testGroup "Acct.OStmtIndex" [ printTests, parseTests ]
 
 --------------------
 

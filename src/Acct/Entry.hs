@@ -69,15 +69,15 @@ import Data.Validity  ( Validity( validate ), declare, isValid )
 --                     local imports                      --
 ------------------------------------------------------------
 
-import Acct.Account     ( Account, acct )
-import Acct.Comment     ( cmt )
-import Acct.Date        ( date )
-import Acct.OStmtName   ( OStmtName, ostmtname )
-import Acct.Parser      ( wspaces )
-import Acct.Stmt        ( stmt )
-import Acct.TrxBrkHead  ( tbh_ )
-import Acct.TrxSimp     ( TrxSimp, tsimp_ )
-import Acct.TrxBrk      ( TrxBrk( TrxBrk ) )
+import Acct.Account      ( Account, acct )
+import Acct.Comment      ( cmt )
+import Acct.Date         ( date )
+import Acct.OStmtName    ( OStmtName, ostmtname )
+import Acct.Parser       ( wspaces )
+import Acct.Stmt         ( stmt )
+import Acct.TrxBrkHead   ( tbh_ )
+import Acct.TrxSimp      ( TrxSimp, tsimp_ )
+import Acct.TrxBrk       ( TrxBrk, trxBrk )
 
 --------------------------------------------------------------------------------
 
@@ -155,7 +155,7 @@ printTests =
                                           (𝕵 [stmt|5|]) 𝕹 𝕹))
     , testCase "TBrk" $
         let
-          h  = TrxBrk (tbh_ 1013 [date|1996-8-6|] (𝕵 [stmt|5|]) 𝕹)
+          h  = trxBrk (tbh_ 1013 [date|1996-8-6|] (𝕵 [stmt|5|]) 𝕹 𝕹)
           t1 = tsimp_ 1000 [date|1996-6-4|] [acct|Foo|] (𝕵 [stmt|5|]) 𝕹 𝕹
           t2 = tsimp_ 13 [date|1996-1-5|] [acct|Bar|] (𝕵 [stmt|5|]) 𝕹 𝕹
         in
@@ -218,12 +218,12 @@ parseTests =
                   testParse "6.28- #D<8.VIII.96>A<CarFund>C<int to 8 Aug>X<5>" t
 
               , let
-                  h = tbh_ 1013 [date|1996-8-6|] (𝕵 [stmt|5|]) 𝕹
-                  t1 = tsimp_ 1000 [date|1996-6-4|] [acct|Foo|] (𝕵 [stmt|5|])
+                  h = tbh_ 1013 [date|1996-8-6|] (𝕵 [stmt|5|]) 𝕹 𝕹
+                  t1 = tsimp_ 1000 [date|1996-6-4|] [acct|Foo|] (𝕵[stmt|5|])
                                    𝕹 𝕹
                   t2 = tsimp_ 13 [date|1996-1-5|] [acct|Bar|] (𝕵 [stmt|5|])
                                  𝕹 𝕹
-                  t = TBrk (TrxBrk h (t1 :| [t2]))
+                  t = TBrk (trxBrk h (t1 :| [t2]))
                 in testParse' t (unline [ "10.13+ #D<6.viii.96>B<>X<5>"
                                         , "#10+   #D<4.vi.96>X<5>A<Foo>"
                                         , "#0.13+ #D<5.i.96>X<5>A<Bar>"

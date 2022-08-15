@@ -8,6 +8,10 @@ import Base1T
 
 import Data.Textual  ( Textual( textual ) )
 
+-- deepseq -----------------------------
+
+import Control.DeepSeq  ( NFData )
+
 -- genvalidity -------------------------
 
 import Data.GenValidity  ( GenValid( genValid, shrinkValid ) )
@@ -46,7 +50,7 @@ import Data.Validity  ( Validity( validate ), declare )
 
 --------------------------------------------------------------------------------
 
-newtype OStmtName = OStmtName ℂ  deriving  (Eq,Ord,Show)
+newtype OStmtName = OStmtName ℂ  deriving  (Eq,NFData,Ord,Show)
 
 --------------------
 

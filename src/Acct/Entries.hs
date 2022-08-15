@@ -8,7 +8,7 @@
 
 {-| An `Entries` is a list of `Entry`s. -}
 module Acct.Entries
-  ( Entry, Entries( unEntries ), emptyEntries
+  ( Entry, Entries( unEntries ), emptyEntries, parseFile
   , tests )
 where
 
@@ -24,9 +24,18 @@ import Data.Tuple  ( uncurry )
 
 import Data.Textual  ( Textual( textual ) )
 
+-- fpath -------------------------------
+
+import FPath.AsFilePath  ( filepath )
+import FPath.File        ( FileAs )
+
 -- genvalidity -------------------------
 
 import Data.GenValidity  ( GenValid( genValid, shrinkValid ) )
+
+-- more-unicode ------------------------
+
+import Data.MoreUnicode.Lens  ( (⊩) )
 
 -- mtl ---------------------------------
 
@@ -81,8 +90,8 @@ import Data.Validity  ( Validity( validate ), trivialValidation )
 ------------------------------------------------------------
 
 import Acct.Account     ( acct )
-import Acct.AcctState   ( AcctState
-                        , accounts, newAcctState, otherAccounts, parseEntry )
+import Acct.AcctState   ( AcctState, accounts, newAcctState, otherAccounts
+                        , parseEntry, stmts )
 import Acct.Amount      ( amt )
 import Acct.Comment     ( cmt )
 import Acct.Date        ( date )
@@ -93,9 +102,10 @@ import Acct.OStmtIndex  ( ostmtindex )
 import Acct.OStmtName   ( ostmtname )
 import Acct.Parser      ( wspaces )
 import Acct.Stmt        ( stmt )
+import Acct.StmtIndex   ( stmtindex )
 import Acct.TrxBrkHead  ( tbh_ )
-import Acct.TrxSimp     ( tsimp_ )
-import Acct.TrxBrk      ( TrxBrk( TrxBrk ) )
+import Acct.TrxSimp     ( parent, tsimp_ )
+import Acct.TrxBrk      ( trxBrk )
 
 --------------------------------------------------------------------------------
 
@@ -141,10 +151,10 @@ printTests =
     tost   = TOStmtStart [ostmtname|Y|]
     tsimp  = TSimpleTrx (tsimp_ (-1234) [date|1973-01-01|] [acct|Act|]
                                 (𝕵 [stmt|77|]) 𝕹 (𝕵 [cmt|my comment|]))
-    thead  = tbh_ (-1234) [date|1973-01-01|] (𝕵 [stmt|77|]) 𝕹
+    thead  = tbh_ (-1234) [date|1973-01-01|] (𝕵 [stmt|77|]) 𝕹 𝕹
     t0     = tsimp_ (-1300) [date|1969-02-02|] [acct|Act|] 𝕹 𝕹 𝕹
     t1     = tsimp_ 66 [date|1966-05-26|] [acct|Bct|] 𝕹 𝕹 𝕹
-    tb     = TBrk $ TrxBrk thead (t0 :| [t1])
+    tb     = TBrk $ trxBrk thead (t0 :| [t1])
   in
     testGroup "print"
       [ testCase "print1c" $ "-- a comment" ≟ toText (Entries [ tcomm ])
@@ -220,28 +230,27 @@ parseString  =
       p    = many line ⋫ parseEntry `sepEndBy` some line ⋪ eof
    in first catMaybes ⩺ Trifecta.parseString (runStateT p newAcctState) ф
 
+----------------------------------------
+
+{-| Parse an acct file; write all errors to the console. -}
+parseFile ∷ (MonadIO μ, FileAs ρ) ⇒ ρ → μ (𝕄 ([Entry], AcctState))
+parseFile  =
+  let line = wspaces ⋫ many (char '\r') ⋫ char '\n'
+      p    = many line ⋫ parseEntry `sepEndBy` some line ⋪ eof
+      runP = runStateT p newAcctState
+  in fmap (first catMaybes) ⩺ Trifecta.parseFromFile runP ∘ (⫥ filepath)
+
 --------------------
 
 parseTests ∷ TestTree
 parseTests = testGroup "parse" $
   let
     parseT ∷ HasCallStack ⇒ 𝕋 → ([Entry], AcctState) → TestTree
-    parseT t (e,s) = -- testParse' (parseString ∘ unpack)
+    parseT t (e,s) =
       case parseString $ unpack t of
         Success (e',s') →
           testGroup (tname t) $
---            [ testCmp "AcctState" s s' {- testCase "AcctState" $ s @=? s' -} ]
---            ⊕
-            [ {- testGroup "AcctState.accounts" $
-                assertListEqS "AcctState.accounts" (Map.toList (s ⊣ accounts))
-                                                   (Map.toList (s' ⊣ accounts))
-            , testGroup "AcctState.oaccounts" $
-                assertListEqS "AcctState.oaccounts" (Map.toList (s ⊣ otherAccounts))
-                                                   (Map.toList (s' ⊣ otherAccounts)) -}
-              testCmp "AcctState" s s'
-            ]
-            ⊕
-            [ assertListEq "[Entry]" e e' ]
+            [ testCmp "AcctState" s s' ] ⊕ [ assertListEq "[Entry]" e e' ]
         Failure e_ → testCase (tname t) $ assertFailure (unpack $ eiText e_)
 
     parseE input = testParseE input (parseString ∘ unpack)
@@ -269,49 +278,60 @@ parseTests = testGroup "parse" $
     , let
         t  = tsimp_ [amt|10+|] [date|2073-01-01|] [acct|Foo|] 𝕹 𝕹 𝕹
         as = newAcctState & accounts ⊢ fromList [([acct|Foo|],[t])]
+                          & stmts    ⊢ fromList [([stmtindex||],[t])]
       in
         parseT "Start: Foo\n10+ #D<1.i.73>A<Foo>" ([TSimpleTrx t],as)
     , let
-        t  = tsimp_ [amt|5+|] [date|2022-08-10|] [acct|Baz|] (𝕵 [stmt|4|])
-                              (𝕵 [ostmt|B|]) 𝕹
-        as = newAcctState & accounts ⊢ fromList [([acct|Baz|],[t])]
-                          & otherAccounts ⊢ fromList [([ostmtname|B|],
-                                                        fromList [([ostmtindex||],[t])])]
+        t   = tsimp_ [amt|5+|] [date|2022-08-10|] [acct|Baz|] (𝕵 [stmt|4|])
+                               (𝕵 [ostmt|B|]) 𝕹
+        oas = fromList [([ostmtname|B|], fromList [([ostmtindex||],[t])])]
+        as  = newAcctState & accounts ⊢ fromList [([acct|Baz|],[t])]
+                           & otherAccounts ⊢ oas
+                           & stmts ⊢ fromList [([stmtindex|4|],[t])]
       in
         parseT "Start: Baz\noStart: B\n5+ #D<10.viii.22>O<B>X<4>A<Baz>"
                ([TSimpleTrx t],as)
     , let
-        t  = tsimp_ [amt|8-|] [date|2022-07-10|] [acct|Baz|] (𝕵 [stmt|4|])
-                              (𝕵 [ostmt|B:6|]) 𝕹
-        as = newAcctState & accounts ⊢ fromList [([acct|Baz|],[t])]
-                          & otherAccounts ⊢
-                              fromList [([ostmtname|B|],
-                                          fromList[([ostmtindex|6|],[t])])]
+        t   = tsimp_ [amt|8-|] [date|2022-07-10|] [acct|Baz|] (𝕵 [stmt|4|])
+                               (𝕵 [ostmt|B:6|]) 𝕹
+        oas = fromList [([ostmtname|B|], fromList[([ostmtindex|6|],[t])])]
+        as  = newAcctState & accounts ⊢ fromList [([acct|Baz|],[t])]
+                           & otherAccounts ⊢ oas
+                           & stmts ⊢ fromList [([stmtindex|4|],[t])]
       in
         parseT "Start: Baz\noStart: B\n8- #D<10.vii.22>O<B:6>A<Baz>X<4>"
                ([TSimpleTrx t],as)
     , let
         t  = tsimp_ [amt|20-|] [date|2069-02-02|] [acct|Bar|] 𝕹 𝕹 𝕹
         as = newAcctState & accounts ⊢ fromList [([acct|Bar|],[t])]
+                          & stmts    ⊢ fromList [([stmtindex||],[t])]
       in
         parseT "\n\r\nStart: Bar\n20- #D<2.2.69>A<Bar>\n\n" ([TSimpleTrx t],as)
+
     , let
+        th  = tbh_ [amt|122.47+|] [date|1996-08-01|] (𝕵 [stmt|5|])
+                                  (𝕵 [ostmt|P:1|]) 𝕹
         t1  = tsimp_ [amt|107.53-|] [date|1996-08-01|] [acct|Save|] 𝕹 𝕹
-                     (𝕵 [cmt|for Hx|])
-        t2  = tsimp_ [amt|230+|] [date|1996-08-01|] [acct|Food|] 𝕹 𝕹 𝕹
-        tb = TrxBrk (tbh_ [amt|122.47+|] [date|1996-08-01|] (𝕵 [stmt|5|]) 𝕹)
-                    (t1 :| [t2])
-        as = newAcctState & accounts ⊢ fromList [ ([acct|Food|],[t2])
-                                                , ([acct|Save|],[t1])]
+                     (𝕵 [cmt|for Hx|]) & parent ⊩ th
+        t2  = tsimp_ [amt|230+|] [date|1996-08-01|] [acct|Food|] 𝕹
+                                 (𝕵 [ostmt|N|]) 𝕹 & parent ⊩ th
+        tb  = trxBrk th (t1 :| [t2])
+        as = fromList  [ ([acct|Food|],[t2]), ([acct|Save|],[t1]) ]
+        oas = fromList [ ([ostmtname|N|], fromList[([ostmtindex||], [t2])])
+                       , ([ostmtname|P|], fromList[([ostmtindex|1|], [t1])]) ]
+        sts = fromList [ ([stmtindex|5|],[t2,t1]) ]
+        ast = newAcctState & accounts ⊢ as & otherAccounts ⊢ oas & stmts ⊢ sts
       in
         parseT (unlines [ "Start: Save"
                         , "Start: Food"
-                        , "122.47+\t#D<1.viii.96>B<>X<5>"
+                        , "oStart: N"
+                        , "oStart: P"
+                        , "122.47+\t#D<1.viii.96>B<>X<5>O<P:1>"
                         , "#107.53-  #C<for Hx>A<Save>D<1.viii.96>"
-                        , "#230+#A<Food>D<1.viii.96>"
+                        , "#230+#A<Food>D<1.viii.96>O<N>"
                         , "##"
                         ])
-               ([TBrk tb],as)
+               ([TBrk tb],ast)
     , parseE "Start: Foo\n10+ #D<1.i.73>A<Food>" "Not a valid account 'Food'"
     , parseE "x"                     "error: expected"
     , parseE "-- comment\nX"         "error: expected"
@@ -349,19 +369,24 @@ parseTests = testGroup "parse" $
                                     (𝕵 [stmt|5|]) 𝕹 (𝕵 [cmt|int to 8 Aug|])
         t08 = tsimp_ [amt|1.70+|]   [date|1996-09-15|] [acct|CarFund|]
                                     (𝕵 [stmt|6|]) 𝕹 (𝕵 [cmt|error correction|])
+        t09h = tbh_ [amt|902.55+|] [date|1.viii.96|] (𝕵 [stmt|5|]) 𝕹 𝕹
         b01 = tsimp_ [amt|107.53+|] [date|1.viii.96|] [acct|Save|] 𝕹 𝕹
                                     (𝕵 [cmt|for Hx|])
+                     & parent ⊩ t09h
         b02 = tsimp_ [amt|230+|] [date|1.viii.96|] [acct|Food|] 𝕹 𝕹 𝕹
+                     & parent ⊩ t09h
         b03 = tsimp_ [amt|100+|] [date|1.vii.96|] [acct|Tithe|] 𝕹 𝕹 𝕹
+                     & parent ⊩ t09h
         b04 = tsimp_ [amt|35+|]  [date|1.viii.96|] [acct|Bills|] 𝕹 𝕹 𝕹
+                     & parent ⊩ t09h
         b05 = tsimp_ [amt|160+|] [date|1.viii.96|] [acct|Petrol|] 𝕹 𝕹 𝕹
+                     & parent ⊩ t09h
         b06 = tsimp_ [amt|40+|]  [date|1.viii.96|] [acct|CarFund|] 𝕹 𝕹
                                  (𝕵 [cmt|lounge decoration|])
+                     & parent ⊩ t09h
         b07 = tsimp_ [amt|230.02+|] [date|1.viii.96|] [acct|Save|] 𝕹 𝕹 𝕹
-        t09 = let
-                bh = tbh_ [amt|902.55+|] [date|1.viii.96|] (𝕵 [stmt|5|]) 𝕹
-              in
-                TrxBrk bh (b01 :| [b02,b03,b04,b05,b06,b07])
+                     & parent ⊩ t09h
+        t09 = trxBrk t09h (b01 :| [b02,b03,b04,b05,b06,b07])
         t10 = tsimp_ [amt|19.99-|] [date|1997-02-08|] [acct|CarFund|]
                                    (𝕵 [stmt|13|]) (𝕵 [ostmt|P:1|])
                                    (𝕵 [cmt|needle|])
@@ -381,31 +406,33 @@ parseTests = testGroup "parse" $
         t17 = tsimp_ [amt|9.50-|]  [date|2020-07-17|] [acct|Entz|] 𝕹
                                    (𝕵 [ostmt|R|]) (𝕵 [cmt|ice-cream Wrest|])
 
+        as  = fromList [ ([acct|Bills|],[b04,t01])
+                       , ([acct|CarFund|], [t13,t12,t11,t10,b06 ,t08,t06,t03])
+                       , ([acct|Entz|],[t17,t15,t14])
+                       , ([acct|Food|],[b02,t04])
+                       , ([acct|LunchM|],[t16])
+                       , ([acct|Petrol|],[b05])
+                       , ([acct|Save|], [b07,b01,t07,t05])
+                       , ([acct|Tithe|],[b03,t02])
+                       ]
+
+        oas = fromList[([ostmtname|A|],fromList[([ostmtindex||],[t16,t15,t14])])
+                      ,([ostmtname|M|],fromList [])
+                      ,([ostmtname|P|],fromList [([ostmtindex|1|],[t11,t10])])
+                      ,([ostmtname|R|],fromList [([ostmtindex||],[t17])])
+                      ]
+
+        sts = fromList [ ([stmtindex||]  , [t17,t16,t15,t14])
+                       , ([stmtindex|5|] , [b07,b06,b05,b04,b03,b02,b01,t07,t06,t05,t04,t03,t02,t01])
+                       , ([stmtindex|6|] , [t08])
+                       , ([stmtindex|12|], [t13,t12])
+                       , ([stmtindex|13|], [t11,t10])
+                       ]
+
         -- remember trx are added in reverse order (i.e., always prepended)
-        as = newAcctState & accounts ⊢ fromList [ ([acct|Bills|],[b04,t01])
-                                                , ([acct|CarFund|],
-                                                   [t13,t12,t11,t10,b06
-                                                   ,t08,t06,t03])
-                                                , ([acct|Entz|],[t17,t15,t14])
-                                                , ([acct|Food|],[b02,t04])
-                                                , ([acct|LunchM|],[t16])
-                                                , ([acct|Petrol|],[b05])
-                                                , ([acct|Save|],
-                                                   [b07,b01,t07,t05])
-                                                , ([acct|Tithe|],[b03,t02])]
-                          & otherAccounts ⊢ fromList [([ostmtname|A|],
-                                                       fromList [([ostmtindex||],
-                                                                  [t16,t15,t14])
-                                                                ])
-                                                     ,([ostmtname|M|],
-                                                       fromList [])
-                                                     ,([ostmtname|P|],
-                                                       fromList [([ostmtindex|1|],
-                                                                  [t11,t10])]
-                                                      )
-                                                     ,([ostmtname|R|],
-                                                       fromList [([ostmtindex||],[t17])])
-                                                     ]
+        ast = newAcctState & accounts ⊢ as
+                           & otherAccounts ⊢ oas
+                           & stmts ⊢ sts
       in
         parseT (unlines [ "-- This is a comment"
                         , ""
@@ -468,7 +495,7 @@ parseTests = testGroup "parse" $
          , TSimpleTrx t15
          , TSimpleTrx t16
          , TSimpleTrx t17]
-        , as)
+        , ast)
     ]
 
 

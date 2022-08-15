@@ -11,7 +11,7 @@ import GHC.Exts  ( IsList( toList ) )
 
 -- containers --------------------------
 
-import qualified  Data.Map.Lazy  as  Map
+import qualified  Data.Map.Strict  as  Map
 
 -- containers-plus ---------------------
 
@@ -68,7 +68,7 @@ instance TestCmp OStmtMap where
         vs  ∷ Map.Map OStmtIndex ([TrxSimp],[TrxSimp])
         vs  = Map.intersectionWith (,) osm osm'
       in
-        assertListEqS "OStmtMap keys" ks ks'
+        assertListEqS "OStmtMap keys" ks' ks
         ⊕
         ю (fmap (\ (oa,(oks,oks')) →
                    assertListEqS ([fmt|OStmtMap %w keys|] oa) (oks') (oks))

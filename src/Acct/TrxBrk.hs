@@ -1,3 +1,5 @@
+{-# LANGUAGE DeriveAnyClass #-}
+
 {- | Broken-down transaction, e.g.,
             , testParse (intercalate "\n" [
 
@@ -10,7 +12,7 @@
 
 -}
 module Acct.TrxBrk
-  ( TrxBrk( TrxBrk ), trx, tests )
+  ( TrxBrk, trx, trxBrk, tests )
 where
 
 import Base1T
@@ -18,10 +20,15 @@ import Base1T
 -- base --------------------------------
 
 import Data.Foldable  ( sum )
+import GHC.Generics   ( Generic )
 
 -- data-textual ------------------------
 
 import Data.Textual  ( Textual( textual ) )
+
+-- deepseq -----------------------------
+
+import Control.DeepSeq  ( NFData )
 
 -- genvalidity -------------------------
 
@@ -30,6 +37,10 @@ import Data.GenValidity  ( GenValid( genValid, shrinkValid ) )
 -- lens --------------------------------
 
 import Control.Lens.Getter  ( view )
+
+-- more-unicode ------------------------
+
+import Data.MoreUnicode.Lens  ( (⊩) )
 
 -- parsers -----------------------------
 
@@ -69,19 +80,22 @@ import Data.Validity  ( Validity( validate ), declare )
 --                     local imports                      --
 ------------------------------------------------------------
 
-import Acct.Account     ( acct )
-import Acct.Amount      ( amount )
-import Acct.Date        ( date )
-import Acct.OStmt       ( ostmt )
-import Acct.Parser      ( newline, wspaces )
-import Acct.Stmt        ( stmt )
-import Acct.TrxBrkHead  ( TrxBrkHead, tbh_ )
-import Acct.TrxSimp     ( TrxSimp, tsimp_ )
+import Acct.Account      ( acct )
+import Acct.Amount       ( amount )
+import Acct.Date         ( date )
+import Acct.OStmt        ( ostmt )
+import Acct.Parser       ( newline, wspaces )
+import Acct.Stmt         ( stmt )
+import Acct.TrxBrkHead   ( TrxBrkHead, tbh_ )
+import Acct.TrxSimp      ( TrxSimp, parent, tsimp_ )
 
 --------------------------------------------------------------------------------
 
 data TrxBrk = TrxBrk TrxBrkHead (NonEmpty TrxSimp)
-  deriving (Eq,Show)
+  deriving (Eq,Generic,NFData,Show)
+
+trxBrk ∷ TrxBrkHead → NonEmpty TrxSimp → TrxBrk
+trxBrk h ts = TrxBrk h $ (& parent ⊩ h) ⊳ ts
 
 --------------------
 
@@ -98,9 +112,12 @@ instance GenValid TrxBrk where
     let listOf1' ∷ Gen α → Gen (NonEmpty α)
         listOf1' g = fromList ⊳ listOf1 g
     ts ← listOf1' arbitrary
-    let total = sum (view amount ⊳ ts)
-    TrxBrk ⊳ (tbh_ total ⊳ arbitrary ⊵ arbitrary ⊵ arbitrary) ⊵ pure ts
-  shrinkValid = pure
+    h ← tbh_ ⊳ pure (sum $ view amount ⊳ ts) ⊵ arbitrary ⊵ arbitrary
+                                             ⊵ arbitrary ⊵ arbitrary
+    let ts' = (& parent ⊩ h) ⊳ ts
+    return $ TrxBrk h ts'
+
+  shrinkValid _ = []
 
 --------------------
 
@@ -122,16 +139,19 @@ printTests =
   testGroup "print"
     [ testCase "10.13+" $
         let
-          h  = TrxBrk (tbh_ 1013 [date|1996-8-6|] (𝕵 [stmt|5|]) 𝕹)
+          h  = tbh_ 1013 [date|1996-8-6|] (𝕵 [stmt|5|]) 𝕹 𝕹
           t1 = tsimp_ 1000 [date|1996-6-4|] [acct|Foo|] (𝕵 [stmt|5|])
                            (𝕵 [ostmt|X:6|]) 𝕹
+                      & parent ⊩ h
           t2 = tsimp_ 13 [date|1996-1-5|] [acct|Bar|] (𝕵 [stmt|5|]) 𝕹 𝕹
+                      & parent ⊩ h
+          b  = TrxBrk h (t1 :| [t2])
         in
           intercalate "\n" [ "10.13+\t#D<6.iix.96>B<>X<5>"
                            , "#10.00+\t#D<4.vi.96>A<Foo>X<5>O<X:6>"
                            , "#0.13+\t#D<5.i.96>A<Bar>X<5>"
                            , "##"
-                           ] ≟ toText (h (t1 :| [t2]))
+                           ] ≟ toText b
     ]
 
 --------------------
@@ -140,19 +160,21 @@ instance Textual TrxBrk where
   textual =
     let
       nlhash = newline ⋪ char '#'
-      check_breakdown (h,ts) = do
+
+      check_breakdown b@(TrxBrk h ts) = do
         let h_am  = h ⊣ amount
             ts_am = sum (view amount ⊳ ts)
-
         if h_am ≡ ts_am
-        then return (TrxBrk h ts)
+        then return b
         else unexpected $ [fmt|breakdown total was %T, expected %T|] ts_am h_am
+
+      set_parents (h,ts) = TrxBrk h $ (& parent ⊩ h) ⊳ ts
 
     in
       ((,) ⊳ (textual ⋪ nlhash)
            ⊵ ((wspaces ⋫ textual) `endByNonEmpty` nlhash)
            ⋪ char '#' ⋪ wspaces
-      ) ≫ check_breakdown
+      ) ≫ return ∘ set_parents ≫ check_breakdown
 
 ----------
 
@@ -160,13 +182,15 @@ parseTests ∷ TestTree
 parseTests =
   testGroup "parse"
             [ let
-                h  = tbh_ 1013 [date|1996-8-6|] (𝕵 [stmt|5|]) 𝕹
+                h  = tbh_ 1013 [date|1996-8-6|] (𝕵 [stmt|5|]) (𝕵 [ostmt|X|]) 𝕹
                 t1 = tsimp_ 1000 [date|1996-6-4|] [acct|Foo|] (𝕵 [stmt|6|])
                                  𝕹 𝕹
+                            & parent ⊩ h
                 t2 = tsimp_ 13 [date|1996-1-5|] [acct|Bar|] (𝕵 [stmt|7|])
                                (𝕵 [ostmt|P|]) 𝕹
+                            & parent ⊩ h
               in
-                testParse (intercalate "\n" [ "10.13+ #D<6.viii.96>B<>X<5>"
+                testParse (intercalate "\n" [ "10.13+ #D<6.viii.96>B<>X<5>O<X>"
                                             , "#10+   #D<4.vi.96>X<6>A<Foo>"
                                             , "#0.13+ #D<5.i.96>X<7>A<Bar>O<P>"
                                             , "##"

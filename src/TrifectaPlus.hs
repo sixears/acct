@@ -81,7 +81,7 @@ tParse'  = parseT (textual ⋪ eof)
 
 ----------------------------------------
 
-tParseFile ∷ (MonadIO μ, Textual α, FileAs ρ) ⇒ ρ → μ (Result α)
+tParseFile ∷ ∀ α μ ρ . (MonadIO μ, Textual α, FileAs ρ) ⇒ ρ → μ (Result α)
 tParseFile f = parseFromFileEx textual (f ⫥ filepath)
 
 ----------------------------------------

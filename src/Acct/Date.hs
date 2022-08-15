@@ -14,6 +14,10 @@ import Text.Read  ( read )
 
 import Data.Textual  ( Textual( textual ) )
 
+-- deepseq -----------------------------
+
+import Control.DeepSeq  ( NFData )
+
 -- genvalidity -------------------------
 
 import Data.GenValidity  ( GenValid( genValid, shrinkValid ) )
@@ -77,7 +81,7 @@ import Acct.Year     ( Year )
 
 --------------------------------------------------------------------------------
 
-newtype Date  = Date Day deriving (Eq,Show)
+newtype Date  = Date Day deriving (Eq,NFData,Show)
 
 fromYMD ∷ ℤ → Int → Int → Date
 fromYMD y m a = Date $ fromGregorian y m a

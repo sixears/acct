@@ -10,18 +10,20 @@ import Base1T
 --                     local imports                      --
 ------------------------------------------------------------
 
-import qualified  Acct.Amount
 import qualified  Acct.Account
+import qualified  Acct.Amount
 import qualified  Acct.Comment
 import qualified  Acct.Date
 import qualified  Acct.Entries
 import qualified  Acct.Entry
 import qualified  Acct.Month
 import qualified  Acct.OStmt
+import qualified  Acct.OStmtIndex
 import qualified  Acct.Stmt
-import qualified  Acct.TrxBrk
-import qualified  Acct.TrxBrkHead
+import qualified  Acct.StmtIndex
 import qualified  Acct.TrxSimp
+import qualified  Acct.TrxBrkHead
+import qualified  Acct.TrxBrk
 import qualified  Acct.Year
 
 --------------------------------------------------------------------------------
@@ -36,9 +38,11 @@ tests = testGroup "Acct" [ Acct.Amount.tests
                          , Acct.Year.tests
                          , Acct.Date.tests
                          , Acct.TrxSimp.tests
-                         , Acct.TrxBrk.tests
                          , Acct.TrxBrkHead.tests
+                         , Acct.TrxBrk.tests
                          , Acct.Entry.tests
+                         , Acct.StmtIndex.tests
+                         , Acct.OStmtIndex.tests
                          , Acct.Entries.tests
                          ]
 

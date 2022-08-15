@@ -1,16 +1,32 @@
+{-# LANGUAGE DeriveAnyClass #-}
+
 module Acct.TrxSimp
-  ( TrxSimp, tsimp, tsimp_, tests )
+  ( TrxSimp, parent, oStmtGetY, stmtGetY, tsimp, tsimp_, tests )
 where
 
 import Base1T
 
 -- data-textual ------------------------
 
-import Data.Textual  ( Textual( textual ) )
+import Data.Foldable  ( asum )
+import Data.Textual   ( Textual( textual ) )
+import GHC.Generics   ( Generic )
+
+-- deepseq -----------------------------
+
+import Control.DeepSeq  ( NFData )
 
 -- genvalidity -------------------------
 
 import Data.GenValidity  ( GenValid( genValid, shrinkValid ) )
+
+-- lens --------------------------------
+
+import Control.Lens.Getter  ( view )
+
+-- more-unicode ------------------------
+
+import Data.MoreUnicode.Lens  ( (⊩) )
 
 -- parsers -----------------------------
 
@@ -27,7 +43,7 @@ import Test.QuickCheck.Arbitrary  ( Arbitrary( arbitrary, shrink ) )
 
 -- tasty-plus --------------------------
 
-import TastyPlus  ( (≟), propInvertibleString, propInvertibleText )
+import TastyPlus  ( (≟), assertJust, propInvertibleString, propInvertibleText )
 
 -- tasty-quickcheck --------------------
 
@@ -58,13 +74,15 @@ import Data.Validity  ( Validity( validate ), trivialValidation )
 --                     local imports                      --
 ------------------------------------------------------------
 
-import Acct.Account  ( Account, HasAccount( account ), acct )
-import Acct.Amount   ( Amount, HasAmount( amount ) )
-import Acct.Comment  ( Comment, cmt )
-import Acct.Date     ( Date, date )
-import Acct.Parser   ( wspaces )
-import Acct.OStmt    ( HasOStmtY( oStmtY ), OStmt, ostmt )
-import Acct.Stmt     ( Stmt, stmt )
+import Acct.Account     ( Account, HasAccount( account ), acct )
+import Acct.Amount      ( Amount, HasAmount( amount ) )
+import Acct.Comment     ( Comment, cmt )
+import Acct.Date        ( Date, date )
+import Acct.Parser      ( wspaces )
+import Acct.OStmt       ( HasOStmtY( oStmtY ), OStmt, ostmt )
+import Acct.Stmt        ( HasStmtY ( stmtY ), Stmt, stmt )
+import Acct.StmtIndex   ( StmtIndex, stmtIndex )
+import Acct.TrxBrkHead  ( TrxBrkHead, tbh_ )
 
 --------------------------------------------------------------------------------
 
@@ -76,12 +94,13 @@ data TrxSimp = TrxSimp { _amount  ∷ Amount
                        , _stmt    ∷ 𝕄 Stmt
                        , _ostmt   ∷ 𝕄 OStmt
                        , _comment ∷ 𝕄 Comment
+                       , _parent  ∷ 𝕄 TrxBrkHead
                        }
-  deriving (Eq,Lift,Show)
+  deriving (Eq,Generic,Lift,NFData,Show)
 
 {-| Super-simple c'tor fn, for use in tests only -}
 tsimp_ ∷ Amount → Date → Account → 𝕄 Stmt → 𝕄 OStmt → 𝕄 Comment → TrxSimp
-tsimp_ am dt ac st os cm = TrxSimp am dt ac st os cm
+tsimp_ am dt ac st os cm = TrxSimp am dt ac st os cm 𝕹
 
 --------------------
 
@@ -93,7 +112,7 @@ instance Validity TrxSimp where
 instance GenValid TrxSimp where
   genValid    =
     TrxSimp ⊳ arbitrary ⊵ arbitrary ⊵ arbitrary ⊵ arbitrary
-                        ⊵ arbitrary ⊵ arbitrary
+                        ⊵ arbitrary ⊵ arbitrary ⊵ pure 𝕹
   shrinkValid = pure
 
 --------------------
@@ -105,7 +124,7 @@ instance Arbitrary TrxSimp where
 --------------------
 
 instance Printable TrxSimp where
-  print (TrxSimp am dt ac st os cm) =
+  print (TrxSimp am dt ac st os cm _) =
     let st' = maybe "" [fmt|X<%T>|] st
         os' = maybe "" [fmt|O<%T>|] os
         cm' = maybe "" [fmt|C<%T>|] cm
@@ -147,7 +166,7 @@ instance Textual TrxSimp where
         parts =
           permute $ (,,,,) <$$> mark 'D' <||> mark 'A'
                           <|?> optm 'X' <|?> optm 'O' <|?> optm 'C'
-        construct am (dt,ac,st,os,cm) = TrxSimp am dt ac st os cm
+        construct am (dt,ac,st,os,cm) = TrxSimp am dt ac st os cm 𝕹
     in construct ⊳ (textual ⋪ wspaces ⋪ char '#') ⊵ parts
 
 ----------
@@ -210,8 +229,45 @@ instance HasAccount TrxSimp where
 
 --------------------
 
+instance HasStmtY TrxSimp where
+  stmtY = lens _stmt (\ ts st → ts { _stmt = st })
+
+--------------------
+
 instance HasOStmtY TrxSimp where
   oStmtY = lens _ostmt (\ ts os → ts { _ostmt = os })
+
+----------------------------------------
+
+parent ∷ Lens' TrxSimp (𝕄 TrxBrkHead)
+parent = lens _parent (\ t p → t { _parent = p })
+
+oStmtGetY ∷ TrxSimp → 𝕄 OStmt
+oStmtGetY t = asum [ t ⊣ oStmtY, t ⊣ parent ≫ view oStmtY ]
+
+stmtGetY ∷ TrxSimp → StmtIndex
+stmtGetY t = stmtIndex $ asum [ t ⊣ stmtY, t ⊣ parent ≫ view stmtY ]
+
+----------
+
+shadowTests ∷ TestTree
+shadowTests =
+  testGroup "shadow" $
+    let h = tbh_ 1000 [date|1993-01-01|] (𝕵 [stmt|6|])
+                                (𝕵 [ostmt|P:2|]) (𝕵 [cmt|top comment|])
+        h' = tbh_ 1000 [date|1993-01-01|] 𝕹 𝕹 𝕹
+        t1 = tsimp_ 1013 [date|1996-8-6|] [acct|Bl|] 𝕹 𝕹 𝕹
+                    & parent ⊩ h
+        t2 = tsimp_ 1013 [date|1996-8-6|] [acct|Bl|] 𝕹 (𝕵 [ostmt|N|]) 𝕹
+                    & parent ⊩ h
+        t1' = t1 & parent ⊩ h'
+        t2' = t2 & parent ⊩ h'
+    in
+      [ testCase "ostmt1"  $ assertJust (≟ [ostmt|P:2|]) $ oStmtGetY t1
+      , testCase "ostmt2"  $ assertJust (≟ [ostmt|N|])   $ oStmtGetY t2
+      , testCase "ostmt1'" $ 𝕹 @=? oStmtGetY t1'
+      , testCase "ostmt2'" $ assertJust (≟ [ostmt|N|])  $ oStmtGetY t2'
+      ]
 
 ----------------------------------------
 
@@ -222,7 +278,7 @@ tsimp = mkQQExp "TrxSimp" (liftTParse' @TrxSimp tParse')
 --------------------------------------------------------------------------------
 
 tests ∷ TestTree
-tests = testGroup "Acct.TrxSimp" [ printTests, parseTests ]
+tests = testGroup "Acct.TrxSimp" [ printTests, parseTests, shadowTests ]
 
 --------------------
 

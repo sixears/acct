@@ -11,7 +11,7 @@ import GHC.Exts  ( IsList( toList ) )
 
 -- containers --------------------------
 
-import qualified  Data.Map.Lazy  as  Map
+import qualified  Data.Map.Strict  as  Map
 
 -- containers-plus ---------------------
 
@@ -29,10 +29,10 @@ import TastyPluser  ( TestCmp( testCmp ) )
 import qualified  Acct.OStmtMap  as  OStmtMap
 
 import Acct.Mapish     ( Mapish( Key, Value, adjust, empty, insert ) )
-import Acct.OStmt      ( oAcct, oIndex, oStmtY )
+import Acct.OStmt      ( oAcct, oIndex )
 import Acct.OStmtMap   ( OStmtMap )
 import Acct.OStmtName  ( OStmtName )
-import Acct.TrxSimp    ( TrxSimp )
+import Acct.TrxSimp    ( TrxSimp, oStmtGetY )
 
 --------------------------------------------------------------------------------
 
@@ -81,7 +81,7 @@ instance TestCmp OAcctMap where
 
 addTrx ∷ TrxSimp → OAcctMap → OAcctMap
 addTrx t o@(OAcctMap m) =
-  case t ⊣ oStmtY of
+  case oStmtGetY t of
     𝕹     → o
     𝕵 ost → let c = ost ⊣ oAcct
                 i = ost ⊣ oIndex

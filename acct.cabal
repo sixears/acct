@@ -63,7 +63,6 @@ library
                      , Acct.Entry
                      , Acct.Entries
                      , Acct.FromNat
-                     , Acct.Mapish
                      , Acct.Month
                      , Acct.OAcctMap
                      , Acct.OStmtIndex
@@ -77,6 +76,7 @@ library
                      , Acct.TrxBrkHead
                      , Acct.TrxSimp
                      , Acct.TrxBrk
+                     , Acct.Util
                      , Acct.Year
                      , TastyPluser
                      , TrifectaPlus
@@ -112,7 +112,6 @@ library
                    , text-printer, time, trifecta, validity
 
                    , base1t           >= 0.0.5.0
-                   , containers-plus  >= 0.0.10.1
                    , fpath            >= 1.0.6.0
                    , has-callstack    >= 1.0.1.0
                    , log-plus         >= 0.0.1.0

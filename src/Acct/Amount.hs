@@ -3,7 +3,7 @@
 {-# LANGUAGE UnicodeSyntax     #-}
 
 module Acct.Amount
-  ( Amount( Amount ), HasAmount( amount ), amt, asText, tests )
+  ( Amount( Amount ), HasAmount( amount ), amt, asText, aTotal, tests )
 where
 
 import Base1T
@@ -11,7 +11,9 @@ import Prelude  ( Enum, Integral, Num, Real, (*), quot, rem )
 
 -- base --------------------------------
 
-import Text.Read  ( read )
+import Data.Foldable  ( Foldable, sum )
+import Data.Functor   ( Functor )
+import Text.Read      ( read )
 
 -- data-textual ------------------------
 
@@ -24,6 +26,10 @@ import Control.DeepSeq  ( NFData )
 -- genvalidity -------------------------
 
 import Data.GenValidity  ( GenValid( genValid, shrinkValid ) )
+
+-- lens --------------------------------
+
+import Control.Lens.Getter  ( view )
 
 -- parsers -----------------------------
 
@@ -242,6 +248,10 @@ hasAmountTests =
 amt ∷ QuasiQuoter
 amt = mkQQExp "Amount" (liftTParse' @Amount tParse')
 
+----------------------------------------
+
+aTotal ∷ (Foldable ψ, Functor ψ, HasAmount α) ⇒ ψ α → Amount
+aTotal ts = sum $ view amount ⊳ ts
 
 -- testing infrastructure ------------------------------------------------------
 

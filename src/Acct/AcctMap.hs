@@ -7,16 +7,17 @@ import Base1T  hiding  ( toList )
 
 -- base --------------------------------
 
-import Data.List  ( sort )
-import GHC.Exts   ( IsList( toList ) )
+import Data.List    ( sort )
+import Data.Monoid  ( Monoid )
+import GHC.Exts     ( IsList( toList ) )
 
 -- containers --------------------------
 
 import qualified  Data.Map.Strict  as  Map
 
--- containers-plus ---------------------
+-- lens --------------------------------
 
-import ContainersPlus.Member  ( HasMember( MemberType, member ) )
+import Control.Lens.At  ( At( at ), Index, Ixed( ix ), IxValue )
 
 -- tasty-plus --------------------------
 
@@ -28,13 +29,21 @@ import TastyPluser  ( TestCmp( testCmp ) )
 ------------------------------------------------------------
 
 import Acct.Account     ( Account )
-import Acct.Mapish      ( Mapish( Key, Value, adjust, empty, insert ) )
 import Acct.TrxSimp     ( TrxSimp )
 
 --------------------------------------------------------------------------------
 
 newtype AcctMap = AcctMap (Map.Map Account [TrxSimp])
-  deriving (Eq,Show)
+  deriving (Eq,Monoid,Semigroup,Show)
+
+type instance Index   AcctMap = Account
+type instance IxValue AcctMap = [TrxSimp]
+
+instance Ixed AcctMap where
+  ix k f (AcctMap m) =  AcctMap ⊳ ix k f m
+
+instance At AcctMap where
+  at k f (AcctMap m) = AcctMap ⊳ Map.alterF f k m
 
 --------------------
 
@@ -42,15 +51,6 @@ instance IsList AcctMap where
   type instance Item AcctMap = (Account,[TrxSimp])
   fromList xs = AcctMap $ fromList xs
   toList (AcctMap xs) = toList xs
-
---------------------
-
-instance Mapish AcctMap where
-  type Key AcctMap = Account
-  type Value AcctMap = [TrxSimp]
-  adjust f k (AcctMap m) = AcctMap (Map.adjust f k m)
-  empty                  = AcctMap ф
-  insert k v (AcctMap m) = AcctMap (Map.insert k v m)
 
 --------------------
 
@@ -64,11 +64,5 @@ instance TestCmp AcctMap where
         , [ assertListEq ("account: " ⊕ toText k) v v'
           | (k,(v,v')) ← Map.toList vs ]
         ]
-
---------------------
-
-instance HasMember AcctMap where
-  type MemberType AcctMap = Account
-  member k (AcctMap m) = Map.member k m
 
 -- that's all, folks! ----------------------------------------------------------

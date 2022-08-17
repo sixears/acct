@@ -11,16 +11,13 @@ module Acct.Acct
   ( main )
 where
 
-import Debug.Trace     ( trace, traceShow, traceM )
 import Base1T  hiding  ( toList )
 
 -- base --------------------------------
 
 import Data.Foldable  ( sum )
 import Data.List      ( reverse, sortOn )
-import Data.Maybe     ( fromMaybe )
 import GHC.Exts       ( toList )
-import System.IO      ( putStrLn )
 
 -- fpath -------------------------------
 
@@ -28,8 +25,7 @@ import FPath.File  ( File )
 
 -- lens --------------------------------
 
-import Control.Lens.Getter  ( view )
-import Control.Lens.Tuple   ( _3 )
+import Control.Lens.At  ( at )
 
 -- monadio-plus ------------------------
 
@@ -37,7 +33,8 @@ import MonadIO  ( say, warn )
 
 -- optparse-applicative ----------------
 
-import Options.Applicative.Builder  ( fullDesc, help, info, long, metavar, progDesc, short, switch )
+import Options.Applicative.Builder  ( auto, flag', fullDesc, help, info, long
+                                    , metavar, option, progDesc, short )
 import Options.Applicative.Extra    ( execParser, helper )
 import Options.Applicative.Types    ( Parser, ParserInfo )
 
@@ -49,25 +46,32 @@ import OptParsePlus  ( textualArgument )
 --                     local imports                      --
 ------------------------------------------------------------
 
-import Acct.Amount     ( amount, amt, asText )
-import Acct.AcctState  ( accounts, stmts )
+import Acct.Amount     ( asText, aTotal )
+import Acct.AcctState  ( AcctState, accounts, stmts )
 import Acct.Entries    ( parseFile )
-import Acct.StmtIndex  ( stmtindex )
+import Acct.Stmt       ( Stmt( Stmt ) )
+import Acct.StmtIndex  ( stmtIndex, stmtindex )
+import Acct.TrxSimp    ( TrxSimp )
 
 --------------------------------------------------------------------------------
 
+data DumpType = DUMP_ACCTS | DUMP_STMTS | DUMP_STMT ℕ  deriving  (Eq,Show)
+
 data Options = Options { input ∷ File
-                       , dumpStmts ∷ 𝔹
+                       , dumpType ∷ DumpType
                        }
 
 parseOpts ∷ Parser Options
 parseOpts =
-  let
-    -- dvorak_help = help "remap to dvorak layout"
-  in
-    Options ⊳ textualArgument (metavar "ACCOUNTS-FILE")
-            ⊵ switch (ю [ short 'x', long "dump-stmts"
-                        , help "dump statement totals" ])
+  Options ⊳ textualArgument (metavar "ACCOUNTS-FILE")
+          ⊵ (flag' DUMP_STMTS (ю [ short 'x', long "dump-stmts"
+                                 , help "dump statement totals" ])
+            ∤ DUMP_STMT ⊳ option auto  (ю [ short 'X', long "to-stmt"
+                                          , help "print total to statement" ])
+            ∤ pure DUMP_ACCTS
+            )
+
+----------------------------------------
 
 main ∷ IO()
 main = do
@@ -79,24 +83,53 @@ main = do
   let i = input opts
   parseFile i ≫ \ case
     𝕹 → warn $ [fmtT|error parsing file '%T'|] i
-    𝕵 (_,as) → do
-      ms ← forM (toList $ as ⊣ accounts) $ \ (a,ts) →
-        let m = sum (view amount ⊳ ts)
-        in  putStrLn ([fmt|%20T  %10t|] a (asText m)) ⪼ return m
-      putStrLn $ [fmt|Total:  %10t|] (asText $ sum ms)
+    𝕵 (_,as) → case dumpType opts of
+                 DUMP_STMTS  → dump_stmts as
+                 DUMP_STMT x → dump_stmt as x
+                 DUMP_ACCTS  → dump_accts as
 
--- XXX only in -x
+----------------------------------------
 
-      let _fld (x@(_,_,c):xs) (i,ts) =
-            let new = (i,(sum $ view amount ⊳ ts),c + (sum $ view amount ⊳ ts))
-            in  new : x : xs
-          _init = [([stmtindex||],0,0)]
-          sts = foldl _fld _init (sortOn fst ∘ toList $ as ⊣ stmts)
-      forM_ (reverse sts) $ \ (i,a,t) →
-        if i ≡ [stmtindex||]
-        then putStrLn $ [fmt|Total: %t|] (asText t)
-        else putStrLn ([fmt|  Statement %03T  This Stmt %12t  Accumulated %12t|]
-                       i (asText a) (asText t))
-  say i
+dump_accts ∷ AcctState → IO()
+dump_accts as = do
+  ms ← forM (toList $ as ⊣ accounts) $ \ (a,ts) → do
+                                         let m = aTotal ts
+                                         say $ [fmtT|%20T  %10t|] a (asText m)
+                                         return m
+  say $ [fmtT|Total:  %10t|] (asText $ sum ms)
+
+----------------------------------------
+
+dump_stmt ∷ AcctState → ℕ → IO()
+dump_stmt as n =
+  let _fld (x@(_,_,c):xs) (i,ts) =
+        let new = (i,(aTotal ts),c + (aTotal ts))
+        in  new : x : xs
+      _fld [] (i,ts) =
+        [(i,(aTotal ts),(aTotal ts))]
+      st ∷ 𝕄 [TrxSimp]
+      st = as ⊣ stmts ∘ at (stmtIndex ∘ 𝕵 $ Stmt n)
+      sts = foldl _fld [] (sortOn fst ∘ toList $ as ⊣ stmts)
+  in  forM_ (reverse sts) $ \ (i,a,t) →
+    if i ≡ [stmtindex||]
+    then say $ [fmtT|Total: %t|] (asText t)
+    else say ([fmtT|  Statement %03T  This Stmt %12t  Accumulated %12t|]
+              i (asText a) (asText t))
+
+----------------------------------------
+
+dump_stmts ∷ AcctState → IO()
+dump_stmts as =
+  let _fld (x@(_,_,c):xs) (i,ts) =
+        let new = (i,(aTotal ts),c + (aTotal ts))
+        in  new : x : xs
+      _fld [] (i,ts) =
+        [(i,(aTotal ts),(aTotal ts))]
+      sts = foldl _fld [] (sortOn fst ∘ toList $ as ⊣ stmts)
+  in  forM_ (reverse sts) $ \ (i,a,t) →
+    if i ≡ [stmtindex||]
+    then say $ [fmtT|Total: %t|] (asText t)
+    else say ([fmtT|  Statement %03T  This Stmt %12t  Accumulated %12t|]
+              i (asText a) (asText t))
 
 -- that's all, folks! ----------------------------------------------------------

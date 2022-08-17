@@ -1,5 +1,5 @@
 module Acct.Stmt
-  ( HasStmtY( stmtY ), Stmt, stmt, tests )
+  ( HasStmtY( stmtY ), Stmt( Stmt ), stmt, tests )
 where
 
 import Base1T

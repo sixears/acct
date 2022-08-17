@@ -7,15 +7,20 @@ import Base1T  hiding  ( toList )
 
 -- base --------------------------------
 
-import GHC.Exts  ( IsList( toList ) )
+import Data.Monoid  ( Monoid )
+import GHC.Exts     ( IsList( toList ) )
 
 -- containers --------------------------
 
 import qualified  Data.Map.Strict  as  Map
 
--- containers-plus ---------------------
+-- lens --------------------------------
 
-import ContainersPlus.Member  ( HasMember( MemberType, member ) )
+import Control.Lens.At  ( At( at ), Index, Ixed( ix ), IxValue )
+
+-- more-unicode ------------------------
+
+import Data.MoreUnicode.Lens  ( (⊩) )
 
 -- tasty-plus --------------------------
 
@@ -28,7 +33,6 @@ import TastyPluser  ( TestCmp( testCmp ) )
 
 import qualified  Acct.OStmtMap  as  OStmtMap
 
-import Acct.Mapish     ( Mapish( Key, Value, adjust, empty, insert ) )
 import Acct.OStmt      ( oAcct, oIndex )
 import Acct.OStmtMap   ( OStmtMap )
 import Acct.OStmtName  ( OStmtName )
@@ -37,7 +41,16 @@ import Acct.TrxSimp    ( TrxSimp, oStmtGetY )
 --------------------------------------------------------------------------------
 
 newtype OAcctMap = OAcctMap (Map.Map OStmtName OStmtMap)
-  deriving (Eq,Show)
+  deriving (Eq,Monoid,Semigroup,Show)
+
+type instance Index   OAcctMap = OStmtName
+type instance IxValue OAcctMap = OStmtMap
+
+instance Ixed OAcctMap where
+  ix k f (OAcctMap m) =  OAcctMap ⊳ ix k f m
+
+instance At OAcctMap where
+  at k f (OAcctMap m) = OAcctMap ⊳ Map.alterF f k m
 
 --------------------
 
@@ -45,21 +58,6 @@ instance IsList OAcctMap where
   type instance Item OAcctMap = (OStmtName,OStmtMap)
   fromList xs = OAcctMap $ fromList xs
   toList (OAcctMap xs) = toList xs
-
---------------------
-
-instance HasMember OAcctMap where
-  type MemberType OAcctMap = OStmtName
-  member k (OAcctMap m) = Map.member k m
-
---------------------
-
-instance Mapish OAcctMap where
-  type Key OAcctMap = OStmtName
-  type Value OAcctMap = OStmtMap
-  adjust f k (OAcctMap m) = OAcctMap (Map.adjust f k m)
-  empty                   = OAcctMap ф
-  insert k v (OAcctMap m) = OAcctMap (Map.insert k v m)
 
 --------------------
 
@@ -86,7 +84,8 @@ addTrx t o@(OAcctMap m) =
     𝕵 ost → let c = ost ⊣ oAcct
                 i = ost ⊣ oIndex
             in  case c `Map.lookup` m of
-                  𝕹     → OAcctMap $ fromList [(c,OStmtMap.addTrx empty t i)]
-                  𝕵 osm → insert (ost ⊣ oAcct) (OStmtMap.addTrx osm t i) o
+                  𝕹     → OAcctMap $ fromList [(c,OStmtMap.addTrx ф t i)]
+--                  𝕵 osm → insert (ost ⊣ oAcct) (OStmtMap.addTrx osm t i) o
+                  𝕵 osm → at (ost ⊣ oAcct) ⊩ (OStmtMap.addTrx osm t i) $ o
 
 -- that's all, folks! ----------------------------------------------------------

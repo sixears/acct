@@ -7,15 +7,16 @@ import Base1T  hiding  ( toList )
 
 -- base --------------------------------
 
-import GHC.Exts  ( IsList( toList ) )
+import Data.Monoid  ( Monoid )
+import GHC.Exts     ( IsList( toList ) )
 
 -- containers --------------------------
 
 import qualified  Data.Map.Strict  as  Map
 
--- containers-plus ---------------------
+-- lens --------------------------------
 
-import ContainersPlus.Member  ( HasMember( MemberType, member ) )
+import Control.Lens.At  ( At( at ), Index, Ixed( ix ), IxValue )
 
 -- tasty-plus --------------------------
 
@@ -26,14 +27,22 @@ import TastyPluser  ( TestCmp( testCmp ) )
 --                     local imports                      --
 ------------------------------------------------------------
 
-import Acct.Mapish      ( Mapish( Key, Value, adjust, empty, insert ) )
 import Acct.OStmtIndex  ( OStmtIndex )
 import Acct.TrxSimp     ( TrxSimp )
 
 --------------------------------------------------------------------------------
 
 newtype OStmtMap = OStmtMap (Map.Map OStmtIndex [TrxSimp])
-  deriving (Eq,Show)
+  deriving (Eq,Monoid,Semigroup,Show)
+
+type instance Index   OStmtMap = OStmtIndex
+type instance IxValue OStmtMap = [TrxSimp]
+
+instance Ixed OStmtMap where
+  ix k f (OStmtMap m) =  OStmtMap ⊳ ix k f m
+
+instance At OStmtMap where
+  at k f (OStmtMap m) = OStmtMap ⊳ Map.alterF f k m
 
 --------------------
 
@@ -44,18 +53,22 @@ instance IsList OStmtMap where
 
 --------------------
 
+{-
 instance HasMember OStmtMap where
   type MemberType OStmtMap = OStmtIndex
   member k (OStmtMap m) = Map.member k m
+-}
 
 --------------------
 
+{-
 instance Mapish OStmtMap where
   type Key   OStmtMap = OStmtIndex
   type Value OStmtMap = [TrxSimp]
   adjust f k (OStmtMap m) = OStmtMap (Map.adjust f k m)
   empty                   = OStmtMap ф
   insert k v (OStmtMap m) = OStmtMap (Map.insert k v m)
+-}
 
 --------------------
 

@@ -19,7 +19,6 @@ import Base1T
 
 -- base --------------------------------
 
-import Data.Foldable  ( sum )
 import GHC.Generics   ( Generic )
 
 -- data-textual ------------------------
@@ -33,10 +32,6 @@ import Control.DeepSeq  ( NFData )
 -- genvalidity -------------------------
 
 import Data.GenValidity  ( GenValid( genValid, shrinkValid ) )
-
--- lens --------------------------------
-
-import Control.Lens.Getter  ( view )
 
 -- more-unicode ------------------------
 
@@ -81,7 +76,7 @@ import Data.Validity  ( Validity( validate ), declare )
 ------------------------------------------------------------
 
 import Acct.Account      ( acct )
-import Acct.Amount       ( amount )
+import Acct.Amount       ( amount, aTotal )
 import Acct.Date         ( date )
 import Acct.OStmt        ( ostmt )
 import Acct.Parser       ( newline, wspaces )
@@ -102,7 +97,7 @@ trxBrk h ts = TrxBrk h $ (& parent ⊩ h) ⊳ ts
 instance Validity TrxBrk where
   validate (TrxBrk h ts) =
     let totalsMatch = declare "amount totals sum" $
-                        h ⊣ amount ≡ sum (view amount ⊳ ts)
+                        h ⊣ amount ≡ aTotal ts
     in  totalsMatch
 
 --------------------
@@ -112,8 +107,7 @@ instance GenValid TrxBrk where
     let listOf1' ∷ Gen α → Gen (NonEmpty α)
         listOf1' g = fromList ⊳ listOf1 g
     ts ← listOf1' arbitrary
-    h ← tbh_ ⊳ pure (sum $ view amount ⊳ ts) ⊵ arbitrary ⊵ arbitrary
-                                             ⊵ arbitrary ⊵ arbitrary
+    h ← tbh_ ⊳ pure (aTotal ts) ⊵ arbitrary ⊵ arbitrary ⊵ arbitrary ⊵ arbitrary
     let ts' = (& parent ⊩ h) ⊳ ts
     return $ TrxBrk h ts'
 
@@ -163,7 +157,7 @@ instance Textual TrxBrk where
 
       check_breakdown b@(TrxBrk h ts) = do
         let h_am  = h ⊣ amount
-            ts_am = sum (view amount ⊳ ts)
+            ts_am = aTotal ts
         if h_am ≡ ts_am
         then return b
         else unexpected $ [fmt|breakdown total was %T, expected %T|] ts_am h_am

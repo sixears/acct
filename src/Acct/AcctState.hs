@@ -9,10 +9,6 @@ import Base1T  hiding  ( (∈), toList )
 
 import Control.Monad.Fail  ( MonadFail, fail )
 
--- containers-plus ---------------------
-
-import ContainersPlus.Member  ( (∈) )
-
 -- data-textual ------------------------
 
 import Data.Textual  ( Textual( textual ) )
@@ -23,8 +19,10 @@ import Data.Textual  ( Textual( textual ) )
 
 -- lens --------------------------------
 
+import Control.Lens.At      ( at, ix )
+import Control.Lens.Fold    ( has )
 import Control.Lens.Getter  ( use )
-import Control.Lens.Setter  ( (%=) )
+import Control.Lens.Setter  ( (%=), (.=) )
 
 -- mtl ---------------------------------
 
@@ -46,13 +44,13 @@ import Acct.Account     ( Account, HasAccount( account ) )
 import Acct.AcctMap     ( AcctMap )
 import Acct.Entry       ( Entry( TAcctStart, TBrk, TrxComment, TOStmtStart
                                , TSimpleTrx ) )
-import Acct.Mapish      ( Mapish( adjust, empty, insert ) )
 import Acct.OAcctMap    ( OAcctMap, addTrx )
 import Acct.OStmt       ( oAcct )
 import Acct.OStmtName   ( OStmtName )
 import Acct.StmtMap     ( StmtMap )
 import Acct.TrxBrk      ( trx )
 import Acct.TrxSimp     ( TrxSimp, oStmtGetY, stmtGetY )
+import Acct.Util        ( mcons )
 
 --------------------------------------------------------------------------------
 
@@ -82,23 +80,28 @@ stmts = lens _stmts (\ s x → s { _stmts = x })
 ----------------------------------------
 
 newAcctState ∷ AcctState
-newAcctState = AcctState empty empty empty
+newAcctState = AcctState ф ф ф
 
 ----------------------------------------
 
 startAcct ∷ (MonadFail η, MonadState AcctState η) ⇒ AcctMap → Account → η ()
 startAcct accts a =
-  if a ∈ accts
+--  if a ∈ accts
+  if has (ix a) accts
   then fail $ [fmt|Cannot re-start extant account '%T'|] a
-  else accounts %= insert a []
+--  else accounts %= insert a []
+  else accounts ∘ at a .= 𝕵 []
 
 ----------------------------------------
 
 startOAcct ∷ (MonadFail η, MonadState AcctState η) ⇒ OAcctMap → OStmtName → η ()
 startOAcct oaccts c =
-  if c ∈ oaccts
+--  if c ∈ oaccts
+  if has (ix c) oaccts
   then fail $ [fmt|Cannot re-start other account '%T'|] c
-  else otherAccounts %= insert c (fromList [])
+--  else otherAccounts %= insert c (fromList [])
+--  else otherAccounts ∘ at c %= const (𝕵 ф) -- insert c (fromList [])
+  else otherAccounts ∘ at c .= 𝕵 ф -- insert c (fromList [])
 
 ----------------------------------------
 
@@ -106,8 +109,10 @@ addToAcct ∷ (MonadFail η, MonadState AcctState η) ⇒ TrxSimp → η ()
 addToAcct t = do
   acctmap ← use accounts
   let a = t ⊣ account
-  if a ∈ acctmap
-  then accounts %= adjust (\ ts → t:ts) a
+  if has (ix a) acctmap
+--  if a ∈ acctmap
+--  then accounts %= adjust (\ ts → t:ts) a
+  then accounts ∘ at a %= 𝕵 ∘ mcons t
   else fail $ [fmt|Not a valid account '%T' (%T)|] a t
 
 ----------------------------------------
@@ -120,7 +125,7 @@ addToOAcct t = do
       let
         toact = oa ⊣ oAcct
       in
-        if toact ∈ oaccts
+        if has (ix toact) oaccts -- toact ∈ oaccts
         then otherAccounts %= addTrx t
         else fail $ [fmt|Not a valid other account '%T' (%T)|] (oa ⊣ oAcct) t
     𝕹    → return ()
@@ -130,10 +135,7 @@ addToOAcct t = do
 addToStmt ∷ (MonadFail η, MonadState AcctState η) ⇒ TrxSimp → η ()
 addToStmt t = do
   let st = stmtGetY t
-  stmtmap ← use stmts
-  if st ∈ stmtmap
-  then stmts %= adjust (\ ts → t:ts) st
-  else stmts %= insert st [t]
+  stmts ∘ at st %= 𝕵 ∘ mcons t
 
 ----------------------------------------
 

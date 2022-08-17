@@ -7,16 +7,17 @@ import Base1T  hiding  ( toList )
 
 -- base --------------------------------
 
-import Data.List  ( sort )
-import GHC.Exts   ( IsList( toList ) )
+import Data.List       ( sort )
+import Data.Monoid     ( Monoid )
+import GHC.Exts        ( IsList( toList ) )
 
 -- containers --------------------------
 
 import qualified  Data.Map.Strict  as  Map
 
--- containers-plus ---------------------
+-- lens --------------------------------
 
-import ContainersPlus.Member  ( HasMember( MemberType, member ) )
+import Control.Lens.At  ( At( at ), Index, Ixed( ix ), IxValue )
 
 -- tasty-plus --------------------------
 
@@ -27,14 +28,22 @@ import TastyPluser  ( TestCmp( testCmp ) )
 --                     local imports                      --
 ------------------------------------------------------------
 
-import Acct.Mapish     ( Mapish( Key, Value, adjust, empty, insert ) )
 import Acct.StmtIndex  ( StmtIndex )
 import Acct.TrxSimp    ( TrxSimp )
 
 --------------------------------------------------------------------------------
 
 newtype StmtMap = StmtMap (Map.Map StmtIndex [TrxSimp])
-  deriving (Eq,Show)
+  deriving (Eq,Monoid,Semigroup,Show)
+
+type instance Index   StmtMap = StmtIndex
+type instance IxValue StmtMap = [TrxSimp]
+
+instance Ixed StmtMap where
+  ix k f (StmtMap m) =  StmtMap ⊳ ix k f m
+
+instance At StmtMap where
+  at k f (StmtMap m) = StmtMap ⊳ Map.alterF f k m
 
 --------------------
 
@@ -45,12 +54,14 @@ instance IsList StmtMap where
 
 --------------------
 
+{-
 instance Mapish StmtMap where
   type Key StmtMap = StmtIndex
   type Value StmtMap = [TrxSimp]
   adjust f k (StmtMap m) = StmtMap (Map.adjust f k m)
   empty                  = StmtMap ф
   insert k v (StmtMap m) = StmtMap (Map.insert k v m)
+-}
 
 --------------------
 
@@ -65,10 +76,12 @@ instance TestCmp StmtMap where
           | (k,(v,v')) ← Map.toList vs ]
         ]
 
+{-
 --------------------
 
 instance HasMember StmtMap where
   type MemberType StmtMap = StmtIndex
   member k (StmtMap m) = Map.member k m
+-}
 
 -- that's all, folks! ----------------------------------------------------------

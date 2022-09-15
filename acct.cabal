@@ -71,6 +71,8 @@ library
                      , Acct.OStmt
                      , Acct.Parser
                      , Acct.Stmt
+                     , Acct.StmtEntries
+                     , Acct.StmtEntry
                      , Acct.StmtIndex
                      , Acct.StmtMap
                      , Acct.TrxBrkHead
@@ -87,10 +89,11 @@ library
                     , FlexibleInstances
                     , GeneralizedNewtypeDeriving
                     , InstanceSigs
+                    , LambdaCase
                     , NoImplicitPrelude
                     , NumericUnderscores
-                    , QuasiQuotes
                     , OverloadedStrings
+                    , QuasiQuotes
                     , RankNTypes
                     , ScopedTypeVariables
                     , TemplateHaskell
@@ -104,14 +107,15 @@ library
   -- other-extensions:
 
   -- Other library packages from which modules are imported.
-  build-depends:     base, bytestring, containers
-                   , data-default, data-textual, deepseq, genvalidity, lens
-                   , logging-effect, monaderror-io, mtl, optparse-applicative
-                   , parsers, prettyprinter, QuickCheck, safe
-                   , tasty-hunit, tasty-quickcheck, template-haskell, text
-                   , text-printer, time, trifecta, validity
+  build-depends:     base, bytestring, containers, data-default, data-textual
+                   , deepseq, genvalidity, lens, logging-effect
+                   , monaderror-io, mtl, optparse-applicative, parsers
+                   , prettyprinter, QuickCheck, safe, tasty-hunit
+                   , tasty-quickcheck, template-haskell, text, text-printer
+                   , time, trifecta, validity
 
                    , base1t           >= 0.0.5.0
+                   , exited           >= 1.0.4.1
                    , fpath            >= 1.0.6.0
                    , has-callstack    >= 1.0.1.0
                    , log-plus         >= 0.0.1.0
@@ -124,9 +128,9 @@ library
                    , parsec-plus      >= 1.0.3.2
                    , parser-plus      >= 1.0.1.0
                    , quasiquoting     >= 1.0.1.1
-                   , stdmain          >= 1.1.0.0
+                   , stdmain          >= 1.5.13.0
                    , tasty-plus       >= 1.4.0.0
-                   , tfmt             >= 0.2.3.0
+                   , tfmt             >= 0.2.7.0
 --                     aeson, base, base-unicode-symbols, colour, data-default
 --                   , data-textual, diagrams-core, diagrams-lib, diagrams-svg
 --                   , lens, mono-traversable, mtl, SVGFonts, text-printer

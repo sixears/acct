@@ -21,8 +21,12 @@ import Control.Lens.At  ( At( at ), Index, Ixed( ix ), IxValue )
 
 -- tasty-plus --------------------------
 
-import TastyPlus  ( assertListEq )
+import TastyPlus  ( assertListEq, assertListEqIO' )
 import TastyPluser  ( TestCmp( testCmp ) )
+
+-- text --------------------------------
+
+import Data.Text  ( pack )
 
 ------------------------------------------------------------
 --                     local imports                      --
@@ -61,7 +65,9 @@ instance TestCmp AcctMap where
           ks' = sort $ Map.keys am'
           vs = Map.intersectionWith (,) am am'
       ю [ [ assertListEq "account names" ks ks' ]
-        , [ assertListEq ("account: " ⊕ toText k) v v'
+        , -- we use assertListEqIO' here to use show to show discrepant TrxSimp;
+          -- printable instance don't show all the details (e.g., parents)
+          [ assertListEqIO' (pack ∘ show) ("account: " ⊕ toText k) v (return v')
           | (k,(v,v')) ← Map.toList vs ]
         ]
 

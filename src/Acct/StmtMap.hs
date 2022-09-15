@@ -1,3 +1,6 @@
+{-# LANGUAGE DeriveAnyClass     #-}
+{-# LANGUAGE DerivingStrategies #-}
+
 {-| Map from account name to a list of that account's transactions. -}
 module Acct.StmtMap
   ( StmtMap )
@@ -7,9 +10,9 @@ import Base1T  hiding  ( toList )
 
 -- base --------------------------------
 
-import Data.List       ( sort )
-import Data.Monoid     ( Monoid )
-import GHC.Exts        ( IsList( toList ) )
+import Data.List    ( sort )
+import Data.Monoid  ( Monoid )
+import GHC.Exts     ( IsList( toList ) )
 
 -- containers --------------------------
 
@@ -28,16 +31,17 @@ import TastyPluser  ( TestCmp( testCmp ) )
 --                     local imports                      --
 ------------------------------------------------------------
 
-import Acct.StmtIndex  ( StmtIndex )
-import Acct.TrxSimp    ( TrxSimp )
+import Acct.StmtIndex    ( StmtIndex )
+import Acct.StmtEntries  ( StmtEntries )
 
 --------------------------------------------------------------------------------
 
-newtype StmtMap = StmtMap (Map.Map StmtIndex [TrxSimp])
-  deriving (Eq,Monoid,Semigroup,Show)
+newtype StmtMap = StmtMap (Map.Map StmtIndex StmtEntries)
+  deriving         (Eq,Show)
+  deriving newtype (Monoid,Semigroup)
 
 type instance Index   StmtMap = StmtIndex
-type instance IxValue StmtMap = [TrxSimp]
+type instance IxValue StmtMap = StmtEntries
 
 instance Ixed StmtMap where
   ix k f (StmtMap m) =  StmtMap ⊳ ix k f m
@@ -48,20 +52,9 @@ instance At StmtMap where
 --------------------
 
 instance IsList StmtMap where
-  type instance Item StmtMap = (StmtIndex,[TrxSimp])
+  type instance Item StmtMap = (StmtIndex,StmtEntries)
   fromList xs = StmtMap $ fromList xs
   toList (StmtMap xs) = toList xs
-
---------------------
-
-{-
-instance Mapish StmtMap where
-  type Key StmtMap = StmtIndex
-  type Value StmtMap = [TrxSimp]
-  adjust f k (StmtMap m) = StmtMap (Map.adjust f k m)
-  empty                  = StmtMap ф
-  insert k v (StmtMap m) = StmtMap (Map.insert k v m)
--}
 
 --------------------
 
@@ -71,17 +64,9 @@ instance TestCmp StmtMap where
       let ks  = sort $ Map.keys am
           ks' = sort $ Map.keys am'
           vs = Map.intersectionWith (,) am am'
-      ю [ [ assertListEq "account names" ks ks' ]
-        , [ assertListEq ("account: " ⊕ toText k) v v'
+      ю [ [ assertListEq "stmt names" ks ks' ]
+        , [ assertListEq ("stmt: " ⊕ toText k) (toList v) (toList v')
           | (k,(v,v')) ← Map.toList vs ]
         ]
-
-{-
---------------------
-
-instance HasMember StmtMap where
-  type MemberType StmtMap = StmtIndex
-  member k (StmtMap m) = Map.member k m
--}
 
 -- that's all, folks! ----------------------------------------------------------

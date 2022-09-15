@@ -1,5 +1,5 @@
 module Acct.Date
-  ( Date, date, d, tests )
+  ( Date, HasDate( date ), dte, tests )
 where
 
 import Base1T
@@ -78,10 +78,12 @@ import Data.Validity  ( Validity( validate ), trivialValidation )
 import Acct.FromNat  ( fromI )
 import Acct.Month    ( Month )
 import Acct.Year     ( Year )
+import Acct.Util     ( Pretty( pretty ) )
+
 
 --------------------------------------------------------------------------------
 
-newtype Date  = Date Day deriving (Eq,NFData,Show)
+newtype Date  = Date Day deriving (Eq,NFData,Ord,Show)
 
 fromYMD ∷ ℤ → Int → Int → Date
 fromYMD y m a = Date $ fromGregorian y m a
@@ -134,6 +136,13 @@ printTests =
 
 --------------------
 
+instance Pretty Date where
+  pretty (Date t) =
+    let (y,m,d) = toGregorian t
+    in  [fmt|%04d-%02d-%02d|] y m d
+
+--------------------
+
 instance Textual Date where
   textual = let cons2 a b = a : [b]
 
@@ -142,13 +151,13 @@ instance Textual Date where
                                 ∤ (pure ⊳ digit)
                               )
                 parseDMY ∷ (Monad η, CharParsing η) ⇒ (ℕ,Month,Year) → η Date
-                parseDMY (a,m,y) = do
-                  case fromGregorianValid (toInteger y) (fromEnum m) (fromIntegral a) of
+                parseDMY (d,m,y) = do
+                  case fromGregorianValid (toInteger y) (fromEnum m) (fromIntegral d) of
                     Just t → return $ Date t
-                    Nothing → unexpected $ [fmt|invalid date %02d.%T.%T|] a m y
+                    Nothing → unexpected $ [fmt|invalid date %02d.%T.%T|] d m y
 
                 parseYMD ∷ (Monad η, CharParsing η) ⇒ (Year,Month,ℕ) → η Date
-                parseYMD (y,m,a) = parseDMY (a,m,y)
+                parseYMD (y,m,d) = parseDMY (d,m,y)
 
                 -- parser of three things, separated by a common separator.
                 sep3 ∷ Applicative ψ ⇒ ψ ω → ψ α → ψ β → ψ γ → ψ (α,β,γ)
@@ -191,12 +200,16 @@ parseTests =
 ----------------------------------------
 
 {-| QuasiQuoter for `Date` -}
-date ∷ QuasiQuoter
-date = mkQQExp "Date" (liftTParse' @Date tParse')
+dte ∷ QuasiQuoter
+dte = mkQQExp "Date" (liftTParse' @Date tParse')
 
-{-| Very brief alias for `date` -}
-d ∷ QuasiQuoter
-d = date
+------------------------------------------------------------
+
+class HasDate α where
+  date ∷ Lens' α Date
+
+instance HasDate Date where
+  date = id
 
 -- tests -----------------------------------------------------------------------
 

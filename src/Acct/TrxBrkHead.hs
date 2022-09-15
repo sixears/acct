@@ -67,10 +67,12 @@ import Data.Validity  ( Validity( validate ), trivialValidation )
 
 import Acct.Amount      ( Amount, HasAmount( amount ) )
 import Acct.Comment     ( Comment, cmt )
-import Acct.Date        ( Date, date )
+import Acct.Date        ( Date, HasDate( date ), dte )
 import Acct.Parser      ( wspaces )
 import Acct.OStmt       ( HasOStmtY( oStmtY ), OStmt, ostmt )
 import Acct.Stmt        ( HasStmtY( stmtY ), Stmt, stmt )
+import Acct.StmtIndex   ( GetStmtIndex( stmtIndexGet ), stmtIndex )
+import Acct.Util        ( Pretty( pretty ) )
 
 --------------------------------------------------------------------------------
 
@@ -123,13 +125,22 @@ printTests =
   in
     testGroup "print"
               [ test "10.00+\t#D<4.vi.96>B<>X<5>"
-                     (tbh_ 1000 [date|1996-6-4|] (𝕵 [stmt|5|]) 𝕹 𝕹)
+                     (tbh_ 1000 [dte|1996-6-4|] (𝕵 [stmt|5|]) 𝕹 𝕹)
               , test "0.01-\t#D<12.xii.01>B<>C<comment>"
-                     (tbh_ (-1) [date|2001-12-12|] 𝕹 𝕹 (𝕵 [cmt|comment|]))
+                     (tbh_ (-1) [dte|2001-12-12|] 𝕹 𝕹 (𝕵 [cmt|comment|]))
               , test "0.10-\t#D<22.iix.22>B<>X<1>O<P:2>C<comment>"
-                     (tbh_ (-10) [date|2022-8-22|] (𝕵 [stmt|1|])
+                     (tbh_ (-10) [dte|2022-8-22|] (𝕵 [stmt|1|])
                                  (𝕵 [ostmt|P:2|]) (𝕵 [cmt|comment|]))
               ]
+
+--------------------
+
+instance Pretty TrxBrkHead where
+  pretty (TrxBrkHead am dt st os cm) =
+    let st' = maybe "" [fmt|X<%T>|] st
+        os' = maybe "" [fmt|O<%T>|] os
+        cm' = maybe "" [fmt|C<%T>|] cm
+     in [fmt|%-10t  #D<%t>%t%t%t|] (pretty am) (pretty dt) st' os' cm'
 
 --------------------
 
@@ -154,9 +165,9 @@ parseTests ∷ TestTree
 parseTests =
   testGroup "parse"
             [ testParse "10.13+ #D<6.viii.96>B<>X<5>"
-                        (tbh_ 1013 [date|1996-8-6|] (𝕵 [stmt|5|]) 𝕹 𝕹)
+                        (tbh_ 1013 [dte|1996-8-6|] (𝕵 [stmt|5|]) 𝕹 𝕹)
             , testParse "0.28+  #D<8.VIII.96>B<>C<int>X<5>O<P:2>" $
-                        tbh_ 28 [date|1996-8-8|]
+                        tbh_ 28 [dte|1996-8-8|]
                                 (𝕵 [stmt|5|]) (𝕵 [ostmt|P:2|]) (𝕵 [cmt|int|])
             , -- X is not a date
               testParseE "6.28+  #X<8.VIII.96>B<>C<int>X<5>"
@@ -185,6 +196,11 @@ instance HasAmount TrxBrkHead where
 
 --------------------
 
+instance GetStmtIndex TrxBrkHead where
+  stmtIndexGet t = stmtIndex $ t ⊣ stmtY
+
+--------------------
+
 instance HasStmtY TrxBrkHead where
   stmtY = lens _stmt (\ ts st → ts { _stmt = st })
 
@@ -192,6 +208,11 @@ instance HasStmtY TrxBrkHead where
 
 instance HasOStmtY TrxBrkHead where
   oStmtY = lens _ostmt (\ th os → th { _ostmt = os })
+
+--------------------
+
+instance HasDate TrxBrkHead where
+  date = lens _date (\ th dt → th { _date = dt })
 
 ----------------------------------------
 

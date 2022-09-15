@@ -1,5 +1,5 @@
 module Acct.Stmt
-  ( HasStmtY( stmtY ), Stmt( Stmt ), stmt, tests )
+  ( HasStmt( stmtx ), HasStmtY( stmtY ), Stmt( Stmt ), stmt, tests )
 where
 
 import Base1T
@@ -120,6 +120,14 @@ parseTests =
 {-| QuasiQuoter for `Stmt` -}
 stmt ∷ QuasiQuoter
 stmt = mkQQExp "Stmt" (liftTParse' @Stmt tParse')
+
+------------------------------------------------------------
+
+class HasStmt α where
+  stmtx ∷ Lens' α Stmt
+
+instance HasStmt Stmt where
+  stmtx = id
 
 ------------------------------------------------------------
 

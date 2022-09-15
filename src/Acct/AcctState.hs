@@ -1,3 +1,7 @@
+{-| Accounts, Statements, OtherStatements; each as (ultimately) a collection of
+    transactions: gathered together as a record type e.g., to use in MonadState.
+-}
+
 module Acct.AcctState
   ( AcctState, accounts, addToAcct, newAcctState, otherAccounts, parseEntry
   , startAcct, stmts )
@@ -47,10 +51,12 @@ import Acct.Entry       ( Entry( TAcctStart, TBrk, TrxComment, TOStmtStart
 import Acct.OAcctMap    ( OAcctMap, addTrx )
 import Acct.OStmt       ( oAcct )
 import Acct.OStmtName   ( OStmtName )
+import Acct.StmtIndex   ( stmtIndexGet )
+import Acct.StmtEntry   ( StmtEntry( SE_BRK, SE_SIMP ) )
 import Acct.StmtMap     ( StmtMap )
-import Acct.TrxBrk      ( trx )
-import Acct.TrxSimp     ( TrxSimp, oStmtGetY, stmtGetY )
-import Acct.Util        ( mcons )
+import Acct.TrxBrk      ( inferredStmt, trx )
+import Acct.TrxSimp     ( TrxSimp, oStmtGetY )
+import Acct.Util        ( (⋰), mcons )
 
 --------------------------------------------------------------------------------
 
@@ -132,10 +138,10 @@ addToOAcct t = do
 
 ----------------------------------------
 
-addToStmt ∷ (MonadFail η, MonadState AcctState η) ⇒ TrxSimp → η ()
+addToStmt ∷ (MonadFail η, MonadState AcctState η) ⇒ StmtEntry → η ()
 addToStmt t = do
-  let st = stmtGetY t
-  stmts ∘ at st %= 𝕵 ∘ mcons t
+  let st = stmtIndexGet t
+  stmts ∘ at st %=  𝕵 ∘ (t ⋰)
 
 ----------------------------------------
 
@@ -150,17 +156,17 @@ parseEntry' (TOStmtStart c) = do
   startOAcct oaccts c
   return 𝕹
 parseEntry' e@(TSimpleTrx t) = do
---  return $ rnf t
   addToAcct t
   addToOAcct t
-  addToStmt t
+  addToStmt (SE_SIMP t)
   return (𝕵 e)
 parseEntry' e@(TBrk t) = do
---  return $ rnf t
   forM_ (trx t) $ \ t' → do
     addToAcct t'
     addToOAcct t'
-    addToStmt t'
+  case inferredStmt t of
+    𝕵 _ → addToStmt (SE_BRK t)
+    𝕹   → forM_ (trx t) $ addToStmt ∘ SE_SIMP
   return (𝕵 e)
 
 --------------------

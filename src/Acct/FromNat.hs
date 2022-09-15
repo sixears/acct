@@ -15,4 +15,7 @@ class FromNat α where
 instance FromNat ℕ where
   fromNat = id
 
+instance FromNat ℤ where
+  fromNat = fromIntegral
+
 -- that's all, folks! ----------------------------------------------------------

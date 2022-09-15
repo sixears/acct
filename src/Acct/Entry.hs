@@ -71,7 +71,7 @@ import Data.Validity  ( Validity( validate ), declare, isValid )
 
 import Acct.Account      ( Account, acct )
 import Acct.Comment      ( cmt )
-import Acct.Date         ( date )
+import Acct.Date         ( dte )
 import Acct.OStmtName    ( OStmtName, ostmtname )
 import Acct.Parser       ( wspaces )
 import Acct.Stmt         ( stmt )
@@ -151,13 +151,13 @@ printTests =
         "oStart: J" ≟ toText (TOStmtStart [ostmtname|J|])
     , testCase "TSimpleTrx" $
           "10.13+\t#D<6.iix.96>A<Acme>X<5>"
-        ≟ toText (TSimpleTrx (tsimp_ 1013 [date|1996-8-6|] [acct|Acme|]
+        ≟ toText (TSimpleTrx (tsimp_ 1013 [dte|1996-8-6|] [acct|Acme|]
                                           (𝕵 [stmt|5|]) 𝕹 𝕹))
     , testCase "TBrk" $
         let
-          h  = trxBrk (tbh_ 1013 [date|1996-8-6|] (𝕵 [stmt|5|]) 𝕹 𝕹)
-          t1 = tsimp_ 1000 [date|1996-6-4|] [acct|Foo|] (𝕵 [stmt|5|]) 𝕹 𝕹
-          t2 = tsimp_ 13 [date|1996-1-5|] [acct|Bar|] (𝕵 [stmt|5|]) 𝕹 𝕹
+          h  = trxBrk (tbh_ 1013 [dte|1996-8-6|] (𝕵 [stmt|5|]) 𝕹 𝕹)
+          t1 = tsimp_ 1000 [dte|1996-6-4|] [acct|Foo|] (𝕵 [stmt|5|]) 𝕹 𝕹
+          t2 = tsimp_ 13 [dte|1996-1-5|] [acct|Bar|] (𝕵 [stmt|5|]) 𝕹 𝕹
         in
           intercalate "\n" [ "10.13+\t#D<6.iix.96>B<>X<5>"
                            , "#10.00+\t#D<4.vi.96>A<Foo>X<5>"
@@ -205,23 +205,23 @@ parseTests =
               , testParse "Start: Acct" $ TAcctStart [acct|Acct|]
               , testParse "oStart: Y"   $ TOStmtStart [ostmtname|Y|]
               , let
-                  t = tsimp_ 1013 [date|1996-8-6|] [acct|Bill|] (𝕵 [stmt|5|])
+                  t = tsimp_ 1013 [dte|1996-8-6|] [acct|Bill|] (𝕵 [stmt|5|])
                                   𝕹 𝕹
                 in
                   testParse "10.13+ #D<6.viii.96>A<Bill>X<5>" $ TSimpleTrx t
 
               , let
-                  t' = tsimp_ (-628) [date|1996-8-8|] [acct|CarFund|]
+                  t' = tsimp_ (-628) [dte|1996-8-8|] [acct|CarFund|]
                               (𝕵 [stmt|5|]) 𝕹 (𝕵 [cmt|int to 8 Aug|])
                   t = TSimpleTrx t'
                 in
                   testParse "6.28- #D<8.VIII.96>A<CarFund>C<int to 8 Aug>X<5>" t
 
               , let
-                  h = tbh_ 1013 [date|1996-8-6|] (𝕵 [stmt|5|]) 𝕹 𝕹
-                  t1 = tsimp_ 1000 [date|1996-6-4|] [acct|Foo|] (𝕵[stmt|5|])
+                  h = tbh_ 1013 [dte|1996-8-6|] (𝕵 [stmt|5|]) 𝕹 𝕹
+                  t1 = tsimp_ 1000 [dte|1996-6-4|] [acct|Foo|] (𝕵[stmt|5|])
                                    𝕹 𝕹
-                  t2 = tsimp_ 13 [date|1996-1-5|] [acct|Bar|] (𝕵 [stmt|5|])
+                  t2 = tsimp_ 13 [dte|1996-1-5|] [acct|Bar|] (𝕵 [stmt|5|])
                                  𝕹 𝕹
                   t = TBrk (trxBrk h (t1 :| [t2]))
                 in testParse' t (unline [ "10.13+ #D<6.viii.96>B<>X<5>"

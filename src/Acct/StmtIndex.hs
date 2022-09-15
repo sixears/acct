@@ -1,5 +1,5 @@
 module Acct.StmtIndex
-  ( StmtIndex, stmtIndex, stmtindex, tests )
+  ( GetStmtIndex( stmtIndexGet ), StmtIndex, stmtIndex, stmtindex, tests )
 where
 
 import Base1T
@@ -63,11 +63,12 @@ import Data.Validity  ( Validity( validate ), trivialValidation )
 --                     local imports                      --
 ------------------------------------------------------------
 
-import Acct.Stmt  ( Stmt, stmt )
+import Acct.Stmt  ( HasStmtY( stmtY ), Stmt, stmt )
 
 --------------------------------------------------------------------------------
 
-newtype StmtIndex = StmtIndex (𝕄 Stmt)  deriving  (Eq,Lift,NFData,Show)
+newtype StmtIndex = StmtIndex { unStmtIndex ∷ 𝕄 Stmt }
+  deriving (Eq,Lift,NFData,Show)
 
 stmtIndex ∷ 𝕄 Stmt → StmtIndex
 stmtIndex = StmtIndex
@@ -156,6 +157,19 @@ parseTests =
 {-| QuasiQuoter for `StmtIndex` -}
 stmtindex ∷ QuasiQuoter
 stmtindex = mkQQExp "StmtIndex" (liftTParse' @StmtIndex tParse')
+
+------------------------------------------------------------
+
+class GetStmtIndex α where
+  stmtIndexGet ∷ α → StmtIndex
+
+instance GetStmtIndex StmtIndex where
+  stmtIndexGet = id
+
+------------------------------------------------------------
+
+instance HasStmtY StmtIndex where
+  stmtY = lens unStmtIndex (\ _ ms → StmtIndex ms)
 
 -- tests -----------------------------------------------------------------------
 

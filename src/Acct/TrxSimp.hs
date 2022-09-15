@@ -1,7 +1,7 @@
 {-# LANGUAGE DeriveAnyClass #-}
 
 module Acct.TrxSimp
-  ( TrxSimp, parent, oStmtGetY, stmtGetY, tsimp, tsimp_, tests )
+  ( TrxSimp, parent, oStmtGetY, tsimp, tsimp_, tests )
 where
 
 import Base1T
@@ -77,12 +77,13 @@ import Data.Validity  ( Validity( validate ), trivialValidation )
 import Acct.Account     ( Account, HasAccount( account ), acct )
 import Acct.Amount      ( Amount, HasAmount( amount ) )
 import Acct.Comment     ( Comment, cmt )
-import Acct.Date        ( Date, date )
+import Acct.Date        ( HasDate( date ), Date, dte )
 import Acct.Parser      ( wspaces )
 import Acct.OStmt       ( HasOStmtY( oStmtY ), OStmt, ostmt )
 import Acct.Stmt        ( HasStmtY ( stmtY ), Stmt, stmt )
-import Acct.StmtIndex   ( StmtIndex, stmtIndex )
+import Acct.StmtIndex   ( GetStmtIndex( stmtIndexGet ), stmtIndex )
 import Acct.TrxBrkHead  ( TrxBrkHead, tbh_ )
+import Acct.Util        ( Pretty( pretty ) )
 
 --------------------------------------------------------------------------------
 
@@ -139,21 +140,30 @@ printTests =
   in
     testGroup "print"
               [ test "10.00+\t#D<4.vi.96>A<Foo>X<5>"
-                     (tsimp_ 1000 [date|1996-6-4|] [acct|Foo|] (𝕵 [stmt|5|]) 𝕹
+                     (tsimp_ 1000 [dte|1996-6-4|] [acct|Foo|] (𝕵 [stmt|5|]) 𝕹
                                   𝕹)
               , test "0.01-\t#D<12.xii.01>A<Bar>C<comment>"
-                     (tsimp_ (-1) [date|2001-12-12|] [acct|Bar|] 𝕹
+                     (tsimp_ (-1) [dte|2001-12-12|] [acct|Bar|] 𝕹
                              𝕹 (𝕵 [cmt|comment|]))
               , test "0.10-\t#D<22.iix.22>A<Baz>X<1>C<comment>"
-                     (tsimp_ (-10) [date|2022-8-22|] [acct|Baz|] (𝕵 [stmt|1|])
+                     (tsimp_ (-10) [dte|2022-8-22|] [acct|Baz|] (𝕵 [stmt|1|])
                              𝕹 (𝕵 [cmt|comment|]))
               , test "0.10-\t#D<22.iix.22>A<Baz>O<X>C<comment>"
-                     (tsimp_ (-10) [date|2022-8-22|] [acct|Baz|] 𝕹
+                     (tsimp_ (-10) [dte|2022-8-22|] [acct|Baz|] 𝕹
                              (𝕵 [ostmt|X|]) (𝕵 [cmt|comment|]))
               , test "0.10-\t#D<22.iix.22>A<Baz>X<1>O<X:6>C<comment>"
-                     (tsimp_ (-10) [date|2022-8-22|] [acct|Baz|] (𝕵 [stmt|1|])
+                     (tsimp_ (-10) [dte|2022-8-22|] [acct|Baz|] (𝕵 [stmt|1|])
                              (𝕵 [ostmt|X:6|]) (𝕵 [cmt|comment|]))
               ]
+
+--------------------
+
+instance Pretty TrxSimp where
+  pretty (TrxSimp am dt ac st os cm _) =
+    let st' = maybe "" [fmt|X<%T>|] st
+        os' = maybe "" [fmt|O<%T>|] os
+        cm' = maybe "" [fmt|C<%T>|] cm
+     in [fmt|%-10t  #D<%t>A<%T>%t%t%t|] (pretty am) (pretty dt) ac st' os' cm'
 
 --------------------
 
@@ -175,13 +185,13 @@ parseTests ∷ TestTree
 parseTests =
   testGroup "parse"
             [ testParse "10.13+ #D<6.viii.96>A<Bl>X<5>"
-                        (tsimp_ 1013 [date|1996-8-6|] [acct|Bl|] (𝕵 [stmt|5|])
+                        (tsimp_ 1013 [dte|1996-8-6|] [acct|Bl|] (𝕵 [stmt|5|])
                                      𝕹 𝕹)
             , testParse "0.28+  #D<8.VIII.96>A<Car>C<int.>X<5>"
-                        (tsimp_ 28 [date|1996-8-8|] [acct|Car|] (𝕵 [stmt|5|])
+                        (tsimp_ 28 [dte|1996-8-8|] [acct|Car|] (𝕵 [stmt|5|])
                                    𝕹 (𝕵 [cmt|int.|]))
             , testParse "15294.97-\t#D<10.xi.40>A<YHyww>X<604244>"
-                        (tsimp_ (-1529497) [date|2040-11-10|] [acct|YHyww|]
+                        (tsimp_ (-1529497) [dte|2040-11-10|] [acct|YHyww|]
                                            (𝕵 [stmt|604244|]) 𝕹 𝕹)
             , -- X is not a date
               testParseE "6.28+  #X<8.VIII.96>A<Car>C<int.>X<5>"
@@ -237,6 +247,16 @@ instance HasStmtY TrxSimp where
 instance HasOStmtY TrxSimp where
   oStmtY = lens _ostmt (\ ts os → ts { _ostmt = os })
 
+--------------------
+
+instance HasDate TrxSimp where
+  date = lens _date (\ ts dt → ts { _date = dt })
+
+--------------------
+
+instance GetStmtIndex TrxSimp where
+  stmtIndexGet t = stmtIndex $ asum [ t ⊣ stmtY, t ⊣ parent ≫ view stmtY ]
+
 ----------------------------------------
 
 parent ∷ Lens' TrxSimp (𝕄 TrxBrkHead)
@@ -245,20 +265,17 @@ parent = lens _parent (\ t p → t { _parent = p })
 oStmtGetY ∷ TrxSimp → 𝕄 OStmt
 oStmtGetY t = asum [ t ⊣ oStmtY, t ⊣ parent ≫ view oStmtY ]
 
-stmtGetY ∷ TrxSimp → StmtIndex
-stmtGetY t = stmtIndex $ asum [ t ⊣ stmtY, t ⊣ parent ≫ view stmtY ]
-
 ----------
 
 shadowTests ∷ TestTree
 shadowTests =
   testGroup "shadow" $
-    let h = tbh_ 1000 [date|1993-01-01|] (𝕵 [stmt|6|])
+    let h = tbh_ 1000 [dte|1993-01-01|] (𝕵 [stmt|6|])
                                 (𝕵 [ostmt|P:2|]) (𝕵 [cmt|top comment|])
-        h' = tbh_ 1000 [date|1993-01-01|] 𝕹 𝕹 𝕹
-        t1 = tsimp_ 1013 [date|1996-8-6|] [acct|Bl|] 𝕹 𝕹 𝕹
+        h' = tbh_ 1000 [dte|1993-01-01|] 𝕹 𝕹 𝕹
+        t1 = tsimp_ 1013 [dte|1996-8-6|] [acct|Bl|] 𝕹 𝕹 𝕹
                     & parent ⊩ h
-        t2 = tsimp_ 1013 [date|1996-8-6|] [acct|Bl|] 𝕹 (𝕵 [ostmt|N|]) 𝕹
+        t2 = tsimp_ 1013 [dte|1996-8-6|] [acct|Bl|] 𝕹 (𝕵 [ostmt|N|]) 𝕹
                     & parent ⊩ h
         t1' = t1 & parent ⊩ h'
         t2' = t2 & parent ⊩ h'

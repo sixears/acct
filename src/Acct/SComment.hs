@@ -8,10 +8,11 @@ import Base1T
 
 -- base --------------------------------
 
-import Data.Char     ( isAscii, isPrint, isSpace )
-import Data.List     ( filter )
-import GHC.Enum      ( enumFromTo, toEnum )
-import GHC.Generics  ( Generic )
+import Data.Char      ( isAscii, isPrint, isSpace )
+import Data.Function  ( flip )
+import Data.List      ( filter )
+import GHC.Enum       ( enumFromTo, toEnum )
+import GHC.Generics   ( Generic )
 
 -- data-textual ------------------------
 
@@ -23,10 +24,7 @@ import Control.DeepSeq  ( NFData )
 
 -- genvalidity -------------------------
 
-import Data.GenValidity  ( GenUnchecked( genUnchecked, shrinkUnchecked )
-                         , GenValid( genValid, shrinkValid )
-                         , genUnchecked, isValid
-                         )
+import Data.GenValidity  ( GenValid( genValid, shrinkValid ), isValid )
 
 -- lens --------------------------------
 
@@ -109,20 +107,15 @@ instance Validity SComment where
 
 --------------------
 
-instance GenUnchecked SComment where
-  genUnchecked =
-    let ws = listOf (elements " \t\f\v")
-        enumOver from to = enumFromTo (toEnum from) (toEnum to)
-        prints' = listOf ∘ elements $ filter isPrint $ enumOver 0 127
-        cmtpfx a b = "%" ⊕ a ⊕ b
-
-    in  SComment ∘ pack ⊳ ((⊕) ⊳ ws ⊵ oneof [pure "", cmtpfx ⊳ ws ⊵  prints'])
-  shrinkUnchecked (SComment t) = SComment ⊳ shrinkText t
-
---------------------
-
 instance GenValid SComment where
-  genValid    = genUnchecked `suchThat` isValid
+  genValid    = flip suchThat isValid $
+                  let
+                    ws = listOf (elements " \t\f\v")
+                    enumOver from to = enumFromTo (toEnum from) (toEnum to)
+                    prints' = listOf ∘ elements $ filter isPrint $ enumOver 0 127
+                    cmtpfx a b = "%" ⊕ a ⊕ b
+                  in
+                    SComment ∘ pack ⊳ ((⊕) ⊳ ws ⊵ oneof [pure "", cmtpfx ⊳ ws ⊵  prints'])
   shrinkValid (SComment t) = filter isValid (SComment ⊳ shrinkText t)
 
 --------------------

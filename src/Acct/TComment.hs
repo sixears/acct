@@ -20,10 +20,7 @@ import Control.DeepSeq  ( NFData )
 
 -- genvalidity -------------------------
 
-import Data.GenValidity  ( GenUnchecked( genUnchecked, shrinkUnchecked )
-                         , GenValid( genValid, shrinkValid )
-                         , genUnchecked, isValid
-                         )
+import Data.GenValidity  ( GenValid( genValid, shrinkValid ), isValid )
 
 -- parsers -----------------------------
 
@@ -98,14 +95,8 @@ instance Validity TComment where
 
 --------------------
 
-instance GenUnchecked TComment where
-  genUnchecked = TComment ∘ pack ⊳ listOf chooseAny
-  shrinkUnchecked (TComment t) = TComment ⊳ shrinkText t
-
---------------------
-
 instance GenValid TComment where
-  genValid    = genUnchecked `suchThat` isValid
+  genValid    = (TComment ∘ pack ⊳ listOf chooseAny) `suchThat` isValid
   shrinkValid = pure
 
 --------------------

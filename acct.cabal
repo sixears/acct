@@ -10,7 +10,7 @@ name:                acct
 -- PVP summary:      +-+------- breaking API changes
 --                   | | +----- non-breaking API additions
 --                   | | | +--- code changes with no API change
-version:             1.0.0.0
+version:             0.0.0.0
 
 -- A short (one-line) description of the package.
 synopsis:            parse & manage finance files
@@ -118,7 +118,7 @@ library
   -- Other library packages from which modules are imported.
   build-depends:     base, bytestring, containers, data-default, data-textual
                    , deepseq, genvalidity, lens, logging-effect
-                   , monaderror-io, mtl, optparse-applicative, parsers
+                   , mtl, optparse-applicative, parsers
                    , prettyprinter, QuickCheck, safe, tasty-hunit
                    , tasty-quickcheck, template-haskell, text, text-printer
                    , time, trifecta, validity
@@ -130,6 +130,7 @@ library
                    , log-plus         >= 0.0.1.0
                    , mockio           >= 0.0.1.0
                    , mockio-log       >= 0.0.1.1
+                   , monaderror-io    >= 1.2.5.0
                    , monadio-plus     >= 2.5.1.1
                    , more-unicode     >= 0.0.17.0
                    , natural          >= 0.0.1.0
@@ -140,9 +141,6 @@ library
                    , stdmain          >= 1.5.13.0
                    , tasty-plus       >= 1.5.2.0
                    , tfmt             >= 0.2.7.0
---                     aeson, base, base-unicode-symbols, colour, data-default
---                   , data-textual, diagrams-core, diagrams-lib, diagrams-svg
---                   , lens, mono-traversable, mtl, SVGFonts, text-printer
 
   -- Directories containing source files.
   hs-source-dirs:      src

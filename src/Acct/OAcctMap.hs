@@ -24,8 +24,12 @@ import Data.MoreUnicode.Lens  ( (⊩) )
 
 -- tasty-plus --------------------------
 
-import TastyPlus  ( assertListEq )
-import TastyPluser  ( TestCmp( testCmp ) )
+import TastyPlus    ( assertListEqIO )
+import TastyPluser  ( TestCmp'( testCmp' ) )
+
+-- text-printer ------------------------
+
+import qualified  Text.Printer  as  P
 
 ------------------------------------------------------------
 --                     local imports                      --
@@ -40,7 +44,7 @@ import Acct.TrxSimp    ( TrxSimp, oStmtGetY )
 
 --------------------------------------------------------------------------------
 
-newtype OAcctMap = OAcctMap (Map.Map OStmtName OStmtMap)
+newtype OAcctMap = OAcctMap { unOAcctMap ∷ Map.Map OStmtName OStmtMap }
   deriving (Eq,Monoid,Semigroup,Show)
 
 type instance Index   OAcctMap = OStmtName
@@ -61,18 +65,22 @@ instance IsList OAcctMap where
 
 --------------------
 
-instance TestCmp OAcctMap where
-  testCmp nm (OAcctMap oam) (OAcctMap oam') =
+instance Printable OAcctMap where
+  print smap = P.text $ [fmt|%w|] (unOAcctMap smap)
+
+--------------------
+
+instance TestCmp' OAcctMap where
+  testCmp' nm (OAcctMap oam) oam' =
     testGroup nm $
       let
         ks  = Map.keys oam
-        ks' = Map.keys oam'
-        vs  ∷ Map.Map OStmtName (OStmtMap,OStmtMap)
-        vs  = Map.intersectionWith (,) oam oam'
+        ks' = Map.keys ∘ unOAcctMap ⊳ oam'
+        chk (k,v) =
+          testCmp' ([fmt|OAcctMap %T|] k) v ((Map.! k) ∘ unOAcctMap <$> oam')
       in
-        ю [ [ assertListEq "OAcctMap names" ks ks' ]
-          , (fmap(\ (oa,(osm,osm')) → testCmp ([fmt|OAcctMap %T|] oa) osm osm')
-                 (Map.toList vs))
+        ю [ [ assertListEqIO "OAcctMap names" ks ks' ]
+          , (fmap chk (Map.toList oam))
           ]
 
 ----------------------------------------

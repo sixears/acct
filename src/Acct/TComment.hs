@@ -1,5 +1,7 @@
-module Acct.Comment
-  ( Comment( Comment ), c, cmt, comment, tests )
+{-| A comment attached to a transaction. -}
+
+module Acct.TComment
+  ( TComment( TComment ), tcmt, tcomment, tests )
 where
 
 import Base1T
@@ -38,8 +40,7 @@ import Test.QuickCheck.Gen        ( chooseAny, listOf, suchThat )
 
 -- tasty-plus --------------------------
 
-import TastyPlus    ( (≟), propInvertibleString, propInvertibleText )
-import TastyPluser  ( shrinkText )
+import TastyPlus    ( (≟), propInvertibleString, propInvertibleText,shrinkText )
 
 -- tasty-quickcheck --------------------
 
@@ -54,6 +55,10 @@ import Language.Haskell.TH.Syntax  ( Lift )
 
 import Data.Text  ( find, pack, unpack )
 
+-- textual-plus -------------------
+
+import TextualPlus'  ( TextualPlus( textual' ) )
+
 -- trifecta-plus -----------------------
 
 import TrifectaPlus  ( liftTParse', testParse, testParseE, tParse, tParse' )
@@ -64,7 +69,7 @@ import Data.Validity  ( Validity( validate ), declare )
 
 --------------------------------------------------------------------------------
 
-newtype Comment = Comment 𝕋  deriving  (Eq,Generic,Lift,NFData,Printable,Show)
+newtype TComment = TComment 𝕋  deriving  (Eq,Generic,Lift,NFData,Printable,Show)
 
 ----------
 
@@ -73,76 +78,76 @@ printTests =
   let
     test exp ts = testCase (unpack exp) $ exp ≟ toText ts
   in
-    testGroup "print" [ test "comment!" (Comment "comment!") ]
+    testGroup "print" [ test "tcomment!" (TComment "tcomment!") ]
 
 --------------------
 
-instance Validity Comment where
-  validate (Comment t) = let noLT = declare "no '<' characters" $
-                               Nothing ≡ find (≡ '<') t
-                             noGT = declare "no '>' characters" $
-                               Nothing ≡ find (≡ '>') t
-                             noNL = declare "no newline characters" $
-                               Nothing ≡ find (≡ '\n') t
-                             noRN = declare "no return characters" $
-                               Nothing ≡ find (≡ '\r') t
-                             noTab = declare "no tab characters" $
-                               Nothing ≡ find (≡ '\t') t
-                             notEmpty = declare "not empty" $ "" ≢ t
-                          in ю [ noLT, noGT, noNL, noRN, noTab, notEmpty ]
+instance Validity TComment where
+  validate (TComment t) = let noLT = declare "no '<' characters" $
+                                Nothing ≡ find (≡ '<') t
+                              noGT = declare "no '>' characters" $
+                                Nothing ≡ find (≡ '>') t
+                              noNL = declare "no newline characters" $
+                                Nothing ≡ find (≡ '\n') t
+                              noRN = declare "no return characters" $
+                                Nothing ≡ find (≡ '\r') t
+                              noTab = declare "no tab characters" $
+                                Nothing ≡ find (≡ '\t') t
+                              notEmpty = declare "not empty" $ "" ≢ t
+                          in  ю [ noLT, noGT, noNL, noRN, noTab, notEmpty ]
 
 --------------------
 
-instance GenUnchecked Comment where
-  genUnchecked = Comment ∘ pack ⊳ listOf chooseAny
-  shrinkUnchecked (Comment t) = Comment ⊳ shrinkText t
+instance GenUnchecked TComment where
+  genUnchecked = TComment ∘ pack ⊳ listOf chooseAny
+  shrinkUnchecked (TComment t) = TComment ⊳ shrinkText t
 
 --------------------
 
-instance GenValid Comment where
+instance GenValid TComment where
   genValid    = genUnchecked `suchThat` isValid
   shrinkValid = pure
 
 --------------------
 
-instance Arbitrary Comment where
+instance Arbitrary TComment where
   arbitrary = genValid
   shrink = shrinkValid
 
 --------------------
 
-instance Textual Comment where
-  textual = Comment ∘ pack ⊳ some (noneOf "<>\n\r\t")
+instance Textual TComment where
+  textual = TComment ∘ pack ⊳ some (noneOf "<>\n\r\t")
+
+instance TextualPlus TComment where
+  textual' = textual
 
 ----------
 
 parseTests ∷ TestTree
 parseTests =
   testGroup "tParse"
-            [ testParse "comm" (Comment "comm")
-            , testParseE "<com" (tParse @Comment) "error"
-            , testProperty "invertibleString" (propInvertibleString @Comment)
-            , testProperty "invertibleText" (propInvertibleText @Comment)
+            [ testParse "comm" (TComment "comm")
+            , testParseE "<com" (tParse @TComment) "error"
+            , testProperty "invertibleString" (propInvertibleString @TComment)
+            , testProperty "invertibleText" (propInvertibleText @TComment)
             ]
 
 ----------------------------------------
 
-{-| QuasiQuoter for `Comment` -}
-comment ∷ QuasiQuoter
-comment = mkQQExp "Comment" (liftTParse' @Comment tParse')
+{-| QuasiQuoter for `TComment` -}
+tcomment ∷ QuasiQuoter
+tcomment = mkQQExp "TComment" (liftTParse' @TComment tParse')
 
-{-| Brief alias for `comment` -}
-cmt ∷ QuasiQuoter
-cmt = comment
+{-| Brief alias for `tcomment` -}
+tcmt ∷ QuasiQuoter
+tcmt = tcomment
 
-{-| Very brief alias for `comment` -}
-c ∷ QuasiQuoter
-c = comment
 
 --------------------------------------------------------------------------------
 
 tests ∷ TestTree
-tests = testGroup "Acct.Comment" [ printTests, parseTests ]
+tests = testGroup "Acct.TComment" [ printTests, parseTests ]
 
 --------------------
 

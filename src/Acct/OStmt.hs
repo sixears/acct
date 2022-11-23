@@ -57,6 +57,10 @@ import Data.Text  ( unpack )
 
 import qualified  Text.Printer  as  P
 
+-- textual-plus -------------------
+
+import TextualPlus'  ( TextualPlus( textual' ) )
+
 -- trifecta-plus -----------------------
 
 import TrifectaPlus  ( liftTParse', testParse, testParseE, tParse, tParse' )
@@ -122,7 +126,11 @@ printTests =
 --------------------
 
 instance Textual OStmt where
-  textual = (OStmt ⊳ textual ⊵ option def (char ':' ⋫ textual)) <?> "Other Statement Number"
+  textual = (OStmt ⊳ textual ⊵ option def (char ':' ⋫ textual))
+          <?> "Other Statement Number"
+
+instance TextualPlus OStmt where
+  textual' = textual
 
 ----------
 

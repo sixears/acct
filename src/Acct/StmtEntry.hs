@@ -1,21 +1,32 @@
 {-# LANGUAGE DeriveAnyClass     #-}
 {-# LANGUAGE DerivingStrategies #-}
 
-{-| Map from account name to a list of that account's transactions. -}
+{-| a thing that may be added to a `Stmt`; i.e., a trx (simp, or brk) -}
 module Acct.StmtEntry
-  ( StmtEntry(..) )
+  ( StmtEntry(..), accts, oAccts )
 where
 
-import Base1T  hiding  ( toList )
+import Base1T
+
+-- base --------------------------------
+
+import Data.Maybe  ( catMaybes )
+
+-- lens --------------------------------
+
+import Control.Lens.Getter  ( view )
 
 ------------------------------------------------------------
 --                     local imports                      --
 ------------------------------------------------------------
 
+import Acct.Account    ( Account, account )
 import Acct.Amount     ( HasAmount( amount ) )
 import Acct.Date       ( HasDate( date ) )
+import Acct.OStmtName  ( OStmtName )
+import Acct.OStmt      ( HasOStmtY( oStmtY ), oAcct )
 import Acct.StmtIndex  ( GetStmtIndex( stmtIndexGet ) )
-import Acct.TrxBrk     ( TrxBrk )
+import Acct.TrxBrk     ( TrxBrk, trx )
 import Acct.TrxSimp    ( TrxSimp )
 
 --------------------------------------------------------------------------------
@@ -55,7 +66,20 @@ instance GetStmtIndex StmtEntry where
 --------------------
 
 instance Printable StmtEntry where
-  print (SE_SIMP ts) = print ts
-  print (SE_BRK  tb) = print tb
+  print (SE_SIMP t) = print t
+  print (SE_BRK  b) = print b
+
+----------------------------------------
+
+accts ∷ StmtEntry → NonEmpty Account
+accts (SE_SIMP t) = pure $ t ⊣ account
+accts (SE_BRK  b) = view account ⊳ trx b
+
+----------------------------------------
+
+oAccts ∷ StmtEntry → [OStmtName]
+oAccts (SE_SIMP t) = catMaybes [view oAcct ⊳ t ⊣ oStmtY]
+oAccts (SE_BRK  b) =
+  catMaybes ∘ toList $ (fmap (view oAcct) ∘ view oStmtY) ⊳ trx b
 
 -- that's all, folks! ----------------------------------------------------------

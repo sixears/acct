@@ -59892,6 +59892,9 @@ oStart: R
 #15-	#D<7.iii.11>A<Mtge>C<Mtge K Loan>
 #15+	#D<7.iii.11>A<Food>
 ##
+
+% this is a comment
+
 955-	#D<8.iii.11>A<Mtge>C<Kathryn cash tfr re catalogues>X<181>
 3484.25-			     #D<12.iii.11>A<Mtge>C<Monument CC>X<181>
 3453.55-			     #D<21.iii.1165>A<Mtge>C<HSBC Gold CC>X<181>
@@ -59906,3 +59909,5 @@ oStart: R
 50+				     #D<15.ix.20>A<Mtge>C<8th repayment>X<286>
 50+				     #D<15.x.20>A<Mtge>C<9th repayment>X<287>
 50+				     #D<15.xi.20>A<Mtge>C<10th repayment>X<288>
+
+% end of file!

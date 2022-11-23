@@ -68,6 +68,10 @@ import Data.Text  ( unpack )
 
 import qualified  Text.Printer  as  P
 
+-- textual-plus -------------------
+
+import TextualPlus'  ( TextualPlus( textual' ) )
+
 -- trifecta-plus -----------------------
 
 import TrifectaPlus  ( liftTParse', testParse, testParseE, tParse' )
@@ -174,6 +178,9 @@ instance Textual Amount where
                 mkamt' sgn pnds pnc = mkamt pnds pnc sgn
              in (optional $ char '£') ⋫ ((mkamt' ⊳ textual ⊵ cdigits ⊵ pnce)
                                          ∤ (mkamt ⊳ cdigits ⊵ pnce ⊵ textual))
+
+instance TextualPlus Amount where
+  textual' = textual
 
 parseTests ∷ TestTree
 parseTests =

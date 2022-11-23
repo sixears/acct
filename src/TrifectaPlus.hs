@@ -1,7 +1,7 @@
 {-| Like `Parsecable`, but using `CharParsing`. -}
 module TrifectaPlus
-  ( eiText, liftTParse, liftTParse', tParse, tParse', tParseFile
-  , tParseFileLines, testParse, testParse', testParseE, tname )
+  ( eiText, liftTParse, liftTParse', tParse, tParse', tParseFile, testParse
+  , testParse', testParseE, tname )
 where
 
 import Base1T
@@ -9,10 +9,6 @@ import Base1T
 -- bytestring --------------------------
 
 import Data.ByteString  ( ByteString )
-
--- data-textual ------------------------
-
-import Data.Textual  ( Textual( textual ) )
 
 -- fpath -------------------------------
 
@@ -22,7 +18,6 @@ import FPath.File        ( FileAs )
 -- parsers -----------------------------
 
 import Text.Parser.Combinators  ( eof )
-import Text.Parser.Token        ( runUnlined )
 
 -- prettyprinter -----------------------
 
@@ -41,6 +36,10 @@ import Language.Haskell.TH.Syntax  ( Lift )
 -- text --------------------------------
 
 import Data.Text  ( isInfixOf, length, replace, take, unpack )
+
+-- textual-plus -------------------
+
+import TextualPlus'  ( TextualPlus( textual' ) )
 
 -- trifecta ----------------------------
 
@@ -72,28 +71,29 @@ instance TParse ByteString where
 ------------------------------------------------------------
 
 {-| parse a value using trifecta -}
-tParse  ∷ (Textual α, TParse ρ) ⇒ ρ → Result α
-tParse  = parseT textual
+tParse  ∷ (TextualPlus α, TParse ρ) ⇒ ρ → Result α
+tParse  = parseT textual'
 
 {-| like `tParse`, but parse *precisely* the text given - i.e., with an `eof` -}
-tParse'  ∷ (Textual α, TParse ρ) ⇒ ρ → Result α
-tParse'  = parseT (textual ⋪ eof)
+tParse'  ∷ (TextualPlus α, TParse ρ) ⇒ ρ → Result α
+tParse'  = parseT (textual' ⋪ eof)
 
 ----------------------------------------
 
-tParseFile ∷ ∀ α μ ρ . (MonadIO μ, Textual α, FileAs ρ) ⇒ ρ → μ (Result α)
-tParseFile f = parseFromFileEx textual (f ⫥ filepath)
+tParseFile ∷ ∀ α μ ρ . (MonadIO μ, TextualPlus α, FileAs ρ) ⇒ ρ → μ (Result α)
+tParseFile f = parseFromFileEx textual' (f ⫥ filepath)
 
 ----------------------------------------
 
 {-| Parse a file, line-by-line.
     unused at this stage, this is just for recording line-based parsing. -}
-tParseFileLines ∷ (MonadIO μ, Textual α, FileAs ρ) ⇒ ρ → μ (Result α)
-tParseFileLines f = parseFromFileEx (runUnlined textual) (f ⫥ filepath)
+-- tParseFileLines ∷ (MonadIO μ, TextualPlus α, FileAs ρ) ⇒ ρ → μ (Result α)
+-- tParseFileLines f = parseFromFileEx (runUnlined textual') (f ⫥ filepath)
 
 ----------------------------------------
 
 tname ∷ 𝕋 → 𝕊
+tname "" = "«empty»"
 tname t = let t' = replace "\t" "\\t" $ replace "\r" "\\r" $ replace "\n" "\\n"t
            in unpack $ if 32 < length t'
                        then take 31 t' ⊕ "…"
@@ -104,11 +104,14 @@ tname t = let t' = replace "\t" "\\t" $ replace "\r" "\\r" $ replace "\n" "\\n"t
 testParse' ∷ (Eq α, Show α, HasCallStack) ⇒ (𝕋 → Result α) → 𝕋 → α → TestTree
 testParse' parser input expect =
   testCase (tname input) $
-    𝕵 expect @=? (parser input) ⩼ _Success
+--    𝕵 expect @=? (parser input) ⩼ _Success
+    case parser input of
+      Success x → expect @=? x
+      Failure e → assertFailure ∘ unpack $ eiText e
 
 {-| Test that some text parses to a given value; using `tParse'`. -}
 -- HasCallStack ensures that the test failure is cited from the callee
-testParse ∷ (Eq α, Show α, Textual α, HasCallStack) ⇒ 𝕋 → α → TestTree
+testParse ∷ (Eq α, Show α, TextualPlus α, HasCallStack) ⇒ 𝕋 → α → TestTree
 testParse = testParse' tParse'
 
 ----------------------------------------

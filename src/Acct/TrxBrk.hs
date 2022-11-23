@@ -70,6 +70,10 @@ import Data.Text  ( intercalate )
 
 import qualified  Text.Printer  as  P
 
+-- textual-plus -------------------
+
+import TextualPlus'  ( TextualPlus( textual' ) )
+
 -- trifecta-plus -----------------------
 
 import TrifectaPlus    ( testParse, testParseE, tParse )
@@ -212,6 +216,9 @@ instance Textual TrxBrk where
            ⊵ ((wspaces ⋫ textual) `endByNonEmpty` nlhash)
            ⋪ char '#' ⋪ wspaces
       ) ≫ return ∘ set_parents ≫ check_breakdown ≫ check_stmt
+
+instance TextualPlus TrxBrk where
+  textual' = textual
 
 ----------
 

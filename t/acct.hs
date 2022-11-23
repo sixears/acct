@@ -14,14 +14,9 @@ import Test.Tasty  ( TestTree, defaultMain, testGroup )
 --                     local imports                      --
 ------------------------------------------------------------
 
-import qualified  Acct.Transaction
-import qualified  Acct.Types.Account
+import  Acct.T.Acct  ( tests )
 
 -------------------------------------------------------------------------------
 
 main :: IO ()
 main = defaultMain tests
-
-tests :: TestTree
-tests = testGroup "parser-plus" [ Acct.Transaction.tests
-                                , Acct.Types.Account.tests ]

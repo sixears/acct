@@ -51,6 +51,10 @@ import Language.Haskell.TH.Syntax  ( Lift )
 
 import Data.Text  ( unpack )
 
+-- textual-plus -------------------
+
+import TextualPlus'  ( TextualPlus( textual' ) )
+
 -- text-printer ------------------------
 
 import qualified  Text.Printer  as  P
@@ -102,6 +106,9 @@ printTests =
 
 instance Textual Stmt where
   textual = (Stmt ∘ read ⊳ some digit) <?> "Statement Number"
+
+instance TextualPlus Stmt where
+  textual' = textual
 
 ----------
 

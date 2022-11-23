@@ -1,4 +1,3 @@
-{-# LANGUAGE DeriveAnyClass     #-}
 {-# LANGUAGE DerivingStrategies #-}
 
 {-| Map from account name to a list of that account's transactions. -}
@@ -24,8 +23,12 @@ import Control.Lens.At  ( At( at ), Index, Ixed( ix ), IxValue )
 
 -- tasty-plus --------------------------
 
-import TastyPlus  ( assertListEq )
-import TastyPluser  ( TestCmp( testCmp ) )
+import TastyPlus    ( assertListEqIO )
+import TastyPluser  ( TestCmp'( testCmp' ) )
+
+-- text-printer ------------------------
+
+import qualified  Text.Printer  as  P
 
 ------------------------------------------------------------
 --                     local imports                      --
@@ -36,7 +39,7 @@ import Acct.StmtEntries  ( StmtEntries )
 
 --------------------------------------------------------------------------------
 
-newtype StmtMap = StmtMap (Map.Map StmtIndex StmtEntries)
+newtype StmtMap = StmtMap { unStmtMap ∷ Map.Map StmtIndex StmtEntries }
   deriving         (Eq,Show)
   deriving newtype (Monoid,Semigroup)
 
@@ -58,15 +61,20 @@ instance IsList StmtMap where
 
 --------------------
 
-instance TestCmp StmtMap where
-  testCmp nm (StmtMap am) (StmtMap am') =
+instance Printable StmtMap where
+  print smap = P.text $ [fmt|%w|] (unStmtMap smap)
+
+--------------------
+
+instance TestCmp' StmtMap where
+  testCmp' nm (StmtMap am) am' =
     testGroup nm $ do
       let ks  = sort $ Map.keys am
-          ks' = sort $ Map.keys am'
-          vs = Map.intersectionWith (,) am am'
-      ю [ [ assertListEq "stmt names" ks ks' ]
-        , [ assertListEq ("stmt: " ⊕ toText k) (toList v) (toList v')
-          | (k,(v,v')) ← Map.toList vs ]
+      ю [ [ assertListEqIO "stmt names" ks (Map.keys ∘ unStmtMap ⊳ am') ]
+        , [ assertListEqIO ("stmt: " ⊕ toText k) (toList $ am Map.! k)
+                           (toList ∘ (Map.! k) ∘ unStmtMap ⊳ am')
+          | k ← Map.keys am
+          ]
         ]
 
 -- that's all, folks! ----------------------------------------------------------

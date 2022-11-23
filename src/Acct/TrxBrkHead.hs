@@ -53,6 +53,10 @@ import Data.Text  ( unpack )
 
 import qualified  Text.Printer  as  P
 
+-- textual-plus -------------------
+
+import TextualPlus'  ( TextualPlus( textual' ) )
+
 -- trifecta-plus -----------------------
 
 import TrifectaPlus  ( liftTParse', testParse, testParseE, tParse' )
@@ -66,12 +70,12 @@ import Data.Validity  ( Validity( validate ), trivialValidation )
 ------------------------------------------------------------
 
 import Acct.Amount      ( Amount, HasAmount( amount ) )
-import Acct.Comment     ( Comment, cmt )
 import Acct.Date        ( Date, HasDate( date ), dte )
 import Acct.Parser      ( wspaces )
 import Acct.OStmt       ( HasOStmtY( oStmtY ), OStmt, ostmt )
 import Acct.Stmt        ( HasStmtY( stmtY ), Stmt, stmt )
 import Acct.StmtIndex   ( GetStmtIndex( stmtIndexGet ), stmtIndex )
+import Acct.TComment    ( TComment, tcmt )
 import Acct.Util        ( Pretty( pretty ) )
 
 --------------------------------------------------------------------------------
@@ -81,12 +85,12 @@ data TrxBrkHead = TrxBrkHead { _amount  ∷ Amount
                              , _date    ∷ Date
                              , _stmt    ∷ 𝕄 Stmt
                              , _ostmt   ∷ 𝕄 OStmt
-                             , _comment ∷ 𝕄 Comment
+                             , _comment ∷ 𝕄 TComment
                              }
   deriving (Eq,Generic,Lift,NFData,Show)
 
 {-| Super-simple c'tor fn, for use in tests only -}
-tbh_ ∷ Amount → Date → 𝕄 Stmt → 𝕄 OStmt → 𝕄 Comment → TrxBrkHead
+tbh_ ∷ Amount → Date → 𝕄 Stmt → 𝕄 OStmt → 𝕄 TComment → TrxBrkHead
 tbh_ am dt st os cm = TrxBrkHead am dt st os cm
 
 --------------------
@@ -127,10 +131,10 @@ printTests =
               [ test "10.00+\t#D<4.vi.96>B<>X<5>"
                      (tbh_ 1000 [dte|1996-6-4|] (𝕵 [stmt|5|]) 𝕹 𝕹)
               , test "0.01-\t#D<12.xii.01>B<>C<comment>"
-                     (tbh_ (-1) [dte|2001-12-12|] 𝕹 𝕹 (𝕵 [cmt|comment|]))
+                     (tbh_ (-1) [dte|2001-12-12|] 𝕹 𝕹 (𝕵 [tcmt|comment|]))
               , test "0.10-\t#D<22.iix.22>B<>X<1>O<P:2>C<comment>"
                      (tbh_ (-10) [dte|2022-8-22|] (𝕵 [stmt|1|])
-                                 (𝕵 [ostmt|P:2|]) (𝕵 [cmt|comment|]))
+                                 (𝕵 [ostmt|P:2|]) (𝕵 [tcmt|comment|]))
               ]
 
 --------------------
@@ -152,12 +156,15 @@ instance Textual TrxBrkHead where
         mark' c = char c ⋫ char '<' ⋫ string "" ⋪ char '>' ⋪ wspaces
         optm  c = (𝕹, 𝕵 ⊳ mark c)
         parts ∷ (Monad η, CharParsing η) ⇒
-                η (Date, 𝕊, 𝕄 Stmt, 𝕄 OStmt, 𝕄 Comment)
+                η (Date, 𝕊, 𝕄 Stmt, 𝕄 OStmt, 𝕄 TComment)
         parts =
           permute $ (,,,,) <$$> mark 'D' <||> mark' 'B'
                            <|?> optm 'X' <|?> optm 'O' <|?> optm 'C'
         construct am (dt,_,st,os,cm) = TrxBrkHead am dt st os cm
     in construct ⊳ (textual ⋪ wspaces ⋪ char '#') ⊵ parts
+
+instance TextualPlus TrxBrkHead where
+  textual' = textual
 
 ----------
 
@@ -168,7 +175,7 @@ parseTests =
                         (tbh_ 1013 [dte|1996-8-6|] (𝕵 [stmt|5|]) 𝕹 𝕹)
             , testParse "0.28+  #D<8.VIII.96>B<>C<int>X<5>O<P:2>" $
                         tbh_ 28 [dte|1996-8-8|]
-                                (𝕵 [stmt|5|]) (𝕵 [ostmt|P:2|]) (𝕵 [cmt|int|])
+                                (𝕵 [stmt|5|]) (𝕵 [ostmt|P:2|]) (𝕵 [tcmt|int|])
             , -- X is not a date
               testParseE "6.28+  #X<8.VIII.96>B<>C<int>X<5>"
                          (tParse' @TrxBrkHead) "error"

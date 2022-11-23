@@ -40,6 +40,10 @@ import Language.Haskell.TH.Syntax  ( Exp( AppE, ConE, LitE ), Lit( CharL )
 
 import qualified  Text.Printer  as  P
 
+-- textual-plus -------------------
+
+import TextualPlus'  ( TextualPlus( textual' ) )
+
 -- trifecta-plus -----------------------
 
 import TrifectaPlus  ( liftTParse', tParse' )
@@ -84,6 +88,10 @@ instance Printable OStmtName where
 
 instance Textual OStmtName where
   textual = OStmtName ⊳ oneOf [ 'A' .. 'Z' ] <?> "Other Statement Name"
+
+
+instance TextualPlus OStmtName where
+  textual' = textual
 
 ----------------------------------------
 

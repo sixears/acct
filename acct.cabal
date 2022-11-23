@@ -58,9 +58,11 @@ library
                      , Acct.AcctState
                      , Acct.Account
                      , Acct.Amount
-                     , Acct.Comment
+                     , Acct.Annotation
                      , Acct.Date
-                     , Acct.Entry
+                     , Acct.EntryItem
+                     , Acct.EntryItemRaw
+                     , Acct.EntrySource
                      , Acct.Entries
                      , Acct.FromNat
                      , Acct.Month
@@ -69,21 +71,27 @@ library
                      , Acct.OStmtMap
                      , Acct.OStmtName
                      , Acct.OStmt
+                     , Acct.ParseEntry
                      , Acct.Parser
+                     , Acct.SComment
                      , Acct.Stmt
                      , Acct.StmtEntries
                      , Acct.StmtEntry
                      , Acct.StmtIndex
                      , Acct.StmtMap
+                     , Acct.TComment
+                     , Acct.TEntry
                      , Acct.TrxBrkHead
                      , Acct.TrxSimp
                      , Acct.TrxBrk
                      , Acct.Util
                      , Acct.Year
                      , TastyPluser
+                     , TextualPlus'
                      , TrifectaPlus
 
-  default-extensions: DeriveGeneric
+  default-extensions: BangPatterns
+                    , DeriveGeneric
                     , DeriveLift
                     , FlexibleContexts
                     , FlexibleInstances
@@ -97,6 +105,7 @@ library
                     , RankNTypes
                     , ScopedTypeVariables
                     , TemplateHaskell
+                    , TupleSections
                     , TypeApplications
                     , TypeFamilies
                     , TypeSynonymInstances
@@ -129,7 +138,7 @@ library
                    , parser-plus      >= 1.0.1.0
                    , quasiquoting     >= 1.0.1.1
                    , stdmain          >= 1.5.13.0
-                   , tasty-plus       >= 1.4.0.0
+                   , tasty-plus       >= 1.5.2.0
                    , tfmt             >= 0.2.7.0
 --                     aeson, base, base-unicode-symbols, colour, data-default
 --                   , data-textual, diagrams-core, diagrams-lib, diagrams-svg

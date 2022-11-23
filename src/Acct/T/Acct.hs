@@ -12,15 +12,21 @@ import Base1T
 
 import qualified  Acct.Account
 import qualified  Acct.Amount
-import qualified  Acct.Comment
+import qualified  Acct.Annotation
 import qualified  Acct.Date
 import qualified  Acct.Entries
-import qualified  Acct.Entry
+import qualified  Acct.EntryItem
+import qualified  Acct.EntryItemRaw
+import qualified  Acct.EntrySource
 import qualified  Acct.Month
 import qualified  Acct.OStmt
 import qualified  Acct.OStmtIndex
+import qualified  Acct.ParseEntry
+import qualified  Acct.SComment
 import qualified  Acct.Stmt
 import qualified  Acct.StmtIndex
+import qualified  Acct.TComment
+import qualified  Acct.TEntry
 import qualified  Acct.TrxSimp
 import qualified  Acct.TrxBrkHead
 import qualified  Acct.TrxBrk
@@ -30,7 +36,8 @@ import qualified  Acct.Year
 
 tests ∷ TestTree
 tests = testGroup "Acct" [ Acct.Amount.tests
-                         , Acct.Comment.tests
+                         , Acct.TComment.tests
+                         , Acct.SComment.tests
                          , Acct.Stmt.tests
                          , Acct.OStmt.tests
                          , Acct.Account.tests
@@ -40,10 +47,15 @@ tests = testGroup "Acct" [ Acct.Amount.tests
                          , Acct.TrxSimp.tests
                          , Acct.TrxBrkHead.tests
                          , Acct.TrxBrk.tests
-                         , Acct.Entry.tests
+                         , Acct.TEntry.tests
+                         , Acct.EntrySource.tests
+                         , Acct.EntryItem.tests
+                         , Acct.EntryItemRaw.tests
+                         , Acct.Annotation.tests
                          , Acct.StmtIndex.tests
                          , Acct.OStmtIndex.tests
                          , Acct.Entries.tests
+                         , Acct.ParseEntry.tests
                          ]
 
 --------------------

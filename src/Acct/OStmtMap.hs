@@ -20,8 +20,12 @@ import Control.Lens.At  ( At( at ), Index, Ixed( ix ), IxValue )
 
 -- tasty-plus --------------------------
 
-import TastyPlus  ( assertListEqS )
-import TastyPluser  ( TestCmp( testCmp ) )
+import TastyPlus  ( assertListEqIO' )
+import TastyPluser  ( TestCmp'( testCmp' ) )
+
+-- text --------------------------------
+
+import Data.Text  ( pack )
 
 ------------------------------------------------------------
 --                     local imports                      --
@@ -32,7 +36,7 @@ import Acct.TrxSimp     ( TrxSimp )
 
 --------------------------------------------------------------------------------
 
-newtype OStmtMap = OStmtMap (Map.Map OStmtIndex [TrxSimp])
+newtype OStmtMap = OStmtMap { unOStmtMap ∷ Map.Map OStmtIndex [TrxSimp] }
   deriving (Eq,Monoid,Semigroup,Show)
 
 type instance Index   OStmtMap = OStmtIndex
@@ -53,40 +57,19 @@ instance IsList OStmtMap where
 
 --------------------
 
-{-
-instance HasMember OStmtMap where
-  type MemberType OStmtMap = OStmtIndex
-  member k (OStmtMap m) = Map.member k m
--}
-
---------------------
-
-{-
-instance Mapish OStmtMap where
-  type Key   OStmtMap = OStmtIndex
-  type Value OStmtMap = [TrxSimp]
-  adjust f k (OStmtMap m) = OStmtMap (Map.adjust f k m)
-  empty                   = OStmtMap ф
-  insert k v (OStmtMap m) = OStmtMap (Map.insert k v m)
--}
-
---------------------
-
-instance TestCmp OStmtMap where
-  testCmp nm (OStmtMap osm) (OStmtMap osm') =
+instance TestCmp' OStmtMap where
+  testCmp' nm (OStmtMap osm) osm' =
     testGroup nm $
-      let
-        ks  = Map.keys osm
-        ks' = Map.keys osm'
-        vs  ∷ Map.Map OStmtIndex ([TrxSimp],[TrxSimp])
-        vs  = Map.intersectionWith (,) osm osm'
-      in
-        assertListEqS "OStmtMap keys" ks' ks
-        ⊕
-        ю (fmap (\ (oa,(oks,oks')) →
-                   assertListEqS ([fmt|OStmtMap %w keys|] oa) (oks') (oks))
-           (Map.toList vs)
-          )
+      assertListEqIO' (pack ∘ show) ("OStmtMap keys" ∷ 𝕋)
+                      (Map.keys osm) (Map.keys ∘ unOStmtMap ⊳ osm')
+      :
+      (fmap (\ oa → assertListEqIO' (pack ∘ show)
+                                    ([fmtT|OStmtMap %w keys|] oa)
+                                    (osm Map.! oa)
+                                    ((Map.! oa) ∘ unOStmtMap ⊳ osm')
+            )
+            (Map.keys osm)
+      )
 
 ----------------------------------------
 

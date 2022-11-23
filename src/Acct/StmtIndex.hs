@@ -1,5 +1,6 @@
 module Acct.StmtIndex
-  ( GetStmtIndex( stmtIndexGet ), StmtIndex, stmtIndex, stmtindex, tests )
+  ( GetStmtIndex( stmtIndexGet ), NotStmtIndex(..), StmtIndex
+  , stmtIndex, stmtindex, tests )
 where
 
 import Base1T
@@ -50,6 +51,10 @@ import Data.Text  ( unpack )
 -- text-printer ------------------------
 
 import qualified  Text.Printer  as  P
+
+-- textual-plus -------------------
+
+import TextualPlus'  ( TextualPlus( textual' ) )
 
 -- trifecta-plus -----------------------
 
@@ -132,6 +137,9 @@ instance Textual StmtIndex where
   textual =
     StmtIndex ⊳ optional textual <?> "Statement Number"
 
+instance TextualPlus StmtIndex where
+  textual' = textual
+
 ----------
 
 parseTests ∷ TestTree
@@ -170,6 +178,14 @@ instance GetStmtIndex StmtIndex where
 
 instance HasStmtY StmtIndex where
   stmtY = lens unStmtIndex (\ _ ms → StmtIndex ms)
+
+------------------------------------------------------------
+
+class NotStmtIndex α where
+  {-| Does this thing /not/ correspond to a given stmt index?  Notably, any
+      thing that doesn't apply to a stmt index - e.g., a comment - will return
+      𝕱. -}
+  notStmtIndex ∷ StmtIndex → α → 𝔹
 
 -- tests -----------------------------------------------------------------------
 

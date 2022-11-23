@@ -44,6 +44,10 @@ import Data.Text  ( unpack )
 
 import qualified  Text.Printer  as  P
 
+-- textual-plus -------------------
+
+import TextualPlus'  ( TextualPlus( textual' ) )
+
 -- trifecta-plus -----------------------
 
 import TrifectaPlus  ( testParse, testParseE, tParse )
@@ -104,10 +108,12 @@ printTests =
 
 --------------------
 
+instance TextualPlus Year where
+  textual' = textual
+
 instance Textual Year where
   textual = let y2 (read → y') = Year $ y' + if y' ≤ 90 then 2000 else 1900
-             in try ((Year ∘ read) ⊳ count 4 digit)
-               ∤ y2 ⊳ count 2 digit
+            in  try ((Year ∘ read) ⊳ count 4 digit) ∤ y2 ⊳ count 2 digit
 
 ----------
 

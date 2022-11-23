@@ -2,43 +2,21 @@
 
 {-| An `Entries` is a list of `Entry`s. -}
 module Acct.Entries
-  ( Entry, Entries( unEntries ), emptyEntries, parseFile
-  , tests )
+  ( Entries( Entries ), emptyEntries, tests )
 where
 
-import Base1T
+import Base1T  hiding  ( toList )
 
 -- base --------------------------------
 
-import Data.List   ( inits, tails, zip )
-import Data.Maybe  ( catMaybes )
-import Data.Tuple  ( uncurry )
-
--- data-textual ------------------------
-
-import Data.Textual  ( Textual( textual ) )
-
--- fpath -------------------------------
-
-import FPath.AsFilePath  ( filepath )
-import FPath.File        ( FileAs )
+import Data.List    ( inits, tails, zip )
+import Data.Monoid  ( Monoid( mempty ) )
+import Data.Tuple   ( uncurry )
+import GHC.Exts     ( IsList( toList ) )
 
 -- genvalidity -------------------------
 
 import Data.GenValidity  ( GenValid( genValid, shrinkValid ) )
-
--- more-unicode ------------------------
-
-import Data.MoreUnicode.Lens  ( (⊩) )
-
--- mtl ---------------------------------
-
-import Control.Monad.State  ( runStateT )
-
--- parsers -----------------------------
-
-import Text.Parser.Char         ( char )
-import Text.Parser.Combinators  ( eof, sepEndBy )
 
 -- QuickCheck --------------------------
 
@@ -51,29 +29,15 @@ import Safe  ( initSafe, tailSafe )
 
 -- tasty-plus --------------------------
 
-import TastyPlus    ( (≟) , assertListEq )
-import TastyPluser  ( testCmp )
-
--- tasty-hunit -------------------------
-
-import Test.Tasty.HUnit  ( assertFailure )
+import TastyPlus  ( (≟) )
 
 -- text --------------------------------
 
-import Data.Text  ( intercalate, unlines, unpack )
+import Data.Text  ( intercalate )
 
 -- text-printer ------------------------
 
 import qualified  Text.Printer  as  P
-
--- trifecta ----------------------------
-
-import qualified  Text.Trifecta  as  Trifecta
-import Text.Trifecta  ( Result( Failure, Success ) )
-
--- trifecta-plus -----------------------
-
-import TrifectaPlus  ( eiText, testParse, testParseE, tname )
 
 -- validity ----------------------------
 
@@ -83,56 +47,62 @@ import Data.Validity  ( Validity( validate ), trivialValidation )
 --                     local imports                      --
 ------------------------------------------------------------
 
-import Acct.Account     ( acct )
-import Acct.AcctState   ( AcctState, accounts, newAcctState, otherAccounts
-                        , parseEntry, stmts )
-import Acct.Amount      ( amt )
-import Acct.Comment     ( cmt )
-import Acct.Date        ( dte )
-import Acct.Entry       ( Entry( TAcctStart, TBrk, TrxComment, TOStmtStart
-                               , TSimpleTrx ) )
-import Acct.OStmt       ( ostmt )
-import Acct.OStmtIndex  ( ostmtindex )
-import Acct.OStmtName   ( ostmtname )
-import Acct.Parser      ( wspaces )
-import Acct.Stmt        ( stmt )
-import Acct.StmtIndex   ( stmtindex )
-import Acct.StmtEntry   ( StmtEntry( SE_BRK, SE_SIMP ) )
-import Acct.TrxBrkHead  ( tbh_ )
-import Acct.TrxSimp     ( parent, tsimp_ )
-import Acct.TrxBrk      ( trxBrk )
+import Acct.Account      ( acct )
+import Acct.Annotation   ( Annotation( Annotation ) )
+import Acct.Date         ( dte )
+import Acct.EntryItem    ( EntryItem ( TAcctStart, TOStmtStart, TTEntry ) )
+import Acct.EntrySource  ( EntrySource( SourceString ) )
+import Acct.OStmtName    ( ostmtname )
+import Acct.SComment     ( scmt )
+import Acct.Stmt         ( stmt )
+import Acct.TComment     ( tcmt )
+import Acct.TEntry       ( TEntry ( TBrk, SheetComment, TSimpleTrx ) )
+import Acct.TrxBrkHead   ( tbh_ )
+import Acct.TrxSimp      ( tsimp_ )
+import Acct.TrxBrk       ( trxBrk )
 
 --------------------------------------------------------------------------------
 
-newtype Entries = Entries { unEntries ∷ [Entry] }
+newtype Entries ι κ = Entries [Annotation ι κ]
   deriving (Eq,Show)
 
-emptyEntries ∷ Entries
+instance Semigroup (Entries ι κ) where
+  (Entries es) <> (Entries es') = Entries (es ◇ es')
+
+instance Monoid (Entries ι κ) where
+  mempty = Entries []
+
+instance IsList (Entries ι κ) where
+  type Item (Entries ι κ) = Annotation ι κ
+  toList (Entries es) = es
+  fromList = Entries
+
+emptyEntries ∷ ∀ ι κ . Entries ι κ
 emptyEntries = Entries []
 
 {- | A comment, account start, other account start, simple or broken-down
      transaction; so, roughly, a "line" of an input file (albeit several lines
      for a broken-down transaction.
 -}
-instance Validity Entries where
+instance Validity (Entries ι κ) where
   validate = trivialValidation
 
 --------------------
 
-instance GenValid Entries where
+instance (GenValid ι, GenValid κ) ⇒ GenValid (Entries ι κ) where
   genValid    = Entries ⊳ listOf arbitrary
   shrinkValid (Entries es) =
     Entries ∘ uncurry (⊕) ⊳ zip (initSafe $ inits es) (tailSafe $ tails es)
 
 --------------------
 
-instance Arbitrary Entries where
+instance (GenValid ι, GenValid κ) ⇒ Arbitrary (Entries ι κ) where
   arbitrary = genValid
   shrink = shrinkValid
 
 --------------------
 
-instance Printable Entries where
+instance (Printable ι, Printable κ) ⇒ Printable (Entries ι κ) where
   print (Entries es) = P.text $ intercalate "\n" (toText ⊳ es)
 
 ----------
@@ -140,32 +110,40 @@ instance Printable Entries where
 printTests ∷ TestTree
 printTests =
   let
-    unline = intercalate "\n"
-    tcomm  = TrxComment "a comment"
-    tacct  = TAcctStart [acct|Acct|]
-    tost   = TOStmtStart [ostmtname|Y|]
-    tsimp  = TSimpleTrx (tsimp_ (-1234) [dte|1973-01-01|] [acct|Act|]
-                                (𝕵 [stmt|77|]) 𝕹 (𝕵 [cmt|my comment|]))
-    thead  = tbh_ (-1234) [dte|1973-01-01|] (𝕵 [stmt|77|]) 𝕹 𝕹
-    t0     = tsimp_ (-1300) [dte|1969-02-02|] [acct|Act|] 𝕹 𝕹 𝕹
-    t1     = tsimp_ 66 [dte|1966-05-26|] [acct|Bct|] 𝕹 𝕹 𝕹
-    tb     = TBrk $ trxBrk thead (t0 :| [t1])
+    unline  = intercalate "\n"
+    tcomm   = TTEntry $ SheetComment [scmt|% a comment|]
+    tacct   = TAcctStart [acct|Acct|]
+    tost    = TOStmtStart [ostmtname|Y|]
+    tsimp1  = TTEntry $ TSimpleTrx (tsimp_ (-1234) [dte|1973-01-01|] [acct|Act|]
+                                           (𝕵 [stmt|77|]) 𝕹
+                                           (𝕵 [tcmt|my comment|]))
+    tsimp2  = TTEntry $ TSimpleTrx (tsimp_ 4321 [dte|1976-04-01|] [acct|Act|] 𝕹
+                                           𝕹 𝕹)
+    thead   = tbh_ (-1234) [dte|1973-01-01|] (𝕵 [stmt|77|]) 𝕹 𝕹
+    t0      = tsimp_ (-1300) [dte|1969-02-02|] [acct|Act|] 𝕹 𝕹 𝕹
+    t1      = tsimp_ 66 [dte|1966-05-26|] [acct|Bct|] 𝕹 𝕹 𝕹
+    tb      = TTEntry ∘ TBrk $ trxBrk thead (t0 :| [t1])
+    mkEntry ∷ ι → (Annotation ι EntrySource)
+    mkEntry t = Annotation t (SourceString "")
   in
     testGroup "print"
-      [ testCase "print1c" $ "-- a comment" ≟ toText (Entries [ tcomm ])
-      , testCase "print1a" $ "Start: Acct" ≟ toText (Entries [ tacct ])
-      , testCase "print1o" $ "oStart: Y" ≟ toText (Entries [ tost ])
-      , testCase "print1s" $
+      [ testCase "print1c" $ "% a comment" ≟ toText (Entries [ mkEntry tcomm ])
+      , testCase "print1a" $ "Start: Acct" ≟ toText (Entries [ mkEntry tacct ])
+      , testCase "print1o" $ "oStart: Y" ≟ toText (Entries [ mkEntry tost ])
+      , testCase "tsimp1" $
             "12.34-\t#D<1.i.73>A<Act>X<77>C<my comment>"
-          ≟ toText (Entries [ tsimp ])
+          ≟ toText (Entries [ mkEntry tsimp1 ])
+      , testCase "tsimp2" $
+            "43.21+\t#D<1.iv.76>A<Act>"
+          ≟ toText (Entries [ mkEntry tsimp2 ])
       , testCase "print1b" $
             unline [ "12.34-\t#D<1.i.73>B<>X<77>"
                    , "#13.00-\t#D<2.ii.69>A<Act>"
                    , "#0.66+\t#D<26.v.66>A<Bct>"
                    , "##"]
-          ≟ toText (Entries [ tb ])
+          ≟ toText (Entries [ mkEntry tb ])
       , testCase "print2" $
-            unline [ "-- a comment"
+            unline [ "% a comment"
                    , "Start: Acct"
                    , "oStart: Y"
                    , "12.34-\t#D<1.i.73>A<Act>X<77>C<my comment>"
@@ -174,389 +152,26 @@ printTests =
                    , "#0.66+\t#D<26.v.66>A<Bct>"
                    , "##"
                    ]
-          ≟ toText (Entries [ tcomm, tacct, tost, tsimp, tb ])
+          ≟ toText (Entries $ mkEntry ⊳ [ tcomm, tacct, tost, tsimp1, tb ])
       , testCase "print3" $
             unline [ "12.34-\t#D<1.i.73>B<>X<77>"
                    , "#13.00-\t#D<2.ii.69>A<Act>"
                    , "#0.66+\t#D<26.v.66>A<Bct>"
                    , "##"
                    , "Start: Acct"
-                   , "-- a comment"
+                   , "% a comment"
                    , "12.34-\t#D<1.i.73>A<Act>X<77>C<my comment>"
                    , "oStart: Y"
                    ]
-          ≟ toText (Entries [ tb, tacct, tcomm, tsimp, tost ])
+          ≟ toText (Entries $ mkEntry ⊳ [ tb, tacct, tcomm, tsimp1, tost ])
     ]
-
---------------------------------------
-
-instance Textual Entries where
-  textual =
-    let line = wspaces ⋫ many (char '\r') ⋫ char '\n'
-     in Entries ⊳ (many line ⋫ textual `sepEndBy` some line)
-
-------------------------------------------------------------
-
-tParseTests ∷ TestTree
-tParseTests =
-  let
-   in
-    testGroup
-      "tParse"
-      [ testParse ""                       (Entries [])
-      , testParse "-- comment"             (Entries [TrxComment "comment"])
-      , testParse "-- comment\n"           (Entries [TrxComment "comment"])
-      , testParse "-- com\n-- ment"        (Entries [ TrxComment "com"
-                                                    , TrxComment "ment" ])
-      , testParse "-- com\n-- ment\n"      (Entries [ TrxComment "com"
-                                                    , TrxComment "ment" ])
-      , testParse "-- comment\n\n"         (Entries [TrxComment "comment"])
-      , testParse "\n-- comment"           (Entries [TrxComment "comment"])
-      , testParse "\n\n-- comment\n\n"     (Entries [TrxComment "comment"])
-      , testParse "-- comment\nStart: Foo" (Entries [ TrxComment "comment"
-                                                    , TAcctStart [acct|Foo|] ])
-      ]
-
-----------------------------------------
-
-parseString ∷ 𝕊 → Result ([Entry], AcctState)
-parseString  =
-  let line = wspaces ⋫ many (char '\r') ⋫ char '\n'
-      p    = many line ⋫ parseEntry `sepEndBy` some line ⋪ eof
-   in first catMaybes ⩺ Trifecta.parseString (runStateT p newAcctState) ф
-
-----------------------------------------
-
-{-| Parse an acct file; write all errors to the console. -}
-parseFile ∷ (MonadIO μ, FileAs ρ) ⇒ ρ → μ (𝕄 ([Entry], AcctState))
-parseFile  =
-  let line = wspaces ⋫ many (char '\r') ⋫ char '\n'
-      p    = many line ⋫ parseEntry `sepEndBy` some line ⋪ eof
-      runP = runStateT p newAcctState
-  in fmap (first catMaybes) ⩺ Trifecta.parseFromFile runP ∘ (⫥ filepath)
-
---------------------
-
-parseTests ∷ TestTree
-parseTests = testGroup "parse" $
-  let
-    parseT ∷ HasCallStack ⇒ 𝕋 → ([Entry], AcctState) → TestTree
-    parseT t (e,s) =
-      case parseString $ unpack t of
-        Success (e',s') →
-          testGroup (tname t) $
-            [ testCmp "AcctState" s s' ] ⊕ [ assertListEq "[Entry]" e e' ]
-        Failure e_ → testCase (tname t) $ assertFailure (unpack $ eiText e_)
-
-    parseE input = testParseE input (parseString ∘ unpack)
-  in
-    [ parseT "" ([],newAcctState)
-    , parseT "-- comment"         ([],newAcctState)
-    , parseT "-- com\n-- ment"    ([],newAcctState)
-    , parseT " \r\r\n\t\n"        ([],newAcctState)
-    , parseT "\n\n-- comment\n"   ([],newAcctState)
-    , let
-        as = newAcctState & accounts ⊢ fromList [([acct|Quux|],[])]
-      in
-        parseT "-- comment\n\nStart: Quux" ([],as)
-    , let
-        as = newAcctState & otherAccounts ⊢ fromList [([ostmtname|P|],
-                                                       fromList [])]
-      in
-        parseT "-- comment\n\noStart: P" ([],as)
-    , let
-        as = newAcctState & otherAccounts ⊢ fromList [([ostmtname|D|],
-                                                       fromList [])]
-                          & accounts ⊢ fromList [([acct|Car|],[])]
-      in
-        parseT "Start: Car\n\noStart: D" ([],as)
-    , let
-        t  = tsimp_ [amt|10+|] [dte|2073-01-01|] [acct|Foo|] 𝕹 𝕹 𝕹
-        as = newAcctState & accounts ⊢ fromList [([acct|Foo|],[t])]
-                          & stmts    ⊢ fromList [([stmtindex||],[SE_SIMP t])]
-      in
-        parseT "Start: Foo\n10+ #D<1.i.73>A<Foo>" ([TSimpleTrx t],as)
-    , let
-        t   = tsimp_ [amt|5+|] [dte|2022-08-10|] [acct|Baz|] (𝕵 [stmt|4|])
-                               (𝕵 [ostmt|B|]) 𝕹
-        oas = fromList [([ostmtname|B|], fromList [([ostmtindex||],[t])])]
-        as  = newAcctState & accounts ⊢ fromList [([acct|Baz|],[t])]
-                           & otherAccounts ⊢ oas
-                           & stmts ⊢ fromList [([stmtindex|4|],[SE_SIMP t])]
-      in
-        parseT "Start: Baz\noStart: B\n5+ #D<10.viii.22>O<B>X<4>A<Baz>"
-               ([TSimpleTrx t],as)
-    , let
-        t   = tsimp_ [amt|8-|] [dte|2022-07-10|] [acct|Baz|] (𝕵 [stmt|4|])
-                               (𝕵 [ostmt|B:6|]) 𝕹
-        oas = fromList [([ostmtname|B|], fromList[([ostmtindex|6|],[t])])]
-        as  = newAcctState & accounts ⊢ fromList [([acct|Baz|],[t])]
-                           & otherAccounts ⊢ oas
-                           & stmts ⊢ fromList [([stmtindex|4|],[SE_SIMP t])]
-      in
-        parseT "Start: Baz\noStart: B\n8- #D<10.vii.22>O<B:6>A<Baz>X<4>"
-               ([TSimpleTrx t],as)
-    , let
-        t  = tsimp_ [amt|20-|] [dte|2069-02-02|] [acct|Bar|] 𝕹 𝕹 𝕹
-        as = newAcctState & accounts ⊢ fromList [([acct|Bar|],[t])]
-                          & stmts    ⊢ fromList [([stmtindex||],[SE_SIMP t])]
-      in
-        parseT "\n\r\nStart: Bar\n20- #D<2.2.69>A<Bar>\n\n" ([TSimpleTrx t],as)
-
-      ------------------------------------------------------
-
-    , let
-        th  = tbh_ [amt|122.47+|] [dte|1996-08-01|] (𝕵 [stmt|5|]) 𝕹 𝕹
-        t1  = tsimp_ [amt|107.53-|] [dte|1996-08-01|] [acct|Aston|] 𝕹 𝕹
-                     (𝕵 [cmt|for Hx|]) & parent ⊩ th
-        t2  = tsimp_ [amt|230+|] [dte|1996-08-01|] [acct|Villa|] 𝕹 𝕹 𝕹
-                     & parent ⊩ th
-        tb  = trxBrk th (t1 :| [t2])
-        as = fromList  [ ([acct|Villa|],[t2]), ([acct|Aston|],[t1]) ]
-        sts = fromList [ ([stmtindex|5|],[SE_BRK tb]) ]
-        ast = newAcctState & accounts ⊢ as & stmts ⊢ sts
-      in
-        parseT (unlines [ "Start: Aston"
-                        , "Start: Villa"
-                        , "122.47+\t#D<1.viii.96>B<>X<5>"
-                        , "#107.53-  #C<for Hx>A<Aston>D<1.viii.96>"
-                        , "#230+#A<Villa>D<1.viii.96>"
-                        , "##"
-                        ])
-               ([TBrk tb],ast)
-
-      ------------------------------------------------------
-
-    , let
-        th  = tbh_ [amt|122.47+|] [dte|1996-08-01|] 𝕹 (𝕵 [ostmt|P:1|]) 𝕹
-        t1  = tsimp_ [amt|107.53-|] [dte|1996-08-01|] [acct|Paul|] (𝕵 [stmt|5|])
-                     𝕹 (𝕵 [cmt|for Hx|]) & parent ⊩ th
-        t2  = tsimp_ [amt|230+|] [dte|1996-08-01|] [acct|Simon|] (𝕵 [stmt|5|])
-                                 (𝕵 [ostmt|N|]) 𝕹 & parent ⊩ th
-        tb  = trxBrk th (t1 :| [t2])
-        as = fromList  [ ([acct|Simon|],[t2]), ([acct|Paul|],[t1]) ]
-        oas = fromList [ ([ostmtname|N|], fromList[([ostmtindex||], [t2])])
-                       , ([ostmtname|P|], fromList[([ostmtindex|1|], [t1])]) ]
-        sts = fromList [ ([stmtindex||],[SE_BRK tb]) ]
-        ast = newAcctState & accounts ⊢ as & otherAccounts ⊢ oas & stmts ⊢ sts
-      in
-        parseT (unlines [ "Start: Paul"
-                        , "Start: Simon"
-                        , "oStart: N"
-                        , "oStart: P"
-                        , "122.47+\t#D<1.viii.96>B<>O<P:1>"
-                        , "#107.53-  #C<for Hx>A<Paul>D<1.viii.96>X<5>"
-                        , "#230+#A<Simon>D<1.viii.96>O<N>X<5>"
-                        , "##"
-                        ])
-               ([TBrk tb],ast)
-
-      ------------------------------------------------------
-
-    , let
-        th  = tbh_ [amt|122.47+|] [dte|1996-08-01|] (𝕵 [stmt|5|])
-                                  (𝕵 [ostmt|P:1|]) 𝕹
-        t1  = tsimp_ [amt|107.53-|] [dte|1996-08-01|] [acct|Save|] 𝕹 𝕹
-                     (𝕵 [cmt|for Hx|]) & parent ⊩ th
-        t2  = tsimp_ [amt|230+|] [dte|1996-08-01|] [acct|Food|] 𝕹
-                                 (𝕵 [ostmt|N|]) 𝕹 & parent ⊩ th
-        tb  = trxBrk th (t1 :| [t2])
-        as = fromList  [ ([acct|Food|],[t2]), ([acct|Save|],[t1]) ]
-        oas = fromList [ ([ostmtname|N|], fromList[([ostmtindex||], [t2])])
-                       , ([ostmtname|P|], fromList[([ostmtindex|1|], [t1])]) ]
-        sts = fromList [ ([stmtindex|5|],[SE_BRK tb]) ]
-        ast = newAcctState & accounts ⊢ as & otherAccounts ⊢ oas & stmts ⊢ sts
-      in
-        parseT (unlines [ "Start: Save"
-                        , "Start: Food"
-                        , "oStart: N"
-                        , "oStart: P"
-                        , "122.47+\t#D<1.viii.96>B<>X<5>O<P:1>"
-                        , "#107.53-  #C<for Hx>A<Save>D<1.viii.96>"
-                        , "#230+#A<Food>D<1.viii.96>O<N>"
-                        , "##"
-                        ])
-               ([TBrk tb],ast)
-
-      ------------------------------------------------------
-
-    , parseE "Start: Foo\n10+ #D<1.i.73>A<Food>" "Not a valid account 'Food'"
-    , parseE "x"                     "error: expected"
-    , parseE "-- comment\nX"         "error: expected"
-    , parseE "  \r\n-- comment\n\nX" "error: expected"
-    , parseE (unlines [ "Start: Save"
-                      , "Start: Food"
-                      , "122.74+\t#D<1.viii.96>B<>X<5>"
-                      , "#107.53-  #C<for Hx>A<Save>D<1.viii.96>"
-                      , "#230+#A<Food>D<1.viii.96>"
-                      , "##"
-                      ])
-             "breakdown total was 122.47+, expected"
-    , parseE (unlines [ "Start: Save"
-                      , "Start: Food"
-                      , "122.47+\t#D<1.viii.96>B<>X<5>"
-                      , "#107.53-  #C<for Hx>A<Save>D<1.viii.96>"
-                      , "#230+#A<Fool>D<1.viii.96>"
-                      , "##"
-                      ])
-             "Not a valid account 'Fool'"
-    , let
-        t01 = tsimp_ [amt|10.13+|]  [dte|1996-08-06|] [acct|Bills|]
-                                    (𝕵 [stmt|5|]) 𝕹 𝕹
-        t02 = tsimp_ [amt|472.50+|] [dte|1996-08-06|]  [acct|Tithe|]
-                                    (𝕵 [stmt|5|]) 𝕹 𝕹
-        t03 = tsimp_ [amt|28.07-|]  [dte|1996-08-06|] [acct|CarFund|]
-                                    (𝕵 [stmt|5|]) 𝕹 𝕹
-        t04 = tsimp_ [amt|21.79-|]  [dte|1996-08-06|] [acct|Food|]
-                                    (𝕵 [stmt|5|]) 𝕹 𝕹
-        t05 = tsimp_ [amt|147.89-|] [dte|1996-08-06|] [acct|Save|]
-                                    (𝕵 [stmt|5|]) 𝕹 𝕹
-        t06 = tsimp_ [amt|6.28+|]   [dte|1996-08-08|] [acct|CarFund|]
-                                    (𝕵 [stmt|5|]) 𝕹 (𝕵 [cmt|int to 8 Aug|])
-        t07 = tsimp_ [amt|2.58+|]   [dte|1996-08-08|] [acct|Save|]
-                                    (𝕵 [stmt|5|]) 𝕹 (𝕵 [cmt|int to 8 Aug|])
-        t08 = tsimp_ [amt|1.70+|]   [dte|1996-09-15|] [acct|CarFund|]
-                                    (𝕵 [stmt|6|]) 𝕹 (𝕵 [cmt|error correction|])
-        t09h = tbh_ [amt|902.55+|] [dte|1.viii.96|] (𝕵 [stmt|5|]) 𝕹 𝕹
-        b01 = tsimp_ [amt|107.53+|] [dte|1.viii.96|] [acct|Save|] 𝕹 𝕹
-                                    (𝕵 [cmt|for Hx|])
-                     & parent ⊩ t09h
-        b02 = tsimp_ [amt|230+|] [dte|1.viii.96|] [acct|Food|] 𝕹 𝕹 𝕹
-                     & parent ⊩ t09h
-        b03 = tsimp_ [amt|100+|] [dte|1.vii.96|] [acct|Tithe|] 𝕹 𝕹 𝕹
-                     & parent ⊩ t09h
-        b04 = tsimp_ [amt|35+|]  [dte|1.viii.96|] [acct|Bills|] 𝕹 𝕹 𝕹
-                     & parent ⊩ t09h
-        b05 = tsimp_ [amt|160+|] [dte|1.viii.96|] [acct|Petrol|] 𝕹 𝕹 𝕹
-                     & parent ⊩ t09h
-        b06 = tsimp_ [amt|40+|]  [dte|1.viii.96|] [acct|CarFund|] 𝕹 𝕹
-                                 (𝕵 [cmt|lounge decoration|])
-                     & parent ⊩ t09h
-        b07 = tsimp_ [amt|230.02+|] [dte|1.viii.96|] [acct|Save|] 𝕹 𝕹 𝕹
-                     & parent ⊩ t09h
-        t09 = trxBrk t09h (b01 :| [b02,b03,b04,b05,b06,b07])
-        t10 = tsimp_ [amt|19.99-|] [dte|1997-02-08|] [acct|CarFund|]
-                                   (𝕵 [stmt|13|]) (𝕵 [ostmt|P:1|])
-                                   (𝕵 [cmt|needle|])
-        t11 = tsimp_ [amt|6.17-|]  [dte|1997-02-08|] [acct|CarFund|]
-                                   (𝕵 [stmt|13|]) (𝕵 [ostmt|P:1|])
-                                   (𝕵 [cmt|tapes Mx|])
-        t12 = tsimp_ [amt|5.99-|]  [dte|1997-02-24|] [acct|CarFund|]
-                                   (𝕵 [stmt|12|]) 𝕹 (𝕵 [cmt|slippers|])
-        t13 = tsimp_ [amt|0.81+|]  [dte|1997-03-12|] [acct|CarFund|]
-                                   (𝕵 [stmt|12|]) 𝕹 (𝕵 [cmt|error from12|])
-        t14 = tsimp_ [amt|5.49-|]  [dte|2020-05-09|] [acct|Entz|] 𝕹
-                                   (𝕵 [ostmt|A|]) (𝕵 [cmt|fair email Abi|])
-        t15 = tsimp_ [amt|5.49-|]  [dte|2020-05-09|] [acct|Entz|] 𝕹
-                                   (𝕵 [ostmt|A|]) (𝕵 [cmt|fair email X|])
-        t16 = tsimp_ [amt|9.80-|]  [dte|2020-07-01|] [acct|LunchM|] 𝕹
-                                   (𝕵 [ostmt|A|]) (𝕵 [cmt|bike coffees|])
-        t17 = tsimp_ [amt|9.50-|]  [dte|2020-07-17|] [acct|Entz|] 𝕹
-                                   (𝕵 [ostmt|R|]) (𝕵 [cmt|ice-cream Wrest|])
-
-        as  = fromList [ ([acct|Bills|],[b04,t01])
-                       , ([acct|CarFund|], [t13,t12,t11,t10,b06 ,t08,t06,t03])
-                       , ([acct|Entz|],[t17,t15,t14])
-                       , ([acct|Food|],[b02,t04])
-                       , ([acct|LunchM|],[t16])
-                       , ([acct|Petrol|],[b05])
-                       , ([acct|Save|], [b07,b01,t07,t05])
-                       , ([acct|Tithe|],[b03,t02])
-                       ]
-
-        oas = fromList[([ostmtname|A|],fromList[([ostmtindex||],[t16,t15,t14])])
-                      ,([ostmtname|M|],fromList [])
-                      ,([ostmtname|P|],fromList [([ostmtindex|1|],[t11,t10])])
-                      ,([ostmtname|R|],fromList [([ostmtindex||],[t17])])
-                      ]
-
-        sts = fromList [ ([stmtindex||]  , [SE_SIMP t17,SE_SIMP t16,SE_SIMP t15
-                                           ,SE_SIMP t14])
-                       , ([stmtindex|5|] , [SE_BRK t09
-                                           ,SE_SIMP t07,SE_SIMP t06
-                                           ,SE_SIMP t05,SE_SIMP t04,SE_SIMP t03
-                                           ,SE_SIMP t02,SE_SIMP t01])
-                       , ([stmtindex|6|] , [SE_SIMP t08])
-                       , ([stmtindex|12|], [SE_SIMP t13,SE_SIMP t12])
-                       , ([stmtindex|13|], [SE_SIMP t11,SE_SIMP t10])
-                       ]
-
-        -- remember trx are added in reverse order (i.e., always prepended)
-        ast = newAcctState & accounts ⊢ as
-                           & otherAccounts ⊢ oas
-                           & stmts ⊢ sts
-      in
-        parseT (unlines [ "-- This is a comment"
-                        , ""
-                        , "Start: CarFund"
-                        , "Start: Bills"
-                        , "Start: Tithe"
-                        , "Start: Food"
-                        , "Start: Save"
-                        , "Start: Petrol"
-                        , "Start: Entz"
-                        , "Start: LunchM"
-                        -- line 6
-                        , "oStart: P"
-                        , "oStart: M"
-                        , "oStart: A"
-                        , "oStart: R"
-                        -- line 9
-                        , "10.13+\t#D<6.viii.96>A<Bills>X<5>"
-                        , "472.50+  #D<6.viii.96>A<Tithe>X<5>"
-                        , "28.07-\t#D<6.viii.96>A<CarFund>X<5>"
-                        , "21.79-\t#D<6.viii.96>A<Food>X<5>"
-                        , "147.89-\t#D<6.VIII.96>A<Save>X<5>"
-                        , "6.28+\t#D<8.viii.96>A<CarFund>C<int to 8 Aug>X<5>"
-                        , "2.58+\t#D<8.viii.96>A<Save>C<int to 8 Aug>X<5>"
-                        , "1.70+\t#D<15.ix.96>A<CarFund>C<error correction>X<6>"
-                        , ""
-                        -- line 18
-                        , "902.55+\t#D<1.viii.96>B<>X<5>"
-                        , "#107.53+  #D<1.viii.96>A<Save>C<for Hx>"
-                        , "#230+#D<1.viii.96>A<Food>"
-                        , "#100+\t#D<1.vii.96>A<Tithe>"
-                        , "#35+\t#D<1.viii.96>A<Bills>"
-                        , "#160+\t#D<1.viii.96>A<Petrol>"
-                        , "#40+\t#D<1.viii.96>A<CarFund>C<lounge decoration>"
-                        , "#230.02+\t#D<1.viii.96>A<Save>"
-                        , "##"
-                        , "19.99-\t#D<8.ii.97>A<CarFund>C<needle>O<P:1>X<13>"
-                        , "6.17-\t#D<8.ii.97>A<CarFund>C<tapes Mx>O<P:1>X<13>"
-                        , "5.99-\t#D<24.ii.97>A<CarFund>C<slippers>X<12>"
-                        , "0.81+\t#D<12.iii.97>A<CarFund>C<error from12>X<12>"
-                        , "5.49-\t#D<9.v.20>A<Entz>C<fair email Abi>O<A>"
-                        , "5.49-\t#D<9.v.20>A<Entz>C<fair email X>O<A>"
-                        , "9.80-\t#D<1.vii.20>A<LunchM>C<bike coffees>O<A>"
-                        , "9.50-\t#D<17.vii.20>A<Entz>C<ice-cream Wrest>O<R>"
-                        ])
-        ([ TSimpleTrx t01
-         , TSimpleTrx t02
-         , TSimpleTrx t03
-         , TSimpleTrx t04
-         , TSimpleTrx t05
-         , TSimpleTrx t06
-         , TSimpleTrx t07
-         , TSimpleTrx t08
-         , TBrk t09
-         , TSimpleTrx t10
-         , TSimpleTrx t11
-         , TSimpleTrx t12
-         , TSimpleTrx t13
-         , TSimpleTrx t14
-         , TSimpleTrx t15
-         , TSimpleTrx t16
-         , TSimpleTrx t17]
-        , ast)
-    ]
-
 
 ------------------------------------------------------------
 --                         tests                          --
 ------------------------------------------------------------
 
 tests ∷ TestTree
-tests = testGroup "Acct.Entry" [ printTests, tParseTests, parseTests ]
+tests = testGroup "Acct.Entries" [ printTests ]
 
 --------------------
 

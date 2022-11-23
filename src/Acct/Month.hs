@@ -61,6 +61,10 @@ import Data.Text  ( cons, pack, singleton, take, toTitle, unpack )
 
 import qualified  Text.Printer  as  P
 
+-- textual-plus -------------------
+
+import TextualPlus'  ( TextualPlus( textual' ) )
+
 -- trifecta-plus -----------------------
 
 import TrifectaPlus  ( liftTParse', testParse, testParseE, tParse, tParse' )
@@ -187,6 +191,9 @@ instance Textual Month where
                  𝕵 n  → return n
                  𝕹    → unexpected $ [fmt|unrecognized month '%t'|] o
           <?> "month"
+
+instance TextualPlus Month where
+  textual' = textual
 
 ----------
 

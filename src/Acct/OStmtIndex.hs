@@ -59,6 +59,10 @@ import Data.Text  ( unpack )
 
 import qualified  Text.Printer  as  P
 
+-- textual-plus -------------------
+
+import TextualPlus'  ( TextualPlus( textual' ) )
+
 -- trifecta-plus -----------------------
 
 import TrifectaPlus  ( liftTParse', testParse, testParseE, tParse' )
@@ -132,6 +136,9 @@ printTests =
 instance Textual OStmtIndex where
   textual =
     OStmtIndex ⊳ optional (read ⊳ some digit) <?> "Other Statement Number"
+
+instance TextualPlus OStmtIndex where
+  textual' = textual
 
 ----------
 

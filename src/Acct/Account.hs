@@ -52,6 +52,10 @@ import Language.Haskell.TH.Syntax  ( Lift )
 import qualified  Data.Text
 import Data.Text  ( find, index, length, pack, unpack )
 
+-- textual-plus -------------------
+
+import TextualPlus'  ( TextualPlus( textual' ) )
+
 -- validity ----------------------------
 
 import Data.Validity  ( Validity( validate ), declare )
@@ -103,6 +107,9 @@ instance Arbitrary Account where
 
 instance Textual Account where
   textual = Account ∘ pack ⊳ ((:) ⊳ upper ⊵ some alphaNum)
+
+instance TextualPlus Account where
+  textual' = textual
 
 ----------
 

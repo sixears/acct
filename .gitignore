@@ -30,3 +30,4 @@ cabal.project.local
 dist-newstyle/
 dist-newstyle/
 atreus.svg
+cabal.project.local*

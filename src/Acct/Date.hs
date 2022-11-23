@@ -58,6 +58,10 @@ import Data.Text  ( unpack )
 
 import qualified  Text.Printer  as  P
 
+-- textual-plus -------------------
+
+import TextualPlus'  ( TextualPlus( textual' ) )
+
 -- time --------------------------------
 
 import Data.Time.Calendar  ( Day( ModifiedJulianDay )
@@ -165,6 +169,9 @@ instance Textual Date where
 
              in try (sep3 (char '-') textual textual mday ≫ parseYMD <?> "Date")
                 ∤ (sep3 (char '.') mday textual textual ≫ parseDMY) <?> "Date"
+
+instance TextualPlus Date where
+  textual' = textual
 
 ----------
 

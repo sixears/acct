@@ -62,6 +62,10 @@ import Data.Text  ( unpack )
 
 import qualified  Text.Printer  as  P
 
+-- textual-plus -------------------
+
+import TextualPlus'  ( TextualPlus( textual' ) )
+
 -- trifecta-plus -----------------------
 
 import TrifectaPlus  ( liftTParse', testParse, testParseE, tParse' )
@@ -76,12 +80,12 @@ import Data.Validity  ( Validity( validate ), trivialValidation )
 
 import Acct.Account     ( Account, HasAccount( account ), acct )
 import Acct.Amount      ( Amount, HasAmount( amount ) )
-import Acct.Comment     ( Comment, cmt )
 import Acct.Date        ( HasDate( date ), Date, dte )
 import Acct.Parser      ( wspaces )
 import Acct.OStmt       ( HasOStmtY( oStmtY ), OStmt, ostmt )
 import Acct.Stmt        ( HasStmtY ( stmtY ), Stmt, stmt )
 import Acct.StmtIndex   ( GetStmtIndex( stmtIndexGet ), stmtIndex )
+import Acct.TComment    ( TComment, tcmt )
 import Acct.TrxBrkHead  ( TrxBrkHead, tbh_ )
 import Acct.Util        ( Pretty( pretty ) )
 
@@ -94,13 +98,13 @@ data TrxSimp = TrxSimp { _amount  ∷ Amount
                        , _account ∷ Account
                        , _stmt    ∷ 𝕄 Stmt
                        , _ostmt   ∷ 𝕄 OStmt
-                       , _comment ∷ 𝕄 Comment
+                       , _comment ∷ 𝕄 TComment
                        , _parent  ∷ 𝕄 TrxBrkHead
                        }
   deriving (Eq,Generic,Lift,NFData,Show)
 
 {-| Super-simple c'tor fn, for use in tests only -}
-tsimp_ ∷ Amount → Date → Account → 𝕄 Stmt → 𝕄 OStmt → 𝕄 Comment → TrxSimp
+tsimp_ ∷ Amount → Date → Account → 𝕄 Stmt → 𝕄 OStmt → 𝕄 TComment → TrxSimp
 tsimp_ am dt ac st os cm = TrxSimp am dt ac st os cm 𝕹
 
 --------------------
@@ -144,16 +148,16 @@ printTests =
                                   𝕹)
               , test "0.01-\t#D<12.xii.01>A<Bar>C<comment>"
                      (tsimp_ (-1) [dte|2001-12-12|] [acct|Bar|] 𝕹
-                             𝕹 (𝕵 [cmt|comment|]))
+                             𝕹 (𝕵 [tcmt|comment|]))
               , test "0.10-\t#D<22.iix.22>A<Baz>X<1>C<comment>"
                      (tsimp_ (-10) [dte|2022-8-22|] [acct|Baz|] (𝕵 [stmt|1|])
-                             𝕹 (𝕵 [cmt|comment|]))
+                             𝕹 (𝕵 [tcmt|comment|]))
               , test "0.10-\t#D<22.iix.22>A<Baz>O<X>C<comment>"
                      (tsimp_ (-10) [dte|2022-8-22|] [acct|Baz|] 𝕹
-                             (𝕵 [ostmt|X|]) (𝕵 [cmt|comment|]))
+                             (𝕵 [ostmt|X|]) (𝕵 [tcmt|comment|]))
               , test "0.10-\t#D<22.iix.22>A<Baz>X<1>O<X:6>C<comment>"
                      (tsimp_ (-10) [dte|2022-8-22|] [acct|Baz|] (𝕵 [stmt|1|])
-                             (𝕵 [ostmt|X:6|]) (𝕵 [cmt|comment|]))
+                             (𝕵 [ostmt|X:6|]) (𝕵 [tcmt|comment|]))
               ]
 
 --------------------
@@ -172,12 +176,15 @@ instance Textual TrxSimp where
     let mark c = char c ⋫ char '<' ⋫ textual ⋪ char '>' ⋪ wspaces
         optm c = (𝕹, 𝕵 ⊳ mark c)
         parts ∷ (Monad η, CharParsing η) ⇒
-                η (Date, Account, 𝕄 Stmt, 𝕄 OStmt, 𝕄 Comment)
+                η (Date, Account, 𝕄 Stmt, 𝕄 OStmt, 𝕄 TComment)
         parts =
           permute $ (,,,,) <$$> mark 'D' <||> mark 'A'
                           <|?> optm 'X' <|?> optm 'O' <|?> optm 'C'
         construct am (dt,ac,st,os,cm) = TrxSimp am dt ac st os cm 𝕹
     in construct ⊳ (textual ⋪ wspaces ⋪ char '#') ⊵ parts
+
+instance TextualPlus TrxSimp where
+  textual' = textual
 
 ----------
 
@@ -187,9 +194,11 @@ parseTests =
             [ testParse "10.13+ #D<6.viii.96>A<Bl>X<5>"
                         (tsimp_ 1013 [dte|1996-8-6|] [acct|Bl|] (𝕵 [stmt|5|])
                                      𝕹 𝕹)
+            , testParse "200+ #D<6.viii.96>A<Bl>"
+                        (tsimp_ 20000 [dte|1996-8-6|] [acct|Bl|] 𝕹 𝕹 𝕹)
             , testParse "0.28+  #D<8.VIII.96>A<Car>C<int.>X<5>"
                         (tsimp_ 28 [dte|1996-8-8|] [acct|Car|] (𝕵 [stmt|5|])
-                                   𝕹 (𝕵 [cmt|int.|]))
+                                   𝕹 (𝕵 [tcmt|int.|]))
             , testParse "15294.97-\t#D<10.xi.40>A<YHyww>X<604244>"
                         (tsimp_ (-1529497) [dte|2040-11-10|] [acct|YHyww|]
                                            (𝕵 [stmt|604244|]) 𝕹 𝕹)
@@ -201,20 +210,24 @@ parseTests =
                          (tParse' @TrxSimp) "error"
 
             , -- O is invalid (lower-case)
-              testParseE "7.28+  #D<77>D<8.VIII.96>A<CarFund>O<x>X<5>"
+              testParseE "7.28+  #D<8.VIII.96>A<CarFund>O<x>X<5>"
                          (tParse' @TrxSimp) "error"
 
             , -- O is invalid (missing ':')
-              testParseE "7.28+  #D<77>D<8.VIII.96>A<CarFund>O<X6>X<5>"
-                         (tParse' @TrxSimp) "error"
-
-            , -- O is invalid (missing stmt number)
-              testParseE "7.28+  #D<77>D<8.VIII.96>A<CarFund>O<X:>X<5>"
+              testParseE "7.28+  #D<8.VIII.96>A<CarFund>O<X6>X<5>"
                          (tParse' @TrxSimp) "error"
 
             , -- O is invalid (bad stmt number)
-              testParseE "7.28+  #D<77>D<8.VIII.96>A<CarFund>O<X:X>X<5>"
+              testParseE "7.28+  #D<8.VIII.96>A<CarFund>O<X:X>X<5>"
                          (tParse' @TrxSimp) "error"
+
+            , -- A is invalid (needs uppercase starting char)
+              testParseE "7.28+  #D<8.VIII.96>A<carfund>"
+                         (tParse' @TrxSimp) "expected: uppercase letter"
+
+            , -- Bad Date
+              testParseE "7.28+  #D<8.vii>A<CarFund>"
+                         (tParse' @TrxSimp) "expected: \".\""
 
             , -- missing date
               testParseE "8.28+  #A<CarFund>C<int to 8 Aug>X<5>"
@@ -271,7 +284,7 @@ shadowTests ∷ TestTree
 shadowTests =
   testGroup "shadow" $
     let h = tbh_ 1000 [dte|1993-01-01|] (𝕵 [stmt|6|])
-                                (𝕵 [ostmt|P:2|]) (𝕵 [cmt|top comment|])
+                                (𝕵 [ostmt|P:2|]) (𝕵 [tcmt|top comment|])
         h' = tbh_ 1000 [dte|1993-01-01|] 𝕹 𝕹 𝕹
         t1 = tsimp_ 1013 [dte|1996-8-6|] [acct|Bl|] 𝕹 𝕹 𝕹
                     & parent ⊩ h

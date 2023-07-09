@@ -54,7 +54,7 @@ import Data.Text  ( find, index, length, pack, unpack )
 
 -- textual-plus -------------------
 
-import TextualPlus'  ( TextualPlus( textual' ) )
+import TextualPlus  ( TextualPlus( textual' ) )
 
 -- validity ----------------------------
 

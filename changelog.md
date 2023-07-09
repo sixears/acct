@@ -1,7 +1,3 @@
-1.0.0.0 2020-12-18
+0.0.0.1 2023-07-09
 ==================
-- first working layout
-
-1.0.1.0 2020-12-21
-==================
-- add -D/--dvorak
+- upgrade dependencies, particularly stdmain-1.6

@@ -157,7 +157,7 @@ parseOpts =
 
 main ∷ IO()
 main = do
-  let prog_desc = "read an accounts file, emit totals"
+  let prog_desc ∷ 𝕋 = "read an accounts file, emit totals"
   let do_main ∷ DoMock → Options → LogTIO MockIOClass AcctError Word8
       do_main _ opts = do
         i ∷ AbsFile ← pResolve (input opts)
@@ -169,6 +169,7 @@ main = do
                        OUTPUT_STMT (MaybeN x) → output_stmt as x
                        TUPTUO_STMT (MaybeN x) → tuptuo_stmt es x
                        DUMP_ACCTS             → dump_accts as
+                       REMOVE_STMT _          → return 255
   getArgs ≫ stdMain prog_desc parseOpts do_main
 
 ----------------------------------------

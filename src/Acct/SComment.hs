@@ -64,7 +64,7 @@ import Data.Text  ( dropWhile, find, pack, take, unpack )
 
 -- textual-plus -------------------
 
-import TextualPlus'  ( TextualPlus( textual' ) )
+import TextualPlus  ( TextualPlus( textual' ) )
 
 -- trifecta-plus -----------------------
 

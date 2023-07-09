@@ -53,7 +53,7 @@ import Data.Text  ( unpack )
 
 -- textual-plus -------------------
 
-import TextualPlus'  ( TextualPlus( textual' ) )
+import TextualPlus  ( TextualPlus( textual' ) )
 
 -- text-printer ------------------------
 

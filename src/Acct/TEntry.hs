@@ -46,8 +46,8 @@ import Data.Text  ( intercalate, unwords )
 
 -- textual-plus -------------------
 
-import TextualPlus'  ( TextualPlus( textual' )
-                     , parseString, propInvertibleString, propInvertibleText )
+import TextualPlus  ( TextualPlus( textual' )
+                    , parseString, propInvertibleString, propInvertibleText )
 
 -- trifecta-plus -----------------------
 

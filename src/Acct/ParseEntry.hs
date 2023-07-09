@@ -83,7 +83,7 @@ import qualified  Text.Printer  as  P
 
 -- textual-plus ------------------------
 
-import TextualPlus'  ( textual' )
+import TextualPlus  ( textual' )
 
 -- trifecta ----------------------------
 

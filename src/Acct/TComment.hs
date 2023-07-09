@@ -37,7 +37,7 @@ import Test.QuickCheck.Gen        ( chooseAny, listOf, suchThat )
 
 -- tasty-plus --------------------------
 
-import TastyPlus    ( (≟), propInvertibleString, propInvertibleText,shrinkText )
+import TastyPlus    ( (≟), propInvertibleString, propInvertibleText )
 
 -- tasty-quickcheck --------------------
 
@@ -54,7 +54,7 @@ import Data.Text  ( find, pack, unpack )
 
 -- textual-plus -------------------
 
-import TextualPlus'  ( TextualPlus( textual' ) )
+import TextualPlus  ( TextualPlus( textual' ) )
 
 -- trifecta-plus -----------------------
 

@@ -46,8 +46,8 @@ import qualified  Text.Printer  as  P
 
 -- textual-plus -------------------
 
-import TextualPlus'  ( TextualPlus( textual' )
-                     , propInvertibleString, propInvertibleText )
+import TextualPlus  ( TextualPlus( textual' )
+                    , propInvertibleString, propInvertibleText )
 
 -- trifecta-plus -----------------------
 

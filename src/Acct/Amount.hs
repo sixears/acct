@@ -70,7 +70,7 @@ import qualified  Text.Printer  as  P
 
 -- textual-plus -------------------
 
-import TextualPlus'  ( TextualPlus( textual' ) )
+import TextualPlus  ( TextualPlus( textual' ) )
 
 -- trifecta-plus -----------------------
 

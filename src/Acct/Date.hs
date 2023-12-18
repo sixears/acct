@@ -48,7 +48,7 @@ import Test.Tasty.QuickCheck  ( testProperty )
 
 import Language.Haskell.TH.Quote   ( QuasiQuoter )
 import Language.Haskell.TH.Syntax  ( Exp( AppE, ConE, LitE ), Lit( IntegerL )
-                                   , Lift( liftTyped ), TExp( TExp ) )
+                                   , Lift( liftTyped ), TExp( TExp ), liftCode )
 
 -- text --------------------------------
 
@@ -95,7 +95,7 @@ fromYMD y m a = Date $ fromGregorian y m a
 --------------------
 
 instance Lift Date where
-  liftTyped (Date (ModifiedJulianDay i)) =
+  liftTyped (Date (ModifiedJulianDay i)) = liftCode $
     return ∘ TExp $
       AppE (ConE 'Date) (AppE (ConE 'ModifiedJulianDay) (LitE $ IntegerL i))
 

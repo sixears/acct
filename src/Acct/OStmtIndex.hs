@@ -49,6 +49,7 @@ import Language.Haskell.TH.Syntax  ( Exp( AppE, ConE, LitE, SigE )
                                    , Lit( IntegerL )
                                    , Lift( liftTyped ), TExp( TExp )
                                    , Type( ConT )
+                                   , liftCode
                                    )
 
 -- text --------------------------------
@@ -83,10 +84,10 @@ instance Default OStmtIndex where
 --------------------
 
 instance Lift OStmtIndex where
-  liftTyped (OStmtIndex (𝕵 i)) = return ∘ TExp $
+  liftTyped (OStmtIndex (𝕵 i)) = liftCode ∘ return ∘ TExp $
     AppE (ConE 'OStmtIndex)
          (AppE (ConE '𝕵) (SigE (LitE ∘ IntegerL $ toInteger i) (ConT ''ℕ)))
-  liftTyped (OStmtIndex 𝕹) = return ∘ TExp $
+  liftTyped (OStmtIndex 𝕹) = liftCode ∘ return ∘ TExp $
     AppE (ConE 'OStmtIndex) (ConE '𝕹)
 
 --------------------

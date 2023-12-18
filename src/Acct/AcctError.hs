@@ -89,8 +89,27 @@ data AcctProcessingError = AcctRestartE          Account            CallStack
 instance Exception AcctProcessingError
 
 instance HasCallstack AcctProcessingError where
-  callstack = lens (\ (AcctRestartE _ cs) → cs)
-                   (\ (AcctRestartE a _) cs → AcctRestartE a cs)
+  callstack = lens (\ ape → case ape of
+                       (AcctRestartE          _   cs) → cs
+                       (OAcctRestartE         _   cs) → cs
+                       (InvalidAccountE       _   cs) → cs
+                       (InvalidOAccountE      _ _ cs) → cs
+                       (NoImportE                 cs) → cs
+                       (NoNonStmtTrxFoundE        cs) → cs
+                       (InconsistentTrxStmtsE _ _ cs) → cs
+                       (NoSuchStmtE           _   cs) → cs
+                   )
+                   (\ ape cs → case ape of
+                       AcctRestartE a _       → AcctRestartE       a cs
+                       OAcctRestartE o _      → OAcctRestartE      o cs
+                       InvalidAccountE a _    → InvalidAccountE    a cs
+                       InvalidOAccountE o s _ → InvalidOAccountE o s cs
+                       NoImportE _            → NoImportE            cs
+                       NoNonStmtTrxFoundE _   → NoNonStmtTrxFoundE   cs
+                       InconsistentTrxStmtsE s b _
+                                              → InconsistentTrxStmtsE s b cs
+                       NoSuchStmtE n _        → NoSuchStmtE        n cs
+                   )
 
 --------------------
 

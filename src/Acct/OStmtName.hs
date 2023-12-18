@@ -34,7 +34,7 @@ import Test.QuickCheck.Gen        ( choose )
 
 import Language.Haskell.TH.Quote   ( QuasiQuoter )
 import Language.Haskell.TH.Syntax  ( Exp( AppE, ConE, LitE ), Lit( CharL )
-                                   , Lift( liftTyped ), TExp( TExp ) )
+                                   , Lift( liftTyped ), TExp( TExp ), liftCode )
 
 -- text-printer ------------------------
 
@@ -59,7 +59,7 @@ newtype OStmtName = OStmtName ℂ  deriving  (Eq,NFData,Ord,Show)
 --------------------
 
 instance Lift OStmtName where
-  liftTyped (OStmtName c) = return ∘ TExp $
+  liftTyped (OStmtName c) = liftCode ∘ return ∘ TExp $
     AppE (ConE 'OStmtName) (LitE $ CharL c)
 
 --------------------
